@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="風險分級、透明與人工問責：依用途與影響決定治理強度">
+  <title>Day 04｜風險分級、透明與人工問責</title>
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab active" href="day-04.html" aria-current="page"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 01・AI 全貌與治理</span><span>›</span><span>Day 04</span></div>
+      <h1>風險分級、透明與人工問責</h1>
+      <p class="memory-line">風險看用途與影響，不看模型名字；越可能傷害權益，控制、監督與證據就要越強。</p>
+      <p class="lede">把「風險多高、要說明什麼、誰能介入、誰負責」放進同一條判斷鏈。</p>
+      <div class="meta"><span>Day 04</span><span>約 40–60 分鐘</span><span>概念統整＋情境遷移＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從治理原則走到控制措施</h2>
+          <div class="concept-path"><span>AI 用途與利害關係人</span><b class="arrow">›</b><span>風險辨識與分級</span><b class="arrow">›</b><span>透明、監督、問責</span><b class="arrow">›</b><span>持續監控與修正</span></div>
+          <p>上位概念是 AI 治理；本課把治理落到風險分級與責任機制。它的下位措施包括資料治理、測試、告知、人工覆核、紀錄、申訴與監控；相鄰概念則是公平、隱私、安全與穩健性。</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>治理涵蓋完整生命週期</b></div>
+            <div><small>本課核心</small><b>風險決定治理強度</b></div>
+            <div><small>後續銜接</small><b>資料來源、品質與隱私</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="risk-object">
+          <div class="section-kicker">RISK IS CONTEXTUAL</div>
+          <h2>二、風險屬於「用途」，不只屬於模型</h2>
+          <p>同一個模型若用來調整一般活動通知，與用來排序誰能取得重要資源，錯誤後果完全不同。判斷風險時，不能只看「是不是生成式 AI」或模型品牌，而要看用途、資料、影響對象、使用規模與錯誤能否回復。</p>
+          <div class="summary-strip">風險判斷鏈：用途 → 受影響者 → 可能傷害 → 發生可能性 → 可逆性與人工覆核 → 對應控制。</div>
+          <p>官方初級樣題把「設計階段預先評估風險、部署後持續監控」列為治理核心，並用四層風險情境檢查判斷能力。[1]</p>
+        </section>
+
+        <section class="block panel" id="dimensions">
+          <div class="section-kicker">FIVE LENSES</div>
+          <h2>三、用五個面向判斷治理強度</h2>
+          <div class="govern-grid">
+            <div><b>影響程度</b><p>錯誤只造成不便，還是會影響安全、資格、工作、就學、重要服務或基本權益？</p></div>
+            <div><b>發生可能性</b><p>資料是否偏斜？模型是否常遇到陌生情境？錯誤是否容易被察覺？</p></div>
+            <div><b>使用規模</b><p>是單次輔助，還是大量、持續、自動地影響許多使用者？</p></div>
+            <div><b>資料與對象敏感度</b><p>是否涉及個人資料、生物辨識資料，或處於脆弱情境的使用者？</p></div>
+            <div><b>可逆性與人工介入</b><p>結果能否暫停、覆核、更正與申訴？傷害發生後能不能合理回復？</p></div>
+            <div><b>判斷原則</b><p>不要機械相乘分數；先辨識最嚴重的後果，再依適用規範選擇措施。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="levels">
+          <div class="section-kicker">FOUR-LEVEL FRAME</div>
+          <h2>四、四層風險不是四種模型</h2>
+          <div class="risk-ladder">
+            <div><b>小或低風險</b><span>一般輔助功能；採基本資料保護、內容查核與錯誤處理。</span></div>
+            <div><b>有限／透明性風險</b><span>人需要知道正在與 AI 互動，或內容由 AI 產生；採清楚告知與適當標示。</span></div>
+            <div><b>高風險</b><span>可能重大影響安全或權益；採嚴格資料治理、測試、紀錄、人工監督與持續監控。</span></div>
+            <div><b>不可接受風險</b><span>用途本身對安全、生活或權利形成明確威脅；核心不是加警語，而是禁止該用途。</span></div>
+          </div>
+          <p>歐盟官方框架以「不可接受、高風險、透明性風險、小或無風險」說明風險導向規範；實際分類仍須依適用法規與具體使用情境判定。[3]</p>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>題目訊號</th><th>先聯想到</th><th>不要誤判成</th></tr></thead>
+              <tbody>
+                <tr><td>聊天機器人、AI 生成或操弄內容</td><td>透明告知、可辨識標示</td><td>只要貼標示就處理了所有風險</td></tr>
+                <tr><td>安全、資格、就學、工作、重大權益</td><td>高風險、加強治理</td><td>一定禁止使用</td></tr>
+                <tr><td>社會評分、利用弱點、明確侵害權利</td><td>檢查不可接受用途</td><td>加一個人工確認就能合理化</td></tr>
+                <tr><td>一般文字格式或低影響輔助</td><td>較輕的基本控制</td><td>完全不必治理</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, FOUR LEVELS</div>
+          <h2>五、社區資源資訊系統：功能一變，風險就變</h2>
+          <p>假設系統協助回答開放時間、整理申請文件並分流需求。不要急著替「整套系統」貼一個固定標籤，要逐項看功能：</p>
+          <ol class="checklist">
+            <li><b>改寫公告：</b>把既有文字改成易讀版本，影響通常較低；仍需查核內容。</li>
+            <li><b>聊天問答：</b>要告知使用者正在與 AI 互動，並提供人工聯繫方式。</li>
+            <li><b>資源排序：</b>若排序會影響重要資源的取得，就要提高資料、測試、覆核與申訴強度。</li>
+            <li><b>不當社會評分：</b>若依與目的無關的敏感特徵評分並造成不利待遇，要先檢查是否屬不可接受用途。</li>
+          </ol>
+          <p>案例的用途是協助辨識概念：同一個技術元件可以出現在不同風險層級，決定因素是它被如何使用，以及結果造成什麼影響。</p>
+        </section>
+
+        <section class="block panel" id="three-controls">
+          <div class="section-kicker">THREE DISTINCT CONTROLS</div>
+          <h2>六、透明、人工監督、問責不能互相代替</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>概念</th><th>核心問題</th><th>有效做法</th><th>常見假動作</th></tr></thead>
+              <tbody>
+                <tr><td><b>透明</b></td><td>適當的人需要知道什麼？</td><td>告知 AI 身分、用途、限制、資料使用與申訴管道</td><td>把所有程式碼或個人資料全部公開</td></tr>
+                <tr><td><b>人工監督</b></td><td>人能不能真的介入？</td><td>可理解、可覆核、可暫停、可改正，並有時間與權限</td><td>只放一個確認按鈕，卻無資訊或否決權</td></tr>
+                <tr><td><b>問責</b></td><td>誰負責，如何追查？</td><td>定義核准、監控、事件與申訴責任，保留版本與處理紀錄</td><td>發生問題後才臨時找負責者</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>一句辨析：透明讓人「知道」，監督讓人「能介入」，問責讓責任「有歸屬、有證據」。</p>
+        </section>
+
+        <section class="block panel" id="traps">
+          <div class="section-kicker">EXAM SIGNALS & TRAPS</div>
+          <h2>七、六個 iPAS 判斷陷阱</h2>
+          <ol class="checklist">
+            <li><b>高風險不等於不可使用：</b>高風險通常要求加強義務；不可接受才指向禁止用途。</li>
+            <li><b>低風險不等於零治理：</b>資料保護、內容查核與錯誤處理仍然存在。</li>
+            <li><b>透明不等於揭露一切：</b>應向適當對象提供足以理解與行動的必要資訊。</li>
+            <li><b>有人不等於有效監督：</b>人必須有資訊、能力、時間與實際權限。</li>
+            <li><b>模型相同不等於風險相同：</b>用途、影響與部署條件才是分級關鍵。</li>
+            <li><b>一次分級不等於永久有效：</b>用途、資料、規模或環境改變時要重新評估。</li>
+          </ol>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"風險要看用途、影響、規模、資料與可逆性，不能只看模型名稱。"},q2:{answer:"B",explain:"讓使用者知道正在與 AI 互動，主要對應透明與告知義務。"},q3:{answer:"D",explain:"高風險不必然禁止，而是通常需要更嚴格的資料治理、測試、監督與監控。"},q4:{answer:"C",explain:"能理解、覆核、停止並改正，才是實質人工監督。"},q5:{answer:"B",explain:"問責要求責任歸屬清楚，並以版本、測試、覆核與事件紀錄支持追查。"},q6:{answer:"A",explain:"用途從一般問答變成影響資源取得的排序時，後果與權益影響提高，應重新分級。"}})'>
+            <fieldset><legend>1. 判斷 AI 系統風險時，最適合先看什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 模型參數量</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 工具名稱是否熱門</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 用途、影響、資料、規模與可逆性</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 介面顏色</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 聊天系統清楚告知「此回覆由 AI 協助」，主要對應哪個概念？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 正則化</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 透明</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 降維</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 資料載入</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 下列何者最能區分高風險與不可接受風險？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 兩者都完全不需要控制</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 兩者都一定禁止</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 高風險只需貼警告標示</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 高風險通常加強治理；不可接受用途指向禁止</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 下列哪一種安排最接近有效人工監督？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 人只能看到最終結果，不能更改</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 系統自動替人按下確認</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 覆核者看得懂、有時間，並可停止與改正</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 只在文件中寫「有人負責」</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 哪一項最能支持「問責」？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 刪除所有版本紀錄</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 明確責任分工並保留測試、覆核與事件紀錄</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 只提高模型速度</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 把責任交給 AI 本身</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 資訊系統從「回答開放時間」改成「排序重要資源申請」，最適合怎麼做？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 重新評估風險並提高控制強度</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 沿用原分級，不必檢查</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 只更換介面名稱</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 移除人工申訴管道</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜7 分鐘聽懂風險分級</h2>
+          <p>自然台灣華語複習：從五個判斷面向、四層風險，到透明、人工監督與問責的差異。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day04-ai-risk.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day04-ai-risk.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍優先依據本機保存的官方《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》與《初級能力鑑定考試樣題》114.09 版；外部框架以歐盟官方頁面交叉核對。本站測驗為原創理解題，不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[3] https://digital-strategy.ec.europa.eu/en/policies/regulatory-framework-ai — European Commission｜AI Act regulatory framework
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day04" onclick="toggleDone('day04',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-03.html">← Day 03｜治理從設計開始</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 05｜資料、紀錄、樣本與來源（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#risk-object">風險看用途</a><a href="#dimensions">五個判斷面向</a><a href="#levels">四層風險</a><a href="#scenario">貫穿情境</a><a href="#three-controls">三種控制</a><a href="#traps">判斷陷阱</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
