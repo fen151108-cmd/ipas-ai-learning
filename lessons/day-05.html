@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="資料、紀錄、樣本與來源：辨認資料鏈上的不同角色">
+  <title>Day 05｜資料、紀錄、樣本與來源</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab active" href="day-05.html" aria-current="page"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero data-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 05</span></div>
+      <h1>資料、紀錄、樣本與來源</h1>
+      <p class="memory-line">來源回答「從哪來」；紀錄回答「記了哪一次」；樣本回答「拿哪些來看」。</p>
+      <p class="lede">先把資料世界的角色分清楚，再談結構、品質、ETL、統計與機器學習。</p>
+      <div class="meta"><span>Day 05</span><span>約 40–60 分鐘</span><span>概念統整＋資料鏈情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從治理進入資料地基</h2>
+          <div class="concept-path"><span>用途與治理</span><b class="arrow">›</b><span>來源與原始紀錄</span><b class="arrow">›</b><span>資料品質與 ETL</span><b class="arrow">›</b><span>分析與機器學習</span></div>
+          <p>上位概念是「資料處理與分析」；本課先建立資料、紀錄、樣本與來源的共同語言。下位概念會進一步分成欄位、資料型態、資料結構與取樣；相鄰概念是資料品質、隱私與安全。官方學習指引把資料基本概念與來源、資料整理與分析流程、資料隱私與安全列在同一評鑑脈絡中。[3]</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>用途與風險決定資料要求</b></div>
+            <div><small>本課核心</small><b>分清資料鏈上的四種角色</b></div>
+            <div><small>後續銜接</small><b>結構、品質、ETL 與統計</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="core">
+          <div class="section-kicker">FOUR ROLES</div>
+          <h2>二、四個詞，不在同一個分類層次</h2>
+          <div class="data-role-grid">
+            <div><span class="role-no">01</span><b>資料 Data</b><p>被蒐集、保存並可供處理的事實、觀察值或符號；可能是數字、文字、日期、影像或聲音。</p><small>問：現在有哪些內容可被處理？</small></div>
+            <div><span class="role-no">02</span><b>紀錄 Record</b><p>依固定欄位保存的一次事件或一個觀察單位；表格的一列常是一筆紀錄。</p><small>問：這一筆是在記誰或哪一次？</small></div>
+            <div><span class="role-no">03</span><b>樣本 Sample</b><p>為特定分析目的，從較大對象集合中選出的觀察值集合；可包含許多筆紀錄。</p><small>問：這次實際拿哪些觀察值來看？</small></div>
+            <div><span class="role-no">04</span><b>來源 Source</b><p>資料最初如何產生、由誰或哪個系統蒐集，以及透過什麼管道取得。</p><small>問：資料最初從哪裡、怎麼來？</small></div>
+          </div>
+          <div class="summary-strip">資料是內容；紀錄是保存單位；樣本是分析選取範圍；來源是產生與取得脈絡。</div>
+        </section>
+
+        <section class="block panel" id="chain">
+          <div class="section-kicker">DATA LINEAGE</div>
+          <h2>三、把四個詞放進同一條資料鏈</h2>
+          <div class="lineage" aria-label="資料流向圖">
+            <div><small>01</small><b>來源</b><span>表單、裝置、系統、API</span></div><i>→</i>
+            <div><small>02</small><b>蒐集</b><span>依規則擷取觀察值</span></div><i>→</i>
+            <div><small>03</small><b>紀錄</b><span>按欄位保存事件</span></div><i>→</i>
+            <div><small>04</small><b>資料集</b><span>清理、整合、轉換</span></div><i>→</i>
+            <div><small>05</small><b>樣本</b><span>依問題選取範圍</span></div><i>→</i>
+            <div><small>06</small><b>使用</b><span>分析、模型、決策</span></div>
+          </div>
+          <p>官方指引把資料處理描述為蒐集、清洗、轉換與分析，目的是讓原始資料成為品質、一致性與可用性較高的格式；本課先處理最前端的來源、紀錄與選取範圍，後續課程再逐段展開。[3]</p>
+          <p><b>重要：</b>資料鏈不是「越後面越真」。來源若與問題不相符，或紀錄單位定義錯誤，後續即使整理精美，也可能回答不了原本的問題。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, FULL CHAIN</div>
+          <h2>四、社區共享物品系統：從掃描事件到分析樣本</h2>
+          <p>假設一套社區共享物品系統想了解借用需求，以改善補充與維護安排。三種來源分別是預約表單、借還掃描事件，以及用來標記假日的公開行事曆。</p>
+          <div class="record-demo">
+            <div class="record-label"><span>一筆借出紀錄</span><small>同一列的多個欄位，共同描述一次事件</small></div>
+            <div><small>事件編號</small><b>E-0241</b></div>
+            <div><small>物品編號</small><b>ITEM-08</b></div>
+            <div><small>時間</small><b>14:35</b></div>
+            <div><small>動作</small><b>借出</b></div>
+          </div>
+          <ol class="checklist">
+            <li><b>資料：</b>事件編號、物品編號、時間與動作等被保存的值。</li>
+            <li><b>紀錄：</b>一次借出事件由多個欄位組成；同一使用者可能產生多筆事件紀錄。</li>
+            <li><b>樣本：</b>團隊取最近八週的借還紀錄進行分析；八週是一個選取範圍，不是資料來源。</li>
+            <li><b>來源：</b>借還掃描器產生事件；公開行事曆則提供假日標記。不同來源可在整理後進入同一資料集。</li>
+          </ol>
+          <p>若八週剛好包含大型活動，樣本可能無法代表全年；若掃描器離線造成漏記，則是紀錄完整性問題。題目問「代表性」時看樣本，問「漏記」時看蒐集與資料品質，問「從哪來」時看來源。</p>
+        </section>
+
+        <section class="block panel" id="sources-types">
+          <div class="section-kicker">SOURCE IS NOT FORMAT</div>
+          <h2>五、常見來源：先問如何產生，再問用什麼格式</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>蒐集方式</th><th>來源情境</th><th>應先檢查</th></tr></thead>
+              <tbody>
+                <tr><td><b>問卷與調查</b></td><td>直接向目標對象蒐集回答</td><td>問題設計、回覆偏差、告知與同意</td></tr>
+                <tr><td><b>自有產品或系統</b></td><td>網站、應用程式、設備的互動或運行紀錄</td><td>事件定義、漏記、權限、保存目的</td></tr>
+                <tr><td><b>外部公開資料</b></td><td>政府開放資料、公開 API</td><td>版本、更新頻率、授權、適用範圍</td></tr>
+                <tr><td><b>外部付費資料</b></td><td>向資料提供者購買專業資料集</td><td>品質、授權、涵蓋範圍、可追溯性</td></tr>
+                <tr><td><b>網路爬蟲</b></td><td>依規則擷取網站公開內容</td><td>使用條款、個資、頻率、欄位變動</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>上述蒐集方式依官方學習指引整理；指引另將結構化、半結構化與非結構化列為資料結構類型。[3] 因此「公開 API」可視為來源／取得管道，而「API 回傳 JSON」中的 JSON 是格式；兩者不能互換。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>六、六組容易混淆處</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>容易混淆</th><th>正確辨析</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td>資料 vs. 資訊</td><td>資料是被記錄的內容；資訊是資料經脈絡化與解釋後產生的意義。</td><td>「原始值」看資料；「指出趨勢」看資訊。</td></tr>
+                <tr><td>紀錄 vs. 欄位</td><td>一筆紀錄通常由多個欄位組成。</td><td>「一列／一次事件」看紀錄；「日期／金額／狀態」看欄位。</td></tr>
+                <tr><td>樣本 vs. 單筆紀錄</td><td>樣本是一組被選出的觀察值，可含許多紀錄。</td><td>「抽取若干筆／最近八週」看樣本。</td></tr>
+                <tr><td>樣本 vs. 母體</td><td>樣本是實際觀察的一部分；母體是希望推論的整體對象。</td><td>「能否代表整體」先看取樣方式與涵蓋範圍。</td></tr>
+                <tr><td>來源 vs. 格式</td><td>來源說明從哪來；格式說明如何編排或儲存。</td><td>「API、問卷、裝置」看來源；「CSV、JSON、影像」看格式。</td></tr>
+                <tr><td>公開 vs. 可任意使用</td><td>公開可取得不等於任何用途都適用。</td><td>仍要檢查授權、條款、個資與蒐集目的。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="traps">
+          <div class="section-kicker">EXAM SIGNALS & TRAPS</div>
+          <h2>七、iPAS 判斷順序</h2>
+          <ol class="checklist signal-list">
+            <li><b>先找題目問的是哪一層：</b>內容、保存單位、選取範圍，還是產生管道？</li>
+            <li><b>看到「一列」先確認紀錄單位：</b>一列可能是一個人，也可能是一次交易或一次感測事件。</li>
+            <li><b>看到「資料很多」不要直接推出代表性高：</b>大樣本也可能漏掉關鍵族群、季節或情境。</li>
+            <li><b>看到副檔名不要誤判來源：</b>同一來源可以輸出多種格式；同一格式也可來自多種來源。</li>
+            <li><b>看到公開資料不要跳過治理：</b>適用性、授權、個資與更新狀態仍需檢查。</li>
+          </ol>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"一筆借出事件由事件編號、物品編號、時間與動作等欄位共同描述，所以是一筆紀錄。"},q2:{answer:"C",explain:"最近八週描述這次分析選取的觀察範圍，屬於樣本；來源是資料最初產生的管道。"},q3:{answer:"D",explain:"JSON 描述資料的編排格式；資料來源可能是某個 API，而 API 回傳 JSON。"},q4:{answer:"B",explain:"要推論全年需求，必須先檢查八週是否涵蓋不同季節、假日與一般情境，而非只看筆數。"},q5:{answer:"A",explain:"使用者可能多次借用，因此一列若代表一次借用事件，列數不等於不同使用者人數。"},q6:{answer:"C",explain:"來源脈絡包括資料如何產生與取得，有助於追查版本、偏差、授權與適用性。"}})'>
+            <fieldset><legend>1. 「事件編號、物品編號、時間、借出狀態」共同描述一次借出，整組最適合稱為什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 一個來源</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 一筆紀錄</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 一個母體</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 一種格式</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 團隊從兩年資料中取最近八週進行分析，「最近八週」主要描述什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 欄位名稱</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 資料格式</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 分析樣本</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 取得管道</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 公開 API 回傳 JSON，哪個敘述最正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> API 與 JSON 都是樣本</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> JSON 是來源，API 是欄位</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> API 與 JSON 都是紀錄</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> API 是取得管道，JSON 是格式</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 最近八週有很多紀錄，要推論全年需求，最應先檢查什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 表格顏色是否一致</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 是否涵蓋季節、假日與一般情境</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 檔名是否夠短</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 每列是否使用相同字型</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 一張表有 500 列借用事件，能否直接推出有 500 位不同使用者？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 不能，同一使用者可能產生多筆事件紀錄</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 能，一列永遠代表一個人</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 能，列數就是母體人數</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 能，只要檔案是 CSV</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 為什麼資料來源需要保留可追溯資訊？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 讓所有資料自動正確</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 讓樣本自動代表母體</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 便於追查版本、偏差、授權與適用性</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 取代資料清理與驗證</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜8 分鐘建立資料語言</h2>
+          <p>自然台灣華語複習：用共享物品系統串起來源、紀錄、樣本與資料鏈，並拆解來源與格式、紀錄與欄位等常見混淆。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day05-data-records.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day05-data-records.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》；本機並以官方樣題 114.09 版核對題目用語。本站測驗為原創理解題，不是官方考題。[1][3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一：人工智慧基礎概論</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day05" onclick="toggleDone('day05',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-04.html">← Day 04｜風險分級與人工問責</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 06｜三種資料結構（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#core">四個角色</a><a href="#chain">資料鏈</a><a href="#scenario">貫穿情境</a><a href="#sources-types">常見來源</a><a href="#compare">容易混淆</a><a href="#traps">判斷順序</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
