@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="結構化、半結構化與非結構化資料：依架構特性判斷，不只看副檔名">
+  <title>Day 06｜結構化、半結構化、非結構化</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab active" href="day-06.html" aria-current="page"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero data-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 06</span></div>
+      <h1>結構化、半結構化、非結構化</h1>
+      <p class="memory-line">結構化靠固定欄位；半結構化靠標記自帶線索；非結構化要先解析內容。</p>
+      <p class="lede">分類看的是架構如何被辨認，不只是副檔名，也不是畫面看起來像不像表格。</p>
+      <div class="meta"><span>Day 06</span><span>約 40–60 分鐘</span><span>概念統整＋共享系統情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：來源之後，品質之前</h2>
+          <div class="concept-path"><span>來源與紀錄</span><b class="arrow">›</b><span>資料結構</span><b class="arrow">›</b><span>品質與 ETL</span><b class="arrow">›</b><span>分析與建模</span></div>
+          <p>上位概念是「資料處理與分析」；本課依資料的架構特性分成結構化、半結構化與非結構化。下位概念包含欄位、鍵值、標籤、階層與內容解析；相鄰概念是資料格式、品質、資料庫與特徵擷取。官方科目一學習指引在「資料基本概念與來源」脈絡中明列這三種資料結構。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>先知道資料從哪來、每筆記什麼</b></div>
+            <div><small>本課核心</small><b>看架構線索，不只背副檔名</b></div>
+            <div><small>後續銜接</small><b>清理、轉換、分析與特徵擷取</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="core">
+          <div class="section-kicker">THREE STRUCTURES</div>
+          <h2>二、三種類型的判斷核心</h2>
+          <div class="structure-grid">
+            <div class="structure-card structured"><span class="role-no">01 · SCHEMA</span><b>結構化資料</b><p>有預先定義且相對固定的欄位、型態與紀錄單位；每筆資料大致遵守同一架構。</p><small>辨認線索：固定欄位、資料表、可直接查詢</small></div>
+            <div class="structure-card semi"><span class="role-no">02 · MARKUP</span><b>半結構化資料</b><p>沒有嚴格一致的表格架構，但資料自帶鍵值、標籤、分隔符號或階層，可據以解析。</p><small>辨認線索：鍵值、標籤、欄位可增減、巢狀結構</small></div>
+            <div class="structure-card unstructured"><span class="role-no">03 · CONTENT</span><b>非結構化資料</b><p>主要內容沒有先切成固定欄位；要先理解文字、像素、聲波或影格，才能取得語意。</p><small>辨認線索：自由文字、照片、錄音、影片</small></div>
+          </div>
+          <div class="summary-strip">固定 schema → 結構化；自帶解析線索 → 半結構化；主要語意藏在內容 → 非結構化。</div>
+        </section>
+
+        <section class="block panel" id="relation">
+          <div class="section-kicker">A CONTINUUM, NOT A RANKING</div>
+          <h2>三、這是組織方式，不是品質排名</h2>
+          <div class="structure-axis" aria-label="資料結構連續軸">
+            <div><small>固定程度高</small><b>結構化</b><span>欄位與型態預先定義</span></div>
+            <i>→</i><div><small>部分自我描述</small><b>半結構化</b><span>標籤或鍵值協助解析</span></div>
+            <i>→</i><div><small>內容先行</small><b>非結構化</b><span>先解析語意再形成欄位</span></div>
+          </div>
+          <p><b>不要把箭頭當成高低排名。</b>非結構化資料不是比較差，也不是無法分析；它只是需要不同的儲存、解析與特徵擷取方法。反過來，整齊的資料表也可能充滿缺失、重複或錯誤值。</p>
+          <div class="mini-callout"><b>同一檔案可以有不同層次。</b><span>照片的拍攝時間、尺寸可能是結構化中繼資料；照片像素所表達的損壞內容仍屬非結構化。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY DIMENSIONS</div>
+          <h2>四、比較表：用五個維度判斷</h2>
+          <div style="overflow-x:auto">
+            <table class="compare structure-compare">
+              <thead><tr><th>維度</th><th>結構化</th><th>半結構化</th><th>非結構化</th></tr></thead>
+              <tbody>
+                <tr><td><b>架構</b></td><td>預先定義、相對固定</td><td>可彈性增減，資料自帶線索</td><td>主要內容無固定欄位</td></tr>
+                <tr><td><b>系統怎麼讀</b></td><td>依欄位與型態直接讀取</td><td>先解析鍵值、標籤或階層</td><td>先做內容理解或特徵擷取</td></tr>
+                <tr><td><b>典型例子</b></td><td>關聯式資料表、規範良好的試算表</td><td>JSON、XML；官方指引亦將 CSV 列於此類</td><td>自由文字、電子郵件正文、照片、錄音、影片</td></tr>
+                <tr><td><b>欄位變動</b></td><td>通常受 schema 約束</td><td>不同紀錄可有不同欄位</td><td>未先切成欄位</td></tr>
+                <tr><td><b>進入分析前</b></td><td>仍要檢查品質與適用性</td><td>解析、展開、統一欄位</td><td>標記、轉錄、分類或擷取特徵</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>官方指引將結構化描述為清晰固定、常以行列儲存；半結構化具有標籤但格式彈性，列舉 XML、JSON、CSV；非結構化則無固定結構，列舉圖片、影像、音訊與文字內容。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, THREE STRUCTURES</div>
+          <h2>五、共享物品系統：三種資料如何合作</h2>
+          <p>延續上一課的社區共享物品系統。團隊想了解物品最常見的損壞類型，以改善檢查與維護流程。</p>
+          <div class="scenario-stream">
+            <div><span>資料庫</span><b>借還資料表</b><code>event_id · item_id · action · time</code><small>欄位固定，可直接依日期與物品查詢</small><em>結構化</em></div>
+            <div><span>裝置事件</span><b>JSON 記錄</b><code>{"action":"return", "battery":82}</code><small>鍵值可解析，部分事件可能多出電量欄位</small><em>半結構化</em></div>
+            <div><span>回報內容</span><b>照片＋自由文字</b><code>「外殼有一道裂痕，仍可使用」</code><small>損壞位置與程度藏在影像、語句內容中</small><em>非結構化</em></div>
+          </div>
+          <h3>要分析損壞類型，先做結構轉換</h3>
+          <div class="transform-flow">
+            <span>原始照片／文字</span><b>→</b><span>人工標記或模型解析</span><b>→</b><span>損壞類型：裂痕</span><b>→</b><span>寫入可查詢欄位</span>
+          </div>
+          <p>解析後產生的「損壞類型」是結構化衍生欄位；原始照片與原始文字仍保留其非結構化特性。若只保留標籤而丟掉來源與轉換規則，後續會難以追查標記是否正確。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>六、六組容易混淆處</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>容易混淆</th><th>正確辨析</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td>結構 vs. 格式</td><td>格式名稱是線索；結構重點是欄位如何定義、系統如何解析。</td><td>不要只看到副檔名就停止判斷。</td></tr>
+                <tr><td>表格外觀 vs. 結構化</td><td>大量合併儲存格、自由註記、每列意義不同，可能不具穩定 schema。</td><td>看「一列代表什麼」與欄位是否固定。</td></tr>
+                <tr><td>半結構化 vs. 結構化</td><td>都有可辨認線索；差別在架構是否嚴格固定、欄位是否可彈性變動。</td><td>固定 schema 看結構化；鍵值可增減看半結構化。</td></tr>
+                <tr><td>非結構化 vs. 沒有格式</td><td>照片、音訊仍有檔案格式；只是主要語意未預先切成欄位。</td><td>問「要不要先理解內容」。</td></tr>
+                <tr><td>結構化 vs. 高品質</td><td>結構是組織方式；品質是完整、正確、一致與適用程度。</td><td>有固定欄位不代表值都正確。</td></tr>
+                <tr><td>中繼資料 vs. 主要內容</td><td>照片時間可結構化，照片像素內容仍非結構化。</td><td>先確認題目在問哪一層。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="traps">
+          <div class="section-kicker">EXAM SIGNALS & TRAPS</div>
+          <h2>七、iPAS 三步判斷法</h2>
+          <ol class="checklist signal-list">
+            <li><b>先找固定 schema：</b>每筆是否遵守相同欄位、型態與限制？是的話偏向結構化。</li>
+            <li><b>再找自我描述線索：</b>有鍵值、標籤、分隔符號或階層，但欄位可變動，偏向半結構化。</li>
+            <li><b>最後問語意藏在哪：</b>若要先理解自然語言、像素、聲波或影格，偏向非結構化。</li>
+            <li><b>官方用語要精準：</b>官方科目一指引把 CSV 列為半結構化；題幹若明確依該分類，按指引用語作答。[2]</li>
+            <li><b>分類後別忘了品質：</b>結構類型只決定處理方式之一，不保證資料可靠、完整或適用。</li>
+          </ol>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"欄位固定、型態明確且每筆紀錄遵循同一 schema，是結構化資料的核心特徵。"},q2:{answer:"C",explain:"JSON 以鍵值與階層提供解析線索，但不同事件可增減欄位，因此典型上屬半結構化。"},q3:{answer:"D",explain:"拍攝時間是中繼資料；照片像素中的損壞語意仍需影像解析或人工標記。"},q4:{answer:"A",explain:"表格外觀不是充分條件；若每列意義不同、欄位任意改變，就缺乏穩定架構。"},q5:{answer:"C",explain:"結構化描述組織方式，不保證值的完整性與正確性；缺失與重複仍是品質問題。"},q6:{answer:"B",explain:"解析產生的固定標籤可成為結構化欄位，但原始文字仍是原始內容，且應保留來源與轉換規則。"}})'>
+            <fieldset><legend>1. 哪一項最能判斷資料是「結構化」？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 檔案可以下載</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 欄位固定、型態明確，紀錄遵循同一架構</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 內容含有很多文字</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 資料量非常大</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 掃描裝置回傳 JSON；每筆都有事件編號，但有些事件會多出電量欄位。最適合歸為哪一類？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 完全沒有結構</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 僅能是結構化</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 半結構化</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 一定是錯誤資料</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 一張照片有拍攝時間與尺寸，哪個敘述最正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 整張照片因此全部是結構化資料</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 照片沒有任何格式</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 拍攝時間也是非結構化語意</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 中繼資料可結構化，像素內容仍需解析</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 一份試算表大量合併儲存格、每列用途不同、欄位每週改變。能否只因「看起來是表格」就判為結構化？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 不能，還要看紀錄單位與欄位是否穩定</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 能，任何試算表都必定結構化</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 能，只要有格線即可</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 能，只要檔案不超過一頁</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 關於「結構」與「品質」，哪個敘述正確？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 結構化資料一定沒有缺失值</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 非結構化資料一定無法分析</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 結構是組織方式，品質是另一個維度</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 只要格式一致，資料就一定正確</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 自由文字經分類後產生「損壞類型：裂痕」欄位，哪個敘述最正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 原始文字從一開始就是固定欄位</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 衍生標籤可結構化，仍應保留來源與轉換規則</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 解析後就不必檢查標記正確性</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 原始文字應立刻刪除</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜8 分鐘分清三種資料結構</h2>
+          <p>自然台灣華語複習：用共享物品系統串起資料表、JSON、照片與自由文字，練習依架構特性分類。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day06-data-structures.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day06-data-structures.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一：人工智慧基礎概論（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day06" onclick="toggleDone('day06',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-05.html">← Day 05｜資料、紀錄、樣本與來源</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 07｜資料品質（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#core">三種資料結構</a><a href="#relation">結構連續軸</a><a href="#compare">比較表</a><a href="#scenario">貫穿情境</a><a href="#confuse">容易混淆</a><a href="#traps">判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
