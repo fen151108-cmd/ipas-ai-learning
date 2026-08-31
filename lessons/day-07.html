@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="資料品質：分清缺失值、錯誤值、重複值與離群值，先查原因再處理">
+  <title>Day 07｜資料品質：缺失、錯誤、重複、離群</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab active" href="day-07.html" aria-current="page"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero quality-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 07</span></div>
+      <h1>資料品質：缺失、錯誤、重複、離群</h1>
+      <p class="memory-line">缺失是沒填，錯誤是不合理，重複是同件事多算，離群是很少見；先查原因，再決定處理。</p>
+      <p class="lede">辨認只是第一步。真正的品質處理，要把原因、用途與刪改後果一起考慮。</p>
+      <div class="meta"><span>Day 07</span><span>約 40–60 分鐘</span><span>概念統整＋共享系統情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：資料結構之後，ETL 與分析之前</h2>
+          <div class="concept-path"><span>來源與結構</span><b class="arrow">›</b><span>品質診斷與清洗</span><b class="arrow">›</b><span>轉換與 ETL</span><b class="arrow">›</b><span>分析與建模</span></div>
+          <p>上位概念是「資料處理與分析」；本課的四個下位概念是缺失值、錯誤值、重複值與離群值。相鄰概念包括一致性、冗餘、資料驗證、樣本代表性與異常偵測。官方科目一學習指引把資料清洗放在蒐集之後，目的在提升資料完整性與可靠性。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>先知道每列、每欄與來源代表什麼</b></div>
+            <div><small>本課核心</small><b>先分類、再查因、最後選處理</b></div>
+            <div><small>後續銜接</small><b>ETL、統計分析與模型訓練</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="core">
+          <div class="section-kicker">FOUR QUALITY SIGNALS</div>
+          <h2>二、四種品質訊號，不是四種刪除指令</h2>
+          <div class="quality-grid">
+            <div class="quality-card missing"><span class="role-no">01 · MISSING</span><b>缺失值</b><p>應有的欄位沒有記錄有效資料；空白原因可能是尚未發生、漏記或不適用。</p><small>問：值為什麼沒有出現？</small></div>
+            <div class="quality-card invalid"><span class="role-no">02 · INVALID</span><b>錯誤值</b><p>違反資料型態、合理範圍、允許清單或跨欄位業務規則。</p><small>問：它違反了哪一條規則？</small></div>
+            <div class="quality-card duplicate"><span class="role-no">03 · DUPLICATE</span><b>重複值</b><p>同一實體或事件被不小心記錄多次，可能造成計數與加總膨脹。</p><small>問：這真的是同一件事嗎？</small></div>
+            <div class="quality-card outlier"><span class="role-no">04 · OUTLIER</span><b>離群值</b><p>明顯遠離多數資料點；可能是真實罕見事件，也可能是雜訊或錯誤。</p><small>問：少見，還是不合理？</small></div>
+          </div>
+          <div class="summary-strip">缺失看有沒有值；錯誤看合不合理；重複看有沒有多算；離群看是否遠離多數。</div>
+          <p>官方指引將遺缺值、重複值、錯誤值列為清洗核心，並特別提醒離群值可能有意義，處理時要依業務需求與分析目標選擇策略。[2]</p>
+        </section>
+
+        <section class="block panel" id="relation">
+          <div class="section-kicker">DETECT → VERIFY → DECIDE</div>
+          <h2>三、品質處理不是「發現就刪」</h2>
+          <div class="quality-flow" aria-label="資料品質處理流程">
+            <div><span>01</span><b>定義規則</b><small>紀錄單位、欄位意義、有效範圍</small></div><i>→</i>
+            <div><span>02</span><b>偵測候選</b><small>空值、違規、重複、極端</small></div><i>→</i>
+            <div><span>03</span><b>回查原因</b><small>流程狀態、來源、系統紀錄</small></div><i>→</i>
+            <div><span>04</span><b>評估影響</b><small>任務目的、代表性、偏差</small></div><i>→</i>
+            <div><span>05</span><b>處理留痕</b><small>保留、標記、修正、填補、去重、刪除</small></div>
+          </div>
+          <p><b>偵測只是在找候選。</b>空白不一定是錯誤，離群也不一定要刪；即使確認要修正，也要保留處理規則與變更紀錄，避免清洗後無法追溯。</p>
+          <div class="mini-callout"><b>0 不是空白。</b><span>「使用次數為 0」是有效值；空字串、NA、null 是否代表缺失，則要依資料字典與系統規格確認。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY CAUSE AND ACTION</div>
+          <h2>四、比較表：從訊號連回原因與處理</h2>
+          <div style="overflow-x:auto">
+            <table class="compare quality-compare">
+              <thead><tr><th>類型</th><th>典型訊號</th><th>先查什麼</th><th>可能處理</th><th>最大陷阱</th></tr></thead>
+              <tbody>
+                <tr><td><b>缺失</b></td><td>空白、null、NA</td><td>尚未發生、漏記、不適用或拒答</td><td>回補、統計／模型填補、標記、謹慎刪除</td><td>把所有空白當同一原因</td></tr>
+                <tr><td><b>錯誤</b></td><td>超範圍、拼寫錯、日期矛盾</td><td>型態、範圍、代碼、跨欄規則</td><td>依可信來源修正、改列缺失或排除</td><td>為求整齊而自行猜值</td></tr>
+                <tr><td><b>重複</b></td><td>主鍵重複、事件重送</td><td>是否真為同一實體／事件</td><td>合併、保留正確一筆、刪除副本</td><td>把合法重複事件誤刪</td></tr>
+                <tr><td><b>離群</b></td><td>遠離分布、極端值</td><td>真實罕見、輸入錯誤或流程異常</td><td>保留標記、修正、分層、敏感度分析或排除</td><td>離群一律等於錯誤</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>官方指引列出平均數、中位數、眾數、插補法與預測模型等缺失值填補方式，也提醒刪除紀錄時應評估對樣本代表性的影響；重複值則可用主鍵、唯一識別碼或關鍵欄位辨識。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, FOUR DIAGNOSES</div>
+          <h2>五、共享物品系統：同一張表的四個訊號</h2>
+          <p>團隊想用借還紀錄改善檢查與維護安排。一筆紀錄包含事件編號、物品編號、借出時間、歸還時間、使用時數與狀態。</p>
+          <div class="quality-scenario">
+            <div><span>歸還時間：空白</span><b>缺失候選</b><p>先查物品是否仍在借用中。若尚未歸還，是有語意的暫時缺失；若已歸還但漏掃，才是蒐集問題。</p></div>
+            <div><span>使用時數：−3</span><b>錯誤候選</b><p>違反時數不得為負的合理規則；回查借出與歸還時間，再依可信紀錄修正。</p></div>
+            <div><span>事件編號：同號兩筆</span><b>重複候選</b><p>若裝置重送同一事件，去重保留正確一筆；若其實是不同事件，就不能只因內容相似而刪除。</p></div>
+            <div><span>使用時數：72</span><b>離群候選</b><p>大多數只有 1–3 小時，但 72 小時可能是特殊活動的真實借用；驗證後可保留並加註。</p></div>
+          </div>
+          <p>同一個數字也可能跨類別：七十二小時先被偵測為離群；回查後若發現歸還日期輸入錯誤，才進一步確定它是錯誤值。<b>類別描述目前已知的問題，原因調查決定最後處理。</b></p>
+        </section>
+
+        <section class="block panel" id="methods">
+          <div class="section-kicker">MATCH METHOD TO MEANING</div>
+          <h2>六、處理方法要配欄位與任務</h2>
+          <div class="method-grid">
+            <div><b>數值缺失</b><p>平均數適合較對稱、無強烈極端值的情況；偏態資料可考慮中位數。先評估填補是否會縮小變異。</p></div>
+            <div><b>類別缺失</b><p>可依情境考慮眾數或建立「未知」類別；不能填一個數值平均。</p></div>
+            <div><b>時序缺失</b><p>可能使用前後插補或預測，但要尊重時間順序，避免把未來資訊洩漏到過去。</p></div>
+            <div><b>離群候選</b><p>可用箱型圖、四分位距、Z 分數或領域規則偵測；方法找的是候選，不是自動刪除命令。</p></div>
+          </div>
+          <p>處理前後應比較筆數、分布、缺失比例與關鍵指標，確認清洗沒有悄悄改變原本要研究的對象。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與題目訊號</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>容易混淆</th><th>正確辨析</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td>缺失 vs. 0</td><td>0 是有效數值；缺失表示沒有記錄有效值。</td><td>先看資料字典，不要自動互換。</td></tr>
+                <tr><td>錯誤 vs. 離群</td><td>錯誤違反規則；離群只代表遠離多數，可能真實。</td><td>「不合理」看錯誤；「極端少見」先看離群。</td></tr>
+                <tr><td>重複 vs. 合法多次</td><td>同一事件多記是重複；同一物品發生兩次真實事件不是。</td><td>確認紀錄單位與事件識別碼。</td></tr>
+                <tr><td>重複 vs. 冗餘</td><td>重複常是多筆同事件；冗餘常是多欄反覆存相同資訊。</td><td>看問題發生在列還是欄。</td></tr>
+                <tr><td>填補 vs. 修正</td><td>填補估計未知值；修正應有可信真值或明確規則。</td><td>能回查原始紀錄就先修正，不要猜。</td></tr>
+                <tr><td>清洗 vs. 美化</td><td>清洗為提升可用性與可靠性，不是讓每個值都靠近平均。</td><td>保留真實差異與處理紀錄。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="traps">
+          <div class="section-kicker">EXAM SIGNALS & TRAPS</div>
+          <h2>八、iPAS 五步判斷法</h2>
+          <ol class="checklist signal-list">
+            <li><b>先辨認訊號：</b>沒值、不合理、多算，還是只是不常見？</li>
+            <li><b>再確認規則：</b>題目有沒有給型態、範圍、主鍵、日期順序或業務限制？</li>
+            <li><b>回查來源：</b>是尚未發生、漏記、輸入錯誤、系統重送，還是真實罕見事件？</li>
+            <li><b>檢查用途：</b>描述統計、模型訓練、異常偵測與稽核追查，適合的處理可能不同。</li>
+            <li><b>拒絕「一律」選項：</b>看到立即刪除所有離群值、全部填平均數，要先檢查原因與後果。</li>
+          </ol>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"歸還時間空白可能表示物品尚未歸還，也可能是漏記；要先查流程狀態與來源，不能直接填平均值。"},q2:{answer:"B",explain:"負的使用時數違反合理範圍與日期邏輯，屬錯誤值候選。"},q3:{answer:"D",explain:"離群只代表遠離多數，可能是真實罕見事件；正確做法是先驗證原因與分析目的。"},q4:{answer:"A",explain:"辨識重複要確認是否為同一事件，事件編號與關鍵欄位比單看金額相同更有力。"},q5:{answer:"C",explain:"同一事件出現多列是重複資料；多個欄位反覆存同一資訊較接近冗餘。"},q6:{answer:"B",explain:"偏態時中位數通常比平均數不易受極端值影響，但仍要先理解缺失機制與填補後果。"}})'>
+            <fieldset><legend>1. 共享物品的「歸還時間」空白，第一步最適合做什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 一律填入平均歸還時間</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 立即刪除整筆紀錄</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 查物品是否仍在借用及有無漏掃</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 把空白改成 0</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 「使用時數 = −3」最符合哪一類品質訊號？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 只是缺失值</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 違反合理規則的錯誤值</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 一定是重複值</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 有效的類別值</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 大多數借用是 1–3 小時，某筆為 72 小時。哪個處理最適當？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 立刻刪除，離群必定錯誤</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 一律換成中位數</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 忽略，不需任何查核</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 標記候選並回查是否為真實特殊事件</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 要判斷兩筆金額相同的紀錄是否重複，最重要的是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 確認事件編號、紀錄單位與關鍵欄位</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 金額相同就刪一筆</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 看表格底色是否一致</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 看檔名是否相同</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 同一事件出現兩列，與三個欄位都存相同狀態，分別較接近什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 都是缺失</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 都是離群</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 前者重複，後者冗餘</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 前者冗餘，後者錯誤</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 偏態的數值欄位有少量缺失，哪個敘述較合理？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 永遠用平均數最正確</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 可評估中位數，但仍要先理解缺失原因</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 空白一定等於 0</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 所有缺失都應刪除整列</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先查原因，再處理資料品質</h2>
+          <p>自然台灣華語複習：用共享物品系統分清缺失、錯誤、重複與離群，並建立「偵測不等於刪除」的判斷順序。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day07-data-quality.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day07-data-quality.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；並以本機保存的官方樣題 114.09 版核對離群值與資料品質的命題方向。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一：人工智慧基礎概論（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day07" onclick="toggleDone('day07',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-06.html">← Day 06｜三種資料結構</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 08｜ETL：擷取、轉換、載入（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#core">四種品質訊號</a><a href="#relation">處理流程</a><a href="#compare">比較表</a><a href="#scenario">貫穿情境</a><a href="#methods">方法配對</a><a href="#confuse">容易混淆</a><a href="#traps">判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
