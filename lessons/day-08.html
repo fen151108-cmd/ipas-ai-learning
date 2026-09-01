@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="ETL 概念統整：分清資料擷取、轉換與載入，辨認來源、處理與目的地">
+  <title>Day 08｜ETL：擷取、轉換、載入</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab active" href="day-08.html" aria-current="page"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero etl-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 08</span></div>
+      <h1>ETL：擷取、轉換、載入</h1>
+      <p class="memory-line">擷取把資料帶進來，轉換把資料變可用，載入把結果放到目標。</p>
+      <p class="lede">不靠工具名稱猜答案；改用來源、處理、目的地三個位置，辨認每個動作的責任。</p>
+      <div class="meta"><span>Day 08</span><span>約 40–60 分鐘</span><span>概念統整＋家庭採買情境＋6 題測驗＋6:46 Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從原始來源走向可分析資料</h2>
+          <div class="concept-path"><span>來源與結構</span><b class="arrow">›</b><span>品質診斷與清洗</span><b class="arrow">›</b><span>ETL 資料管線</span><b class="arrow">›</b><span>統計、視覺化與建模</span></div>
+          <p>上位概念是「資料處理與分析」；ETL 的三個下位動作是擷取、轉換與載入。相鄰概念包括資料清洗、格式與型態轉換、資料整合、資料庫管理與資料倉儲。官方科目一學習指引把 ETL 列為資料處理的重要技術，並把資料處理流程整理為蒐集、清洗、轉換與分析。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>先理解來源、結構與資料品質</b></div>
+            <div><small>本課核心</small><b>依動作辨認 E、T、L 的責任</b></div>
+            <div><small>後續銜接</small><b>中央趨勢、分散度與資料分布</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="core">
+          <div class="section-kicker">SOURCE → PROCESS → DESTINATION</div>
+          <h2>二、三個字母，三個位置</h2>
+          <div class="etl-triptych">
+            <div class="etl-card extract"><span class="role-no">E · EXTRACT</span><b>擷取</b><p>從檔案、資料庫、裝置或系統介面讀取需要的原始資料。</p><small>問：資料從哪裡帶進來？</small></div>
+            <div class="etl-card transform"><span class="role-no">T · TRANSFORM</span><b>轉換</b><p>依規則清理、整合、對應、計算，讓資料一致且可用。</p><small>問：資料怎麼變得可分析？</small></div>
+            <div class="etl-card load"><span class="role-no">L · LOAD</span><b>載入</b><p>把處理結果寫入指定的資料庫、資料倉儲或目的系統。</p><small>問：結果最後寫到哪裡？</small></div>
+          </div>
+          <div class="summary-strip">E 看來源與讀取；T 看規則與改變；L 看目的地與寫入。</div>
+          <p>官方指引說明資料處理包含清理、整合、儲存與分析，並列舉格式轉換、型態轉換、正規化／標準化、離散化與資料縮減等轉換方式。[2]</p>
+        </section>
+
+        <section class="block panel" id="relation">
+          <div class="section-kicker">RESPONSIBILITY, NOT TOOL NAME</div>
+          <h2>三、先看主要動作，不要只看工具</h2>
+          <div class="etl-flow" aria-label="ETL 資料流">
+            <div><span>來源端</span><b>電子收據 CSV<br>手動試算表<br>店家系統 JSON</b></div><i>讀取 →</i>
+            <div class="focus-e"><span>擷取 E</span><b>連線、查詢、下載、讀檔</b></div><i>改變 →</i>
+            <div class="focus-t"><span>轉換 T</span><b>清洗、整合、統一、計算</b></div><i>寫入 →</i>
+            <div class="focus-l"><span>載入 L</span><b>分析資料庫<br>每週摘要表</b></div>
+          </div>
+          <p>CSV、JSON、API 與資料庫都只是線索，不會自動決定階段。從 API <b>取得</b> JSON 是擷取；把 JSON 欄位<b>對應</b>成統一欄位是轉換；把結果<b>寫入</b>資料庫才是載入。</p>
+          <div class="mini-callout"><b>題目分類看「動詞」。</b><span>同一支程式可以連續完成 E、T、L；概念題仍要依每個動作的主要責任分開判斷。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE BOUNDARIES</div>
+          <h2>四、比較表：輸入、動作、產物與陷阱</h2>
+          <div style="overflow-x:auto">
+            <table class="compare etl-compare">
+              <thead><tr><th>階段</th><th>典型輸入</th><th>主要動作</th><th>典型產物</th><th>最大陷阱</th></tr></thead>
+              <tbody>
+                <tr><td><b>擷取 E</b></td><td>來源檔案、來源表、系統介面</td><td>連線、查詢、讀取、下載</td><td>進入管線的原始副本或批次</td><td>把讀檔後的清理也全部算成擷取</td></tr>
+                <tr><td><b>轉換 T</b></td><td>擷取後的資料</td><td>清洗、型態轉換、格式統一、整合、衍生計算</td><td>符合規格、可載入的資料</td><td>只把副檔名轉換當成全部轉換</td></tr>
+                <tr><td><b>載入 L</b></td><td>轉換完成的資料</td><td>寫入、匯入、更新目的表</td><td>目的資料庫或資料倉儲中的紀錄</td><td>把「匯入來源檔」和「寫入目的地」混為一談</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>資料清洗通常解決缺失、重複、錯誤與不一致，目標是提升完整性與可靠性；當這些規則在資料管線中被執行時，通常屬於轉換工作的範圍。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, THREE RESPONSIBILITIES</div>
+          <h2>五、家庭採買系統：一條管線走到底</h2>
+          <p>家庭想整理每週採買支出。原始資料來自電子收據、手動試算表與店家系統；最後要產生可供每週摘要使用的分析資料表。</p>
+          <div class="scenario-pipeline">
+            <div><span>01 · EXTRACT</span><b>把資料帶進來</b><p>下載電子收據 CSV、讀取試算表、呼叫店家系統取得 JSON；同時記錄來源與擷取時間。</p></div>
+            <div><span>02 · TRANSFORM</span><b>把資料變可用</b><p>統一日期與金額型態、對應品項分類、回查重複收據、計算含稅金額。</p></div>
+            <div><span>03 · LOAD</span><b>把結果放到目標</b><p>把符合規格的紀錄寫入分析資料庫，供每週摘要查詢；失敗批次保留紀錄以便重跑。</p></div>
+          </div>
+          <p><b>同一個名詞可以跨階段出現。</b>「資料庫」可能是擷取的來源，也可能是載入的目的地；要看題目說的是讀取還是寫入。</p>
+        </section>
+
+        <section class="block panel" id="quality">
+          <div class="section-kicker">QUALITY CONNECTS TO TRANSFORM</div>
+          <h2>六、前一課怎麼接上今天？</h2>
+          <div class="quality-to-etl">
+            <div><small>品質診斷</small><b>發現收據編號重複</b><p>這只是候選訊號，先查是否為同一事件。</p></div><i>→</i>
+            <div><small>原因確認</small><b>確認系統重送</b><p>有來源紀錄支持，才能決定去重規則。</p></div><i>→</i>
+            <div><small>轉換執行</small><b>保留正確一筆</b><p>在管線中套用規則，並記錄處理結果。</p></div>
+          </div>
+          <p>品質診斷回答「問題是什麼、原因是什麼」；轉換回答「依哪條規則怎麼處理」。因此，資料清洗與 Transform 高度相關，但 ETL 不只清洗：它還包含來源擷取與目的地載入。</p>
+        </section>
+
+        <section class="block panel" id="extension">
+          <div class="section-kicker">ADJACENT CONCEPT · ELT</div>
+          <h2>七、延伸辨析：ETL 與 ELT</h2>
+          <div class="etl-vs-elt">
+            <div><span>ETL</span><b>Extract → Transform → Load</b><p>先在管線中轉換，再把符合規格的資料載入目標。</p></div>
+            <div><span>ELT</span><b>Extract → Load → Transform</b><p>先把資料載入目標環境，再利用目標環境執行轉換。</p></div>
+          </div>
+          <p>兩者都要管理來源、規則、目的地與處理紀錄；最直接的判斷軸是<b>轉換發生在載入之前，還是之後</b>。初級作答若只問 ETL 三步，先守住 E、T、L 各自的主要動作。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>八、六組容易混淆處與題目訊號</h2>
+          <div style="overflow-x:auto">
+            <table class="compare">
+              <thead><tr><th>容易混淆</th><th>正確辨析</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td>蒐集 vs. 擷取</td><td>蒐集著重取得與形成資料來源；擷取著重從既有來源讀進管線。</td><td>問卷取得新資料看蒐集；查詢來源表看擷取。</td></tr>
+                <tr><td>擷取 vs. 轉換</td><td>讀取是 E；改值、改型態、統一規格是 T。</td><td>圈出「讀取」或「清理」。</td></tr>
+                <tr><td>清洗 vs. 轉換</td><td>清洗是 T 的常見工作，但 T 還可能整合、對應、計算與正規化。</td><td>不要把 Transform 縮成只刪錯誤。</td></tr>
+                <tr><td>型態轉換 vs. 載入</td><td>字串轉數值是 T；寫進目的表是 L。</td><td>看資料有沒有被寫到目的地。</td></tr>
+                <tr><td>來源資料庫 vs. 目的資料庫</td><td>資料庫名稱不能決定階段；讀來源是 E，寫目的地是 L。</td><td>看讀取或寫入方向。</td></tr>
+                <tr><td>ETL vs. 工具名稱</td><td>ETL 是流程概念，可由不同工具實作。</td><td>不要因題目出現 API、CSV 就直接選階段。</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="traps">
+          <div class="section-kicker">EXAM SIGNALS & TRAPS</div>
+          <h2>九、iPAS 四步判斷法</h2>
+          <ol class="checklist signal-list">
+            <li><b>圈出動詞：</b>讀取／下載是 E；清理／統一／計算是 T；寫入／匯入目的地是 L。</li>
+            <li><b>找出位置：</b>動作發生在來源端、處理中間，還是目的系統？</li>
+            <li><b>確認產物：</b>得到原始副本、符合規格的資料，還是目的表中的紀錄？</li>
+            <li><b>排除名詞干擾：</b>CSV、JSON、API、資料庫都可能跨階段出現，不能單獨決定答案。</li>
+          </ol>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"從既有來源下載檔案，是把資料帶進管線，主要屬於 Extract。"},q2:{answer:"C",explain:"統一日期格式與把文字金額轉成數值，都會改變資料以符合規格，屬於 Transform。"},q3:{answer:"A",explain:"把處理完成的紀錄寫入分析資料庫，是 Load；關鍵動詞是寫入目的地。"},q4:{answer:"D",explain:"資料庫可能是來源也可能是目的地；必須看題目描述的是讀取還是寫入。"},q5:{answer:"B",explain:"先確認同一事件與原因，再依規則去重；直接刪除可能誤刪合法的多次採買。"},q6:{answer:"C",explain:"ETL 先轉換再載入；ELT 先載入目標環境，再在其中轉換。"}})'>
+            <fieldset><legend>1. 系統每天從電子收據平台下載新的 CSV，主要屬於哪一步？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 資料載入</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 資料擷取</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 模型訓練</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 結果視覺化</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 把「2026/9/2」統一為標準日期，並把文字金額轉成數值，主要屬於哪一步？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 擷取</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 載入</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 轉換</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 部署</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 把符合規格的採買紀錄寫進每週分析資料庫，最符合哪一步？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 載入</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 擷取</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 資料蒐集</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 特徵選擇</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 題目只說「使用資料庫」，為什麼還不能直接判斷是 E 或 L？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 資料庫只能用於轉換</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> E 和 L 完全相同</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 資料庫不屬於資料處理</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 要看資料庫是讀取來源還是寫入目的地</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 轉換階段發現同一收據編號有兩筆，最合適的處理是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 一律刪除第二筆</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 先確認是否為同一事件，再依規則去重</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 把編號改成隨機值</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 直接改用平均數</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. ETL 與 ELT 最直接的差異是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 是否使用 CSV</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 是否包含任何資料來源</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 轉換發生在載入之前或之後</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 是否使用人工智慧模型</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜來源、處理、目的地</h2>
+          <p>自然台灣華語複習：用家庭採買系統串起 Extract、Transform、Load，並練習只看動詞與資料流向判斷階段。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day08-etl.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day08-etl.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以指引中的 ETL、資料清洗與資料轉換段落為主。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day08" onclick="toggleDone('day08',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-07.html">← Day 07｜四種資料品質訊號</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 09｜平均、中位數、標準差與分布（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#core">E、T、L 核心</a><a href="#relation">動作與位置</a><a href="#compare">比較表</a><a href="#scenario">貫穿情境</a><a href="#quality">品質銜接</a><a href="#extension">ETL 與 ELT</a><a href="#confuse">容易混淆</a><a href="#traps">判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
