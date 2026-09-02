@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="敘述統計概念統整：分清平均數、中位數、標準差與資料分布，依偏態與離群值選擇指標">
+  <title>Day 09｜平均數、中位數、標準差與分布</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab active" href="day-09.html" aria-current="page"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero stats-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 09</span></div>
+      <h1>平均數、中位數、<br>標準差與分布</h1>
+      <p class="memory-line">中心看典型，分散看差異，分布看全貌；先看形狀，再選指標。</p>
+      <p class="lede">不只會算，更要判斷：這個數字回答什麼？極端值會不會把結論拉走？</p>
+      <div class="meta"><span>Day 09</span><span>約 40–60 分鐘</span><span>概念統整＋家庭採買情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：處理完成，才開始描述資料</h2>
+          <div class="concept-path"><span>來源與品質</span><b class="arrow">›</b><span>ETL 整理</span><b class="arrow">›</b><span>敘述性統計</span><b class="arrow">›</b><span>視覺化、推論與建模</span></div>
+          <p>上位概念是「資料處理與分析」；本課下位概念分成中央趨勢、分散度與分布形狀。相鄰概念包括眾數、全距、四分位距與直方圖。官方初級科目一學習指引把資料處理與分析列為評鑑範圍，並以中央趨勢、分散度與資料分布說明敘述性統計。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置概念</small><b>資料品質與 ETL 先讓資料可用</b></div>
+            <div><small>本課核心</small><b>中心、分散、形狀要一起看</b></div>
+            <div><small>後續銜接</small><b>依問題選圖，再進入推論與建模</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="questions">
+          <div class="section-kicker">THREE QUESTIONS, NOT THREE FORMULAS</div>
+          <h2>二、三個層次，回答三種問題</h2>
+          <div class="stats-lenses">
+            <div><span>01 · CENTER</span><b>中央趨勢</b><p>資料的典型位置在哪裡？</p><small>平均數、中位數、眾數</small></div>
+            <div><span>02 · SPREAD</span><b>分散程度</b><p>資料彼此靠近，還是差異很大？</p><small>標準差、全距、四分位距</small></div>
+            <div><span>03 · SHAPE</span><b>分布形狀</b><p>資料對稱、偏斜，還是有長尾？</p><small>直方圖、箱型圖等</small></div>
+          </div>
+          <div class="summary-strip">只報平均數，可能藏住極端值；只報標準差，也不知道中心在哪裡。</div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">CENTER & SPREAD</div>
+          <h2>三、正確定義：重心、位置與距離</h2>
+          <div class="stat-definition-grid">
+            <div class="mean"><span>x̄</span><b>平均數 Mean</b><p>全部數值相加，再除以資料個數。使用每一筆資料，因此會受極端值影響。</p><code>平均數 = 總和 ÷ 個數</code></div>
+            <div class="median"><span>P50</span><b>中位數 Median</b><p>先排序，再找中間位置；偶數筆時取中間兩筆的平均。對極端值較穩健。</p><code>看排序位置，不看尾端距離</code></div>
+            <div class="sd"><span>σ / s</span><b>標準差 Standard Deviation</b><p>衡量資料相對平均數的分散程度。數值越大，代表資料通常離平均數越遠。</p><code>與原始資料使用相同單位</code></div>
+          </div>
+          <p>官方指引將平均數與中位數列為中央趨勢測量，並以標準差衡量分散程度；其中平均數與標準差會受極端值影響，中位數較不受極端值影響。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, FOUR READINGS</div>
+          <h2>四、家庭採買：同一組資料，四種讀法</h2>
+          <p>家庭整理一週七筆採買金額。六筆集中在 240～290 元，另有一筆一次性集中採買 1,210 元。</p>
+          <div class="receipt-row" aria-label="七筆採買金額">
+            <span>240</span><span>250</span><span>260</span><span class="mid">270<small>中位數</small></span><span>280</span><span>290</span><span class="outlier">1,210<small>極端高值</small></span>
+          </div>
+          <div class="scenario-readings">
+            <div><small>重心</small><b>平均數 400 元</b><p>總和 2,800 ÷ 7；被 1,210 元往上拉。</p></div>
+            <div><small>典型位置</small><b>中位數 270 元</b><p>排序後第 4 筆；較接近平常單筆金額。</p></div>
+            <div><small>分散</small><b>母體標準差約 331.1 元</b><p>本例把七筆視為全部觀察值；極端高值讓分散擴大。</p></div>
+            <div><small>形狀</small><b>右側長尾／正偏態</b><p>多數資料在左側，少數高值把尾巴拉向右。</p></div>
+          </div>
+          <p><b>關鍵不是選出唯一「正確」數字。</b>若問「全部金額攤平後的重心」，平均數有意義；若問「平常一筆大約多少」，中位數較貼近這組偏斜資料。</p>
+        </section>
+
+        <section class="block panel" id="contrast">
+          <div class="section-kicker">SAME CENTER, DIFFERENT SPREAD</div>
+          <h2>五、平均數一樣，不代表分布一樣</h2>
+          <div class="spread-compare">
+            <div><span>組 A · 集中</span><b>240, 250, 260, 270, 280, 290, 300</b><p>平均數 270｜中位數 270｜母體標準差 20</p><div class="dotline compact"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+            <div><span>組 B · 分散</span><b>90, 150, 210, 270, 330, 390, 450</b><p>平均數 270｜中位數 270｜母體標準差 120</p><div class="dotline wide"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          </div>
+          <p>兩組中心完全相同，但組 B 的資料離中心更遠，因此標準差更大。題目若問「哪一組較穩定／較集中」，不能只比較平均數。</p>
+        </section>
+
+        <section class="block panel" id="distribution">
+          <div class="section-kicker">SEE THE WHOLE SHAPE</div>
+          <h2>六、分布是全貌，不是第四個平均數</h2>
+          <div class="distribution-board">
+            <div class="histogram" aria-label="採買金額示意直方圖">
+              <div style="--h:0%"><i></i><small>0–199</small></div>
+              <div style="--h:92%"><i></i><small>200–399</small></div>
+              <div style="--h:0%"><i></i><small>400–799</small></div>
+              <div style="--h:0%"><i></i><small>800–999</small></div>
+              <div style="--h:18%"><i></i><small>1000+</small></div>
+            </div>
+            <div class="shape-notes"><b>看四件事</b><ol><li>中心落在哪裡</li><li>分散範圍多大</li><li>形狀是否對稱或偏斜</li><li>是否有離群值或多個群峰</li></ol></div>
+          </div>
+          <p>直方圖把連續數值切成區間，以柱高呈現各區間筆數，可觀察集中、分散與異常；但分組間隔會影響外觀，換一種組距可能看到不同形狀。[2]</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">CHOOSE BY QUESTION</div>
+          <h2>七、比較表：題目問什麼，就選什麼</h2>
+          <div style="overflow-x:auto">
+            <table class="compare stats-compare">
+              <thead><tr><th>概念</th><th>回答的問題</th><th>適合情況</th><th>主要陷阱</th></tr></thead>
+              <tbody>
+                <tr><td><b>平均數</b></td><td>全部數值的重心在哪裡？</td><td>數值資料大致對稱、無明顯極端值</td><td>把它當成每一筆都接近的「典型」</td></tr>
+                <tr><td><b>中位數</b></td><td>排序後中間位置在哪裡？</td><td>偏態分布、含極端值的數值資料</td><td>忘記偶數筆要取中間兩筆平均</td></tr>
+                <tr><td><b>標準差</b></td><td>資料離平均數有多分散？</td><td>比較同單位資料的集中與波動</td><td>把標準差大誤讀成平均數大</td></tr>
+                <tr><td><b>分布圖形</b></td><td>整體形狀、尾巴與異常如何？</td><td>先探索資料，再決定摘要方式</td><td>忽略組距、尺度或樣本數的影響</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>八、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>平均數 vs. 中位數：</b>出現「極端值、偏態、典型價格」先檢查中位數；出現「全部數值總和與個數」看平均數。</li>
+            <li><b>中心 vs. 分散：</b>平均數／中位數回答位置；標準差回答差異大小，不能互相替代。</li>
+            <li><b>標準差 vs. 變異數：</b>變異數是平方單位；標準差開根號後回到原單位。</li>
+            <li><b>母體 vs. 樣本：</b>概念相同但計算分母不同；題目要求計算時，先確認符號 σ 或 s 與資料範圍。</li>
+            <li><b>離群值 vs. 錯誤值：</b>遠離多數資料不代表錯誤；先查來源與情境，再決定保留或處理。</li>
+            <li><b>相關位置 vs. 絕對規則：</b>平均數大於中位數常是右偏訊號，但只靠兩個數仍不足以完整證明形狀，最好搭配圖形。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 四步判斷法</h2>
+          <div class="number-grid stats-method">
+            <div><b>01</b><span>先圈題目：問中心、分散，還是分布形狀？</span></div>
+            <div><b>02</b><span>看資料：是否偏斜、含極端值或類別資料？</span></div>
+            <div><b>03</b><span>配指標：平均／中位／眾數／標準差／圖形。</span></div>
+            <div><b>04</b><span>回到語意：數字大代表中心高，還是分散大？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"少數極端高值會把平均數拉高；中位數依排序位置，較適合描述這種偏態資料的典型金額。"},q2:{answer:"C",explain:"標準差衡量資料相對平均數的分散程度；越大代表資料通常越分散，不代表平均數一定較大。"},q3:{answer:"D",explain:"兩組平均數相同，只代表重心相同；分散、偏態、尾巴與離群值仍可能完全不同。"},q4:{answer:"A",explain:"多數值集中在較低處、少數高值把尾巴拉向右，是右偏或正偏態。"},q5:{answer:"C",explain:"離群值可能是真實事件；應先查來源與情境，不能看到極端值就自動刪除。"},q6:{answer:"B",explain:"變異數使用平方單位；標準差是變異數開根號，回到原資料的單位。"}})'>
+            <fieldset><legend>1. 一組採買金額含少數極端高價；若要描述「平常一筆」的典型金額，優先考慮哪個指標？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 全距</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 中位數</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 標準差</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 資料筆數</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 兩組資料的單位相同，其中甲組標準差明顯較大，最合理的解讀是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 甲組平均數一定較大</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 甲組筆數一定較多</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 甲組資料較分散</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 甲組一定沒有離群值</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 兩組資料的平均數都是 270，能直接得到哪個結論？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 標準差相同</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 分布形狀相同</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 每一筆資料都相同</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 兩組重心相同，但分散與形狀未必相同</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 多數資料集中在較低數值，少數極高值把尾巴往右拉，這種形狀稱為什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 右偏／正偏態</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 左偏／負偏態</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 完全平均</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 無法形成分布</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 看到一筆金額遠高於其他資料，最合適的第一步是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 立即刪除</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 立即改成平均數</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 查驗來源與情境，判斷是真實事件或錯誤</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 忽略所有其他資料</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 標準差比變異數更容易和原始資料一起解讀，主要原因是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 標準差不使用平均數</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 標準差回到原資料的單位</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 標準差永遠不受極端值影響</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 標準差只適用類別資料</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先看形狀，再選指標</h2>
+          <p>自然台灣華語複習：用七筆家庭採買金額，串起平均數、中位數、標準差、右偏分布與作答訊號。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day09-descriptive-statistics.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day09-descriptive-statistics.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以中央趨勢、分散度與直方圖段落為主。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day09" onclick="toggleDone('day09',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-08.html">← Day 08｜ETL</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 10｜資料視覺化如何選圖（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#questions">三種問題</a><a href="#definitions">正確定義</a><a href="#scenario">貫穿情境</a><a href="#contrast">同中心不同分散</a><a href="#distribution">分布全貌</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
