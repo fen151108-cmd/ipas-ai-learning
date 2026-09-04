@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="資料隱私、安全、權限與去識別概念統整：分清目的與權利、保護措施、存取控制與再識別風險">
+  <title>Day 11｜資料隱私、安全、權限與去識別</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab active" href="day-11.html" aria-current="page"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero privacy-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 11</span></div>
+      <h1>資料隱私、安全、<br>權限與去識別</h1>
+      <p class="memory-line">隱私管目的與權利，安全管保護，權限管誰能做什麼，去識別管降低辨識風險。</p>
+      <p class="lede">四個詞不是同義詞。先分清各自回答的問題，再判斷控制措施放在哪一層。</p>
+      <div class="meta"><span>Day 11</span><span>約 40–60 分鐘</span><span>概念統整＋活動報名情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：資料能分析，不代表就能任意使用</h2>
+          <div class="concept-path"><span>來源、品質與 ETL</span><b class="arrow">›</b><span>統計與視覺化</span><b class="arrow">›</b><span>隱私、安全與資料治理</span><b class="arrow">›</b><span>機器學習資料準備</span></div>
+          <p>上位概念是「資料處理與分析治理」；本課下位概念是目的限制、安全維護、存取控制與去識別。相鄰概念包括資料最小化、保存期限、加密、稽核與事件應變。前置工作是知道資料從哪裡來、品質如何；後續才是把可合法且受保護的資料送進特徵工程、訓練與評估。官方初級科目一評鑑內容把「資料隱私與安全」列在資料處理與分析概念之下。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>知道資料內容、來源與用途</b></div>
+            <div><small>本課</small><b>目的 × 風險 × 控制措施</b></div>
+            <div><small>後續</small><b>受治理的模型資料生命週期</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="four-questions">
+          <div class="section-kicker">FOUR DIFFERENT QUESTIONS</div>
+          <h2>二、四個概念，各回答一個問題</h2>
+          <div class="privacy-grid">
+            <div><span>01 · PRIVACY</span><b>隱私</b><p>為什麼蒐集？能否使用？使用到哪裡？當事人有哪些權利？</p><small>界定正當用途與權利邊界</small></div>
+            <div><span>02 · SECURITY</span><b>安全</b><p>如何避免資料遭未授權讀取、竄改、毀損、滅失或洩漏？</p><small>保護資料與系統</small></div>
+            <div><span>03 · ACCESS</span><b>權限</b><p>哪一種角色可以看、改、匯出或刪除哪些資料？</p><small>把規則落到可執行控制</small></div>
+            <div><span>04 · DE-ID</span><b>去識別</b><p>如何降低資料與特定個人重新連結的可能？</p><small>降低揭露與再識別風險</small></div>
+          </div>
+          <div class="summary-strip">隱私決定「應不應該」；安全與權限處理「怎麼保護」；去識別處理「如何降低辨識風險」。</div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">PRECISE DEFINITIONS</div>
+          <h2>三、正確定義與關係</h2>
+          <div class="definition-stack">
+            <div><b>資料隱私</b><p>關心個人資料蒐集、處理與利用的目的、必要範圍、透明度與當事人權利。臺灣《個人資料保護法》把可直接或間接識別個人的資料納入個人資料，並要求蒐集、處理或利用不得逾越特定目的的必要範圍。[3]</p></div>
+            <div><b>資料安全</b><p>以管理與技術措施防止資料被未授權取得、竄改、毀損、滅失或洩漏。安全措施可以保護資料，但不能把不當的蒐集目的自動變正當。[3]</p></div>
+            <div><b>存取控制</b><p>依身分、角色與條件，允許或拒絕對資訊及相關服務的特定請求。常見動作不只「看」，還包括新增、修改、匯出與刪除；最小權限是只給完成任務所需的權限。[4]</p></div>
+            <div><b>去識別</b><p>移除或改變識別資料與資料主體之間的連結，以降低揭露風險，同時盡量保留分析價值。NIST 強調應評估發布去識別資料可能造成的風險，也提醒單純遮罩個人資訊的工具未必足以完成去識別。[5]</p></div>
+          </div>
+          <div class="relationship-diagram" aria-label="四個概念關係圖">
+            <div class="privacy-core"><small>隱私規則</small><b>目的、必要性、透明、權利</b></div>
+            <i>決定邊界</i>
+            <div class="privacy-controls"><small>安全控制</small><b>權限、加密、備份、稽核</b></div>
+            <i>降低風險</i>
+            <div class="privacy-output"><small>資料使用</small><b>原始資料／受限資料／去識別資料</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, LAYERED CONTROLS</div>
+          <h2>四、貫穿情境：社區活動報名資料怎麼分流</h2>
+          <p>系統蒐集活動報名資料：報名編號、聯絡方式、餐點需求與報到時間。活動團隊要完成通知、備餐與成效分析，但每個角色不需要看到全部欄位。</p>
+          <div class="data-layers">
+            <div><span>直接識別</span><b>聯絡方式</b><p>可直接連到特定報名者，僅通知角色在必要期間內使用。</p></div>
+            <div><span>準識別／間接線索</span><b>時段、區域、罕見需求</b><p>單欄未必能指向個人，組合後仍可能縮小到少數人。</p></div>
+            <div><span>分析欄位</span><b>餐點類別、報到時間</b><p>分析需求不等於需要保留聯絡方式。</p></div>
+          </div>
+          <div class="role-matrix" role="table" aria-label="角色與資料權限">
+            <div class="role-head" role="row"><b role="columnheader">角色</b><b role="columnheader">可用資料</b><b role="columnheader">理由</b></div>
+            <div role="row"><span role="cell">通知人員</span><strong role="cell">報名編號＋聯絡方式</strong><small role="cell">完成通知，不需查看整份分析資料</small></div>
+            <div role="row"><span role="cell">餐點人員</span><strong role="cell">各餐點需求總數</strong><small role="cell">只需彙總，不需識別報名者</small></div>
+            <div role="row"><span role="cell">分析人員</span><strong role="cell">隨機代碼＋時段＋需求類別</strong><small role="cell">使用去識別分析副本，另控管對照表</small></div>
+            <div role="row"><span role="cell">系統管理</span><strong role="cell">維運所需系統權限</strong><small role="cell">能維運不代表可任意瀏覽內容</small></div>
+          </div>
+          <p><b>完整作法是一串控制，不是一個按鈕。</b>先說明目的並只蒐集必要欄位，再依角色設定權限；分析副本移除直接識別欄位、把罕見值分組，對照表分開保存；活動結束後依保存規則刪除或封存。</p>
+        </section>
+
+        <section class="block panel" id="deidentify">
+          <div class="section-kicker">DE-IDENTIFICATION IS A PROCESS</div>
+          <h2>五、刪掉姓名，為什麼還不一定安全？</h2>
+          <div class="risk-route">
+            <div><small>原始資料</small><b>聯絡方式＋時段＋區域＋需求</b></div><i>移除直接識別欄位 →</i>
+            <div><small>仍有組合風險</small><b>罕見時段＋小區域＋特殊需求</b></div><i>分組／泛化／抑制 →</i>
+            <div><small>發布前檢查</small><b>用途、對象、環境、再識別風險</b></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="compare privacy-compare">
+              <thead><tr><th>方法</th><th>做了什麼</th><th>主要用途</th><th>不能保證</th></tr></thead>
+              <tbody>
+                <tr><td><b>遮罩</b></td><td>畫面只顯示部分字元</td><td>減少操作畫面暴露</td><td>底層資料已去識別</td></tr>
+                <tr><td><b>代碼化／假名化</b></td><td>以代碼替代直接識別欄位，對照表分開控管</td><td>降低日常處理暴露</td><td>無法再連回個人</td></tr>
+                <tr><td><b>泛化／分組</b></td><td>把精確值改為區間或較大區域</td><td>降低準識別組合的唯一性</td><td>任何資料集都沒有再識別風險</td></tr>
+                <tr><td><b>加密</b></td><td>使用金鑰把資料轉為不可直接讀取的形式</td><td>保護傳輸與儲存</td><td>解密後資料不再受隱私規則約束</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mini-callout"><b>去識別不是「從此匿名」的口號。</b><span>要連同其他可取得資料、使用環境、資料接收者與發布方式，評估是否仍可能再識別。[5]</span></div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>六、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>隱私 vs. 安全：</b>「用途、告知、同意、當事人權利」偏隱私；「外洩、竄改、備份、加密」偏安全。安全做得好，不代表蒐集目的就合理。</li>
+            <li><b>身分驗證 vs. 授權：</b>驗證回答「你是誰」；授權回答「你能做什麼」。成功登入不等於可以看全部資料。</li>
+            <li><b>權限 vs. 職稱：</b>題目要看工作任務與必要範圍，不是職稱越高就自動擁有所有欄位。</li>
+            <li><b>遮罩 vs. 去識別：</b>畫面顯示星號可能只是介面遮蔽；若底層仍可還原或與其他欄位連結，就不能直接宣稱完成去識別。</li>
+            <li><b>加密 vs. 去識別：</b>加密靠金鑰控制可讀性；去識別降低資料與特定個人的連結。兩者可同時使用，但回答不同風險。</li>
+            <li><b>移除直接識別欄位 vs. 無法再識別：</b>時段、區域與罕見特徵等準識別欄位仍可能組合定位個人，刪掉姓名不是終點。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>七、iPAS 五步判斷法</h2>
+          <div class="number-grid privacy-method">
+            <div><b>01</b><span>找對象：這些欄位能否直接或間接識別個人？</span></div>
+            <div><b>02</b><span>找目的：為何蒐集、現在使用是否仍在必要範圍？</span></div>
+            <div><b>03</b><span>找角色：誰需要執行哪個動作，最小權限是什麼？</span></div>
+            <div><b>04</b><span>找風險：未授權讀取、竄改、遺失或再識別？</span></div>
+            <div><b>05</b><span>配控制：告知、限縮、權限、加密、稽核、去識別或刪除。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"是否逾越原先告知的目的與必要範圍，是隱私與目的限制問題；系統有加密並不會自動讓新用途變正當。"},q2:{answer:"D",explain:"登入只完成身分驗證；還要依任務授權。餐點人員只需彙總需求，不需要聯絡方式。"},q3:{answer:"A",explain:"去識別要處理直接識別欄位與準識別組合，並評估資料接收者、外部資料與使用環境造成的再識別風險。"},q4:{answer:"C",explain:"加密用金鑰控制可讀性，解密後仍可能連到個人；去識別著重降低資料與特定個人的連結，兩者可並用。"},q5:{answer:"B",explain:"最小權限要求只給完成任務所需的動作與資料，不是依職稱大小或方便性給整庫權限。"},q6:{answer:"D",explain:"安全措施降低外洩與竄改風險，但隱私仍要檢查目的、必要範圍、透明與當事人權利。"}})'>
+            <fieldset><legend>1. 報名資料原本只用於活動通知，團隊想直接拿來做無關的行銷分析。即使資料庫已加密，第一個要檢查什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 圖表顏色是否一致</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 新用途是否符合原目的與必要範圍</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 硬碟容量是否更大</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 是否改成折線圖</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 餐點人員已成功登入報名系統，哪個權限設計最合理？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 可查看與匯出所有欄位</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 可刪除任何報名紀錄</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 登入後自動成為系統管理員</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 只查看各餐點需求的彙總數量</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 分析副本已刪除聯絡方式，但保留罕見時段、小區域與特殊需求。最合理的下一步是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 評估欄位組合與外部資料造成的再識別風險</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 直接宣稱資料完全匿名</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 公開對照表方便查詢</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 增加更多直接識別欄位</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 哪一句最正確地區分加密與去識別？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 兩者完全相同</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 加密後資料永遠不能還原</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 加密控制可讀性；去識別降低與個人的連結</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 去識別只是在畫面顯示星號</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 下列哪一項最符合「最小權限」？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 為避免申請麻煩，所有人先給最高權限</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只給角色完成當前任務所需的資料與動作</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 職稱較高就能匯出全部資料</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 共用同一組管理者帳號</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 系統有強密碼、加密與備份，可以直接得到哪個結論？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 所有蒐集目的都合理</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 當事人權利已自動處理完畢</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 資料可以永久保存</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 安全已有部分控制，但仍要另外檢查隱私邊界</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜四個問題，四層控制</h2>
+          <p>自然台灣華語複習：用社區活動報名資料，串起目的限制、安全維護、最小權限、準識別欄位與再識別風險。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day11-data-privacy.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day11-data-privacy.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一》114.12.03 版；定義補充採用全國法規資料庫現行頁面，以及 NIST 的存取控制詞彙與 2023 年 9 月去識別指引。法規頁註記部分條文尚未生效，實務適用仍應查核個案與生效狀態。本站測驗為原創理解題，不是官方考題。[1][2][3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://law.moj.gov.tw/LawClass/LawAll.aspx?pcode=I0050021 — 全國法規資料庫｜個人資料保護法（修正日期：民國 114 年 11 月 11 日；頁面註記部分條文尚未生效）
+[4] https://csrc.nist.gov/glossary/term/access_control — NIST CSRC Glossary｜Access Control
+[5] https://csrc.nist.gov/pubs/sp/800/188/final — NIST SP 800-188｜De-Identifying Government Datasets（2023-09）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day11" onclick="toggleDone('day11',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-10.html">← Day 10｜資料視覺化</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 12｜特徵、標籤、參數與輸出（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#four-questions">四個問題</a><a href="#definitions">定義與關係</a><a href="#scenario">貫穿情境</a><a href="#deidentify">去識別流程</a><a href="#confuse">容易混淆</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="資料視覺化概念統整：依比較、趨勢、分布、關係與組成，選擇長條圖、折線圖、直方圖、散佈圖與圓餅圖">
+  <title>Day 10｜資料視覺化如何選圖</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab active" href="day-10.html" aria-current="page"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero viz-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 02・資料與分析</span><span>›</span><span>Day 10</span></div>
+      <h1>資料視覺化<br>如何選圖</h1>
+      <p class="memory-line">先問問題，再看變數；比較用長條、趨勢用折線、分布用直方、關係用散佈。</p>
+      <p class="lede">圖不是裝飾，而是把資料問題轉成位置、長度、方向與形狀。先辨認任務，才選圖。</p>
+      <div class="meta"><span>Day 10</span><span>約 40–60 分鐘</span><span>概念統整＋家庭採買紀錄＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：摘要數字之後，把問題變成圖形</h2>
+          <div class="concept-path"><span>資料品質與 ETL</span><b class="arrow">›</b><span>敘述統計</span><b class="arrow">›</b><span>視覺化編碼</span><b class="arrow">›</b><span>探索、溝通與建模</span></div>
+          <p>上位概念是「資料處理與分析」；本課下位概念是圖表選擇與視覺編碼。相鄰概念包括中央趨勢、分散度、相關性與探索性分析。前置工作要先讓資料正確可用；後續才是從圖形發現模式、提出假設或支援決策。官方初級科目一學習指引把直方圖、散佈圖與折線圖列在敘述性分析的圖表工具中，並說明各自用途與限制。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>資料型態與品質已確認</b></div>
+            <div><small>本課</small><b>問題 × 變數 → 合適圖形</b></div>
+            <div><small>後續</small><b>探索關係，再進入建模</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="decision">
+          <div class="section-kicker">QUESTION FIRST</div>
+          <h2>二、第一層判斷：你到底要看什麼？</h2>
+          <div class="viz-question-grid">
+            <div><span>01 · COMPARE</span><b>比較</b><p>各類別誰高、誰低？</p><small>長條圖</small></div>
+            <div><span>02 · TREND</span><b>趨勢</b><p>數值隨時間如何變？</p><small>折線圖</small></div>
+            <div><span>03 · DISTRIBUTION</span><b>分布</b><p>單一數值集中、分散或偏斜嗎？</p><small>直方圖／箱型圖</small></div>
+            <div><span>04 · RELATION</span><b>關係</b><p>兩個數值是否一起變動？</p><small>散佈圖</small></div>
+            <div><span>05 · COMPOSITION</span><b>組成</b><p>少數類別占整體多少？</p><small>圓餅圖／百分比長條</small></div>
+          </div>
+          <div class="summary-strip">不要先問「哪張圖最好看」；先問「這張圖要回答哪一個問題」。</div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE DATASET, FIVE QUESTIONS</div>
+          <h2>三、貫穿情境：同一份家庭採買紀錄，問題不同就換圖</h2>
+          <p>家庭整理八週採買紀錄。每一筆都有日期、類別、金額與採買時間。資料沒有變，改變的是提問方式。</p>
+          <div class="record-schema" aria-label="採買紀錄欄位示意">
+            <div><small>日期</small><b>第 1～8 週</b><span>有順序的時間</span></div>
+            <div><small>類別</small><b>食材／日用品／交通</b><span>類別變數</span></div>
+            <div><small>金額</small><b>每筆支出</b><span>數值變數</span></div>
+            <div><small>採買時間</small><b>分鐘</b><span>數值變數</span></div>
+          </div>
+          <div class="question-route">
+            <div><b>各類別總支出誰較高？</b><span>比較 → 長條圖</span></div>
+            <div><b>八週總支出如何起伏？</b><span>時間趨勢 → 折線圖</span></div>
+            <div><b>每筆金額集中在哪些區間？</b><span>分布 → 直方圖</span></div>
+            <div><b>時間較久是否常伴隨較高金額？</b><span>兩數值關係 → 散佈圖</span></div>
+            <div><b>三類支出各占整體多少？</b><span>組成 → 圓餅圖或百分比長條</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="gallery">
+          <div class="section-kicker">CHART CLINIC</div>
+          <h2>四、五種圖，五種閱讀任務</h2>
+          <div class="chart-clinic">
+            <div class="chart-case">
+              <div><span>COMPARE</span><h3>長條圖：類別之間比大小</h3><p>橫軸放類別，長度或高度表達數值。類別本身沒有連續關係，所以柱子通常留空隙。</p></div>
+              <div class="mini-bar" aria-label="類別支出長條圖示意"><i style="--v:78%"><small>食材</small></i><i style="--v:52%"><small>日用</small></i><i style="--v:34%"><small>交通</small></i></div>
+            </div>
+            <div class="chart-case">
+              <div><span>TREND</span><h3>折線圖：沿有意義順序看變化</h3><p>資料點依時間等連續順序連接，強調上升、下降與轉折。官方指引也指出折線圖用來顯示隨時間或其他連續變數的變化趨勢。[2]</p></div>
+              <div class="mini-line" aria-label="八週支出折線圖示意"><svg viewBox="0 0 260 120" role="img"><path class="gridline" d="M8 20H252M8 60H252M8 100H252"/><polyline points="10,85 44,67 78,76 112,38 146,52 180,26 214,46 250,30"/><g><circle cx="10" cy="85" r="4"/><circle cx="44" cy="67" r="4"/><circle cx="78" cy="76" r="4"/><circle cx="112" cy="38" r="4"/><circle cx="146" cy="52" r="4"/><circle cx="180" cy="26" r="4"/><circle cx="214" cy="46" r="4"/><circle cx="250" cy="30" r="4"/></g></svg></div>
+            </div>
+            <div class="chart-case">
+              <div><span>DISTRIBUTION</span><h3>直方圖：一個數值變數切區間</h3><p>每根柱代表一段數值區間，柱高代表落在區間內的筆數。相鄰區間連續，所以柱子相接；組距不同，圖形外觀也可能改變。[2]</p></div>
+              <div class="mini-hist" aria-label="每筆金額直方圖示意"><i style="--v:22%"></i><i style="--v:60%"></i><i style="--v:92%"></i><i style="--v:70%"></i><i style="--v:36%"></i><i style="--v:14%"></i></div>
+            </div>
+            <div class="chart-case">
+              <div><span>RELATION</span><h3>散佈圖：兩個數值配成一個點</h3><p>每筆紀錄以一對數值決定位置，可觀察線性、非線性、無明顯關係與異常點；點太多時也可能重疊而難以閱讀。[2]</p></div>
+              <div class="mini-scatter" aria-label="採買時間與金額散佈圖示意"><i style="--x:12%;--y:24%"></i><i style="--x:22%;--y:34%"></i><i style="--x:35%;--y:38%"></i><i style="--x:48%;--y:54%"></i><i style="--x:57%;--y:46%"></i><i style="--x:68%;--y:66%"></i><i style="--x:80%;--y:74%"></i><i style="--x:89%;--y:82%"></i></div>
+            </div>
+            <div class="chart-case">
+              <div><span>COMPOSITION</span><h3>圓餅圖：少數類別的整體占比</h3><p>整個圓代表百分之百。只在類別少、合計確實構成整體，而且重點是粗略占比時使用；若要精確比較接近數值，長條圖通常更清楚。</p></div>
+              <div class="mini-pie" role="img" aria-label="三類支出占比圓餅圖示意"><span>整體<br>100%</span></div>
+            </div>
+          </div>
+        </section>
+
+        <section class="block panel" id="variables">
+          <div class="section-kicker">VARIABLE CHECK</div>
+          <h2>五、第二層判斷：數一數變數、辨認型態</h2>
+          <div style="overflow-x:auto">
+            <table class="compare viz-compare">
+              <thead><tr><th>問題結構</th><th>常見圖形</th><th>本課情境</th><th>不能直接回答</th></tr></thead>
+              <tbody>
+                <tr><td><b>1 類別＋1 數值</b></td><td>長條圖</td><td>類別與總支出</td><td>每筆金額的分布形狀</td></tr>
+                <tr><td><b>1 時間＋1 數值</b></td><td>折線圖</td><td>週次與每週總額</td><td>兩個非時間數值的關係</td></tr>
+                <tr><td><b>1 數值</b></td><td>直方圖／箱型圖</td><td>每筆金額</td><td>個別紀錄的精確值</td></tr>
+                <tr><td><b>2 數值</b></td><td>散佈圖</td><td>分鐘與金額</td><td>因果方向</td></tr>
+                <tr><td><b>1 類別＋占整體比率</b></td><td>圓餅圖／百分比長條</td><td>類別支出占比</td><td>很多接近比例的精確排序</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mini-callout"><b>有時最佳答案不是圖。</b><span>若任務只要查三個精確數字，表格可能比圖更直接；視覺化的價值是讓模式更容易被看見。</span></div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>六、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>長條圖 vs. 直方圖：</b>「類別比較」選長條圖；「連續數值切區間看分布」選直方圖。不要只看兩者都有柱子。</li>
+            <li><b>折線圖 vs. 長條圖：</b>出現「隨時間、連續順序、趨勢、轉折」優先想折線；互不連續類別比較則想長條。</li>
+            <li><b>散佈圖 vs. 折線圖：</b>散佈圖看兩個數值變數的配對關係，不必依時間相連；折線圖的連線順序本身有意義。</li>
+            <li><b>相關 vs. 因果：</b>散佈圖呈現一起變動，不足以單獨證明其中一個變數造成另一個變數。</li>
+            <li><b>圓餅圖 vs. 長條圖：</b>「占整體多少」且類別少可考慮圓餅；「精確比較、排序、類別多」優先長條。</li>
+            <li><b>圖形效果 vs. 資料事實：</b>截短座標軸、改變組距或混用比例與原始值，都可能改變視覺印象；先檢查尺度、單位與分母。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>七、iPAS 五步選圖法</h2>
+          <div class="number-grid viz-method">
+            <div><b>01</b><span>圈動詞：比較、趨勢、分布、關係或組成？</span></div>
+            <div><b>02</b><span>數變數：一個，還是兩個？</span></div>
+            <div><b>03</b><span>辨型態：類別、數值，還是有順序的時間？</span></div>
+            <div><b>04</b><span>配圖形：長條、折線、直方、散佈或占比圖。</span></div>
+            <div><b>05</b><span>查陷阱：尺度、組距、重疊、分母與因果誤讀。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"問題要比較互不連續的採買類別總額，屬於一個類別變數加一個數值變數，長條圖最直接。"},q2:{answer:"B",explain:"八週有明確時間順序，重點是上升、下降與轉折，因此折線圖最適合呈現趨勢。"},q3:{answer:"D",explain:"直方圖把單一連續數值切成區間，柱高表示各區間筆數；它和比較類別的長條圖不同。"},q4:{answer:"A",explain:"每筆紀錄同時有採買時間與金額兩個數值，散佈圖可觀察兩者是否一起變動，但不能單憑圖形證明因果。"},q5:{answer:"C",explain:"圓餅圖重點是少數類別占整體的粗略比例；類別多且數值接近時，角度不易精確比較，長條圖較清楚。"},q6:{answer:"B",explain:"組距會影響直方圖外觀；應檢查多種合理組距與原始資料，不能把單一分組方式當成唯一事實。"}})'>
+            <fieldset><legend>1. 要比較「食材、日用品、交通」三類採買總額，最直接的圖形是哪一種？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 散佈圖</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 直方圖</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 長條圖</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 折線圖</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 要看八週採買總額的上升、下降與轉折，優先選哪一種圖？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 圓餅圖</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 折線圖</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 散佈圖</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 雷達圖</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 哪一句最正確地區分直方圖與長條圖？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 只有長條圖能使用數字</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 直方圖只能表示時間</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 兩者用途完全相同</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 直方圖看數值區間分布；長條圖比較類別</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 每筆採買都有「花費分鐘」與「金額」，想看兩者關係，最適合怎麼做？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 畫散佈圖，但不把相關直接說成因果</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 畫圓餅圖並證明因果</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 只算類別個數</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 把兩欄文字接起來</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 哪種情況最不適合圓餅圖？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 三個類別合計為整體</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只需看粗略占比</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 類別很多、比例接近，還要精確排序</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 整個圓代表百分之百</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 同一份每筆金額資料，換了直方圖組距後看起來不同，最合理的處理是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 認定其中一張一定造假</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 比較合理組距並回看原始資料</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 把所有柱子改成同高</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 改用姓名欄位分組</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先問問題，再看變數</h2>
+          <p>自然台灣華語複習：用同一份家庭採買紀錄，串起比較、趨勢、分布、關係、組成與常見作答陷阱。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day10-data-visualization.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day10-data-visualization.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源頁與其中提供的《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以敘述性分析中的直方圖、散佈圖、折線圖，以及探索性分析的箱型圖等段落為主。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day10" onclick="toggleDone('day10',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-09.html">← Day 09｜敘述統計</a><a href="day-11.html">Day 11｜隱私、安全、權限與去識別 →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#decision">問題先行</a><a href="#scenario">貫穿情境</a><a href="#gallery">五種圖形</a><a href="#variables">變數檢查</a><a href="#confuse">容易混淆</a><a href="#method">五步選圖法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
