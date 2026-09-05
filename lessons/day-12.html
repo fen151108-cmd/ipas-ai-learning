@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="機器學習基本語言概念統整：分清特徵、標籤、參數、超參數與模型輸出">
+  <title>Day 12｜特徵、標籤、參數與輸出</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab active" href="day-12.html" aria-current="page"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero ml-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 12</span></div>
+      <h1>特徵、標籤、<br>參數與輸出</h1>
+      <p class="memory-line">特徵是給模型看的線索，標籤是訓練時的已知答案，參數是學到的規則，輸出是模型的新判斷。</p>
+      <p class="lede">先把資料端、模型內部與推論結果分成三層；看清一個詞在哪一層，題目就不容易混。</p>
+      <div class="meta"><span>Day 12</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從可用資料，走進模型學習</h2>
+          <div class="concept-path"><span>資料治理與前處理</span><b class="arrow">›</b><span>特徵與目標</span><b class="arrow">›</b><span>訓練與參數</span><b class="arrow">›</b><span>預測、評估與部署</span></div>
+          <p>上位概念是「機器學習基本原理」；本課下位概念是輸入特徵、訓練標籤、模型參數與推論輸出。相鄰概念包括超參數、損失函數、分類與迴歸。前置工作是資料蒐集、清理與轉換；後續才會比較監督式、非監督式與強化學習，以及訓練、驗證、測試和評估。官方初級科目一把「機器學習基本原理」列在機器學習概念之下，並以準備訓練資料、訓練模型、測試與評估描述基本流程。[1][2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>資料可用、目的清楚</b></div>
+            <div><small>本課</small><b>輸入 × 答案 × 學習 × 輸出</b></div>
+            <div><small>後續</small><b>學習方式、任務與評估</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="four-roles">
+          <div class="section-kicker">FOUR ROLES</div>
+          <h2>二、四個詞，分屬資料、模型與結果</h2>
+          <div class="ml-role-grid">
+            <div><span>DATA · INPUT</span><b>特徵 Feature</b><p>描述每筆樣本、提供模型判斷線索的輸入變數。</p><small>推論時通常也要提供</small></div>
+            <div><span>DATA · TARGET</span><b>標籤 Label</b><p>監督式學習中，每筆訓練樣本對應的已知答案或目標值。</p><small>訓練用；新資料通常未知</small></div>
+            <div><span>MODEL · LEARNED</span><b>參數 Parameter</b><p>模型在訓練過程中，根據資料與誤差調整出的內部數值。</p><small>是學到的，不是每筆資料欄位</small></div>
+            <div><span>RESULT · PREDICTED</span><b>輸出 Output</b><p>模型收到新輸入後產生的預測，例如類別、機率或數值。</p><small>要和真實答案分開</small></div>
+          </div>
+          <div class="summary-strip">資料告訴模型「看什麼」與「訓練時答案是什麼」；訓練改變參數；推論再產生輸出。</div>
+        </section>
+
+        <section class="block panel" id="relationship">
+          <div class="section-kicker">TRAINING VS INFERENCE</div>
+          <h2>三、最重要的關係圖：訓練和推論不是同一條路</h2>
+          <div class="ml-lanes" aria-label="訓練與推論關係圖">
+            <div class="lane-label"><span>TRAIN</span><b>訓練</b></div>
+            <div class="lane-flow"><span>特徵 X</span><i>＋</i><span>標籤 y</span><i>→</i><span>計算誤差</span><i>→</i><strong>調整參數 θ</strong></div>
+            <div class="lane-label"><span>INFER</span><b>推論</b></div>
+            <div class="lane-flow"><span>新特徵 X</span><i>＋</i><strong>已學參數 θ</strong><i>→</i><span>模型</span><i>→</i><span>預測輸出 ŷ</span></div>
+          </div>
+          <p>官方指引說明，監督式學習使用帶有標記的訓練資料，讓模型學習輸入特徵與對應標記之間的關聯；訓練過程會調整內部參數，再對未見資料進行分類或數值預測。[2]</p>
+          <div class="mini-callout"><b>請注意 y 和 ŷ。</b><span>y 是資料中已知的真實答案；ŷ 是模型算出的預測。兩者的差異可被損失函數量化，成為更新參數的依據。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, TWO MOMENTS</div>
+          <h2>四、貫穿情境：店家預測訂單能否準時備妥</h2>
+          <p>店家希望在接單時預測「十五分鐘內能否備妥」。歷史訂單已有實際完成結果；新訂單剛進來時，結果還沒發生。</p>
+          <div class="order-schema" aria-label="訂單資料角色示意">
+            <div><small>特徵</small><b>品項數、時段、目前待處理量、客製項目數</b><span>接單時已知，可作為模型輸入</span></div>
+            <div><small>標籤</small><b>歷史訂單是否在十五分鐘內完成</b><span>由實際結果得到，供監督式訓練使用</span></div>
+            <div><small>參數</small><b>各種線索在模型內形成的權重或切分規則</b><span>訓練演算法根據資料調整</span></div>
+            <div><small>輸出</small><b>新訂單準時機率與預測類別</b><span>例如「較可能準時」，不是既成事實</span></div>
+          </div>
+          <div class="scenario-pair">
+            <div><span>歷史資料 · 訓練時</span><h3>答案已經知道</h3><p>系統同時讀取特徵與真實完成結果，算出預測誤差，反覆調整模型參數。</p></div>
+            <div><span>新訂單 · 推論時</span><h3>答案還沒發生</h3><p>系統只取得當下特徵，套用已學參數，輸出機率或類別；之後才可拿實際結果評估。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">PRECISE DEFINITIONS</div>
+          <h2>五、定義再收緊：一個欄位的角色由任務決定</h2>
+          <div style="overflow-x:auto">
+            <table class="compare ml-compare">
+              <thead><tr><th>概念</th><th>它回答什麼</th><th>由誰／如何得到</th><th>本課情境</th><th>常見誤解</th></tr></thead>
+              <tbody>
+                <tr><td><b>特徵</b></td><td>模型拿什麼線索做判斷？</td><td>由原始資料選擇、轉換或萃取</td><td>時段、品項數、待處理量</td><td>所有蒐集欄位都一定要放入模型</td></tr>
+                <tr><td><b>標籤／目標</b></td><td>訓練時希望模型學會預測什麼？</td><td>由歷史結果、量測或可靠標註取得</td><td>是否在十五分鐘內完成</td><td>模型的預測就是標籤</td></tr>
+                <tr><td><b>參數</b></td><td>模型內部學到了哪些數值？</td><td>訓練演算法為降低誤差而更新</td><td>內部權重或切分規則</td><td>由人直接指定且不會改</td></tr>
+                <tr><td><b>輸出／預測</b></td><td>模型對這筆新資料判斷什麼？</td><td>特徵通過已訓練模型後產生</td><td>準時機率或預測類別</td><td>輸出一定等於真實結果</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>同一欄位可能因任務而改變角色。例如「實際備貨分鐘數」若是要預測的數值，就是目標；若另一個任務要預測使用者是否取消，而接單時已知估計等待時間，它才可能成為輸入特徵。角色看任務與時間點，不只看欄位名稱。</p>
+        </section>
+
+        <section class="block panel" id="parameter">
+          <div class="section-kicker">PARAMETER CLINIC</div>
+          <h2>六、參數 vs. 超參數：一個由模型學，一個先由流程設定</h2>
+          <div class="parameter-split">
+            <div><span>LEARNED</span><b>模型參數</b><p>在訓練中根據資料與損失更新，例如線性模型的權重與截距、神經網路的連接權重。</p><small>題目訊號：訓練學到、反覆更新、模型內部</small></div>
+            <div><span>CONFIGURED</span><b>超參數</b><p>訓練開始前或調校流程中設定，用來控制學習方式或模型複雜度，例如學習率、樹的深度、群數。</p><small>題目訊號：事先設定、調校、控制訓練</small></div>
+          </div>
+          <p>官方指引在生成式模型訓練段落，將優化器更新的模型參數與學習率、批次大小等超參數分開描述，反映兩者在學習流程中的不同角色。[2]</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>原始資料 vs. 特徵：</b>資料庫有欄位，不代表都適合當特徵；還要看預測當下是否可取得、是否與任務有關、是否造成洩漏或不當使用。</li>
+            <li><b>特徵 vs. 標籤：</b>「拿來判斷的線索」是特徵；「希望模型學會預測的答案」是標籤或目標。</li>
+            <li><b>標籤 vs. 模型輸出：</b>標籤是真實或既知答案；輸出是模型預測。題目出現「預測結果」不要直接選標籤。</li>
+            <li><b>參數 vs. 超參數：</b>訓練中從資料學到的是參數；事先設定或透過調校選擇的是超參數。</li>
+            <li><b>輸出機率 vs. 真實事實：</b>「準時機率八成」是模型信心表達，不是事件已經發生，也不保證每次都正確。</li>
+            <li><b>分類輸出 vs. 迴歸輸出：</b>預測「準時／逾時」是類別；預測「需要幾分鐘」是連續數值。先看輸出型態，再判斷任務。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 五步辨詞法</h2>
+          <div class="number-grid ml-method">
+            <div><b>01</b><span>先定時間：現在是蒐集、訓練、推論，還是事後評估？</span></div>
+            <div><b>02</b><span>找線索：模型在預測當下能看到哪些輸入？</span></div>
+            <div><b>03</b><span>找答案：歷史資料中哪一欄是要學的目標？</span></div>
+            <div><b>04</b><span>找學習：哪個數值由訓練演算法反覆更新？</span></div>
+            <div><b>05</b><span>找結果：新資料通過模型後產生什麼預測？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"品項數在接單時已知，且提供模型判斷線索，因此是輸入特徵。"},q2:{answer:"D",explain:"歷史訂單實際是否準時，是監督式訓練希望模型學會預測的已知答案，也就是標籤或目標。"},q3:{answer:"A",explain:"模型對新訂單算出的準時機率是預測輸出；它不是訓練標籤，也不是事件已經發生的保證。"},q4:{answer:"C",explain:"模型權重會在訓練中依資料與誤差更新，屬於模型參數；學習率通常是訓練前設定或透過調校選擇的超參數。"},q5:{answer:"B",explain:"預測當下尚未發生、之後才知道的完成時間若被放入輸入，等於偷看答案，會造成資料洩漏。"},q6:{answer:"D",explain:"預測分鐘數是連續數值，屬於迴歸；改預測準時或逾時類別，才是分類。"}})'>
+            <fieldset><legend>1. 店家在接單時，以「品項數」協助判斷能否準時備妥。此欄位扮演什麼角色？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 模型參數</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 輸入特徵</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 超參數</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 預測輸出</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 歷史訂單的「實際是否在十五分鐘內完成」，在這個監督式學習任務中是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 學習率</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 模型權重</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 新訂單輸出</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 標籤／目標</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 模型對一筆新訂單產生「準時機率 0.8」，最正確的說法是哪一項？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 這是預測輸出，不保證事件一定準時</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 這是訓練標籤，已經是事實</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 這是店家手動設定的超參數</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 這代表模型永遠有八成準確率</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 哪一組最正確地區分參數與超參數？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 兩者都是每筆訂單欄位</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 參數一定手動指定；超參數一定由資料學到</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 權重由訓練學到；學習率由流程設定或調校</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 參數只存在輸入資料，不存在模型</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 訓練準時預測模型時，把「訂單實際完成時間」當成接單當下的輸入，最大問題是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 欄位名稱太長</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 使用預測時不可能取得的答案資訊，造成資料洩漏</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 所有時間欄位都不能當特徵</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 模型因此自動變成非監督式學習</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 若任務從預測「準時／逾時」改成預測「需要幾分鐘」，任務型態如何改變？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 從迴歸變成分群</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 從分類變成強化學習</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 沒有任何改變，兩者輸出相同</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 從分類變成迴歸</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜四個詞，三個層次</h2>
+          <p>自然台灣華語複習：用店家備貨預測，串起特徵、標籤、參數、超參數、輸出，以及訓練與推論。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day12-ml-vocabulary.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day12-ml-vocabulary.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以機器學習流程、監督式學習、分類與迴歸，以及模型參數和超參數的相關段落為主。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day12" onclick="toggleDone('day12',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-11.html">← Day 11｜隱私、安全與去識別</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 13｜監督式學習（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#four-roles">四個角色</a><a href="#relationship">訓練與推論</a><a href="#scenario">貫穿情境</a><a href="#definitions">定義比較</a><a href="#parameter">參數與超參數</a><a href="#confuse">容易混淆</a><a href="#method">五步辨詞法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
