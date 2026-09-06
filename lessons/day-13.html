@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="監督式學習概念統整：從有標記資料、映射關係到分類與迴歸">
+  <title>Day 13｜監督式學習</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab active" href="day-13.html" aria-current="page"><b>D13</b><span>監督式學習</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero supervised-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 13</span></div>
+      <h1>監督式學習</h1>
+      <p class="memory-line">監督式學習用「特徵＋已知答案」學映射，再用學到的映射預測新資料。</p>
+      <p class="lede">「監督」不是有人一直盯著模型，而是訓練資料帶有可供比較的標籤；今天把資料條件、學習機制與輸出任務一次釐清。</p>
+      <div class="meta"><span>Day 13</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：它是一種「依訓練訊號」區分的學習方式</h2>
+          <div class="concept-path"><span>資料可用</span><b class="arrow">›</b><span>特徵與標籤</span><b class="arrow">›</b><span>監督式學習</span><b class="arrow">›</b><span>分類／迴歸</span><b class="arrow">›</b><span>評估與部署</span></div>
+          <p>上位概念是「機器學習基本原理」；本課下位概念是有標記資料、輸入到目標的映射，以及分類與迴歸兩類任務。相鄰概念是非監督式學習與強化學習。前置概念是 Day 12 的特徵、標籤、參數與輸出；後續會細分分類與迴歸，再進入資料切分、過擬合與評估指標。官方指引把監督式、非監督式與強化學習列為依訓練方式區分的學習方法，並把監督式學習的主要任務整理為分類與迴歸。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>先知道 X、y、參數與 ŷ</b></div>
+            <div><small>本課</small><b>用已知答案學 X → y</b></div>
+            <div><small>後續</small><b>任務、流程與指標</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="definition">
+          <div class="section-kicker">CORE DEFINITION</div>
+          <h2>二、正確定義：標籤提供「可對照的訓練訊號」</h2>
+          <div class="supervised-definition">
+            <div><span>INPUT</span><b>特徵 X</b><p>模型在預測當下可取得、用來判斷的線索。</p></div>
+            <div class="operator">＋</div>
+            <div><span>TARGET</span><b>標籤 y</b><p>歷史樣本已知的正確類別或目標數值。</p></div>
+            <div class="operator">→</div>
+            <div class="focus"><span>LEARN</span><b>學映射 f</b><p>調整參數，讓 f(X) 盡量接近 y。</p></div>
+          </div>
+          <p>官方指引將監督式學習描述為：以有標記資料為基礎，學習輸入特徵與對應標記之間的關聯，並對未見資料進行分類或數值預測。[2]</p>
+          <div class="mini-callout"><b>「監督」在哪裡？</b><span>在訓練樣本附有答案，可比較預測與真實標籤、計算誤差並修正模型；不代表推論時必須有人逐筆指揮，也不代表每次輸出都自動變成新的訓練資料。</span></div>
+        </section>
+
+        <section class="block panel" id="loop">
+          <div class="section-kicker">TRAINING LOOP</div>
+          <h2>三、關係圖：先用答案學，之後在答案未知時預測</h2>
+          <div class="supervised-loop" aria-label="監督式學習訓練與推論流程">
+            <div><small>① 歷史樣本</small><b>特徵 X ＋ 標籤 y</b><span>線索和答案成對出現</span></div><i>→</i>
+            <div><small>② 訓練</small><b>預測、比對、更新</b><span>讓 ŷ 與 y 的差異逐步降低</span></div><i>→</i>
+            <div><small>③ 已訓練模型</small><b>學到映射 f</b><span>參數保存可用規則</span></div><i>→</i>
+            <div><small>④ 新資料</small><b>只有新特徵 X</b><span>套用 f，產生預測 ŷ</span></div>
+          </div>
+          <div class="truth-return"><b>稍後真實結果出現</b><span>可以拿來評估模型；只有進入明確的資料蒐集、驗證與再訓練流程，才會成為新的訓練資料。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, END TO END</div>
+          <h2>四、貫穿情境：店家預測新訂單能否準時備妥</h2>
+          <p>沿用上一課的中性情境：店家希望在接單時預測「十五分鐘內能否備妥」。監督式學習成立的關鍵，不是只有大量訂單，而是歷史訂單同時保存接單時可知的特徵，以及後來實際是否準時的答案。</p>
+          <div class="supervised-scenario">
+            <div><span>HISTORY</span><b>歷史訂單</b><p>品項數、時段、待處理量、客製項目數</p><em>＋ 實際準時／逾時標籤</em></div>
+            <div><span>TRAIN</span><b>訓練模型</b><p>從多筆成對資料學習哪些線索與準時結果有關</p><em>調整模型參數</em></div>
+            <div><span>INFER</span><b>新訂單</b><p>輸入當下可知特徵，輸出準時機率或類別</p><em>真實結果尚未知</em></div>
+          </div>
+          <h3>如果答案換了，任務也會換</h3>
+          <div class="target-switch">
+            <div><small>目標是離散類別</small><b>準時／逾時</b><span>分類 Classification</span></div>
+            <div><small>目標是連續數值</small><b>預估完成分鐘數</b><span>迴歸 Regression</span></div>
+          </div>
+          <p>兩者都可屬於監督式學習，因為訓練資料都有已知目標；差別在預測目標的型態，而不是資料量或演算法名稱。官方指引也以「分配至不同類別」與「預測連續數值」區分這兩種任務。[2]</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE SIGNAL</div>
+          <h2>五、比較重點：看模型靠什麼訊號學</h2>
+          <div style="overflow-x:auto">
+            <table class="compare supervised-compare">
+              <thead><tr><th>方法</th><th>主要訓練訊號</th><th>典型目標</th><th>備貨情境中的問法</th><th>不要誤判</th></tr></thead>
+              <tbody>
+                <tr><td><b>監督式學習</b></td><td>特徵＋已知標籤</td><td>預測類別或數值</td><td>依歷史答案預測新訂單是否準時</td><td>「監督」不是有人一直盯著</td></tr>
+                <tr><td><b>非監督式學習</b></td><td>沒有目標標籤的資料結構</td><td>分群、降維、探索模式</td><td>依訂單型態找出自然群組</td><td>分群產生的群編號不是事先正確答案</td></tr>
+                <tr><td><b>強化學習</b></td><td>行動後的獎勵與環境回饋</td><td>學習長期決策策略</td><td>反覆選擇排程動作以累積回報</td><td>獎勵不等於逐筆類別標籤</td></tr>
+                <tr><td><b>固定規則</b></td><td>人先寫好的條件</td><td>依條件執行</td><td>品項超過五件一律標示高負載</td><td>有輸入輸出不代表有機器學習</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="conditions">
+          <div class="section-kicker">WHEN IT FITS</div>
+          <h2>六、監督式學習不只要「有資料」，還要四個條件</h2>
+          <div class="condition-grid">
+            <div><b>01</b><h3>目標可定義</h3><p>知道到底要預測類別、機率還是數值，且答案標準一致。</p></div>
+            <div><b>02</b><h3>歷史答案可取得</h3><p>樣本有可靠標籤，或能用合理成本建立標註流程。</p></div>
+            <div><b>03</b><h3>特徵在預測時可用</h3><p>不能偷用事後才出現的資訊，避免資料洩漏。</p></div>
+            <div><b>04</b><h3>資料可代表未來情境</h3><p>樣本偏差、標籤錯誤或環境改變，都會削弱泛化能力。</p></div>
+          </div>
+          <p>「有標籤」只是結構條件，不保證模型可靠。標籤品質、樣本代表性、資料切分與評估方式，都會影響模型是否能把學到的映射遷移到未見資料。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>監督式 ≠ 人工即時監看：</b>題目看到「有標記、已知答案、輸入對應輸出」，優先想到監督式學習。</li>
+            <li><b>標籤 ≠ 任何欄位：</b>標籤是任務要學的目標；其他欄位可能是特徵、識別資訊或不用的資料。</li>
+            <li><b>分類 ≠ 分群：</b>分類學的是預先定義好的類別標籤；分群是在沒有目標標籤下依相似性形成群組。</li>
+            <li><b>迴歸 ≠ 邏輯迴歸名稱：</b>先看輸出；預測連續值是迴歸，邏輯迴歸通常用於分類。</li>
+            <li><b>訓練 ≠ 推論：</b>訓練用歷史特徵與標籤調參數；推論通常只有新特徵，產生預測。</li>
+            <li><b>預測輸出 ≠ 自動學習：</b>模型產生一次輸出，不代表當下自動更新；要有回收真實答案、驗證與再訓練流程。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 四問判斷法</h2>
+          <div class="number-grid supervised-method">
+            <div><b>01</b><span>訓練資料有沒有「已知目標答案」？</span></div>
+            <div><b>02</b><span>模型是在學 X 到 y 的映射，還是找無標記結構？</span></div>
+            <div><b>03</b><span>目標是類別還是連續數值？</span></div>
+            <div><b>04</b><span>題目說的是訓練、推論，還是事後評估？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"歷史訂單同時有接單時特徵與實際準時答案，模型可學習輸入到標籤的映射，符合監督式學習。"},q2:{answer:"A",explain:"監督指訓練資料有可供比較的標籤，不是需要人員在推論時逐筆指揮。"},q3:{answer:"D",explain:"準時或逾時是預先定義的離散類別，因此是監督式分類。"},q4:{answer:"B",explain:"完成分鐘數是連續數值；歷史資料若有真實分鐘數作目標，屬於監督式迴歸。"},q5:{answer:"C",explain:"沒有準時標籤而只依相似性形成訂單群組，是非監督式分群，不是監督式分類。"},q6:{answer:"A",explain:"推論輸出本身不會必然更新模型；要回收真實結果並經驗證、納入資料與再訓練流程。"}})'>
+            <fieldset><legend>1. 哪一個情境最符合監督式學習？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 只依訂單特徵自動找出相似群組</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 由人員寫下「品項超過五件就提醒」的固定規則</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 用歷史特徵與實際準時結果，預測新訂單是否準時</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 讓系統試不同排程，依長期獎勵調整策略</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 「監督式」最正確的意思是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 訓練資料帶有可供模型比對的已知答案</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 推論時一定有人逐筆監看</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 模型輸出一定正確</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 模型只能使用人工撰寫的規則</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 以「準時／逾時」作為歷史標籤，預測新訂單類別，屬於什麼任務？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 非監督式降維</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 強化學習</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 監督式迴歸</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 監督式分類</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 若改成預測「實際需要幾分鐘」，且歷史資料有真實分鐘數，最適合如何判斷？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 因為有數字，所以是分群</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 連續數值目標，屬於監督式迴歸</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 沒有人監看，所以不能算監督式</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 所有分鐘預測都屬於固定規則</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 系統沒有「準時／逾時」標籤，只依品項數與待處理量把訂單分成三群。這是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 監督式分類，因為最後有三群</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 監督式迴歸，因為輸入有數字</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 非監督式分群，因為沒有目標標籤</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 強化學習，因為模型會計算</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 模型對新訂單輸出一次預測後，哪一項敘述正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 輸出不會必然更新模型，仍需回收真實結果與再訓練流程</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 每次輸出一定立刻成為正確標籤</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 推論與訓練完全相同</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 有新輸入就不需要再評估模型</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜有答案，才有這一種監督</h2>
+          <p>自然台灣華語複習：用店家備貨預測，串起有標記資料、映射、訓練與推論，以及分類、迴歸和分群的邊界。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day13-supervised-learning.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day13-supervised-learning.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以機器學習步驟、監督式學習、有標記資料、分類與迴歸段落為主。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day13" onclick="toggleDone('day13',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-12.html">← Day 12｜特徵、標籤、參數與輸出</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 14｜分類與迴歸（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definition">核心定義</a><a href="#loop">訓練與推論</a><a href="#scenario">貫穿情境</a><a href="#compare">方法比較</a><a href="#conditions">適用條件</a><a href="#confuse">容易混淆</a><a href="#method">四問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
