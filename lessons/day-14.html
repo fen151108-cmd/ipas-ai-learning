@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="分類與迴歸概念統整：用目標型態分清離散類別與連續數值預測">
+  <title>Day 14｜分類與迴歸</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab active" href="day-14.html" aria-current="page"><b>D14</b><span>分類與迴歸</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero task-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 14</span></div>
+      <h1>分類與迴歸</h1>
+      <p class="memory-line">看目標，不看名字：答案是離散類別，就是分類；答案是連續數值，就是迴歸。</p>
+      <p class="lede">同一批特徵，可以回答兩種完全不同的問題。今天用「標籤型態」抓住分界，再拆解機率、數字代碼與邏輯迴歸三個高頻陷阱。</p>
+      <div class="meta"><span>Day 14</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：它們是監督式學習的兩種主要任務</h2>
+          <div class="concept-path"><span>特徵 X＋標籤 y</span><b class="arrow">›</b><span>監督式學習</span><b class="arrow">›</b><span>看目標 y 的型態</span><b class="arrow">›</b><span>分類／迴歸</span><b class="arrow">›</b><span>選模型與指標</span></div>
+          <p>上位概念是監督式學習；下位概念包含二元分類、多類別分類、類別機率與連續值預測。相鄰概念是沒有目標標籤、依相似性形成群組的分群。前置是 Day 12 的特徵與標籤、Day 13 的訓練與推論；後續會接非監督式學習、演算法選擇、資料切分與評估指標。官方指引把迴歸和分類列為監督式學習最主要的兩種任務。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>先確認有標籤可學</b></div>
+            <div><small>本課</small><b>再看標籤是類別或連續值</b></div>
+            <div><small>後續</small><b>依任務選模型、門檻與指標</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="definition">
+          <div class="section-kicker">ONE SPLIT, TWO TASKS</div>
+          <h2>二、正確定義：分界在「要預測的答案」</h2>
+          <div class="task-split">
+            <div class="classification"><span>CLASSIFICATION</span><b>分類：預測離散類別</b><p>答案落在事先定義的有限選項，例如準時／逾時，或低／中／高。</p><em>典型輸出：類別，或先有類別機率再套門檻</em></div>
+            <div class="regression"><span>REGRESSION</span><b>迴歸：預測連續數值</b><p>答案在一段尺度上可連續變動，例如完成分鐘數、需求量或能源用量。</p><em>典型輸出：具單位的數值估計</em></div>
+          </div>
+          <p>官方指引以「預測連續型結果」說明迴歸，以「將數據劃分為不同類別」說明分類。[2] 判斷時先找目標標籤 y，不要先被輸入欄位、數字外觀或演算法名稱帶走。</p>
+          <div class="mini-callout"><b>最快判斷句</b><span>要回答「是哪一類」是分類；要回答「有多少」是迴歸。若題目仍模糊，就把實際標籤值列出來，看它是有限類別還是連續尺度。</span></div>
+        </section>
+
+        <section class="block panel" id="output">
+          <div class="section-kicker">OUTPUT ANATOMY</div>
+          <h2>三、看懂輸出：數字可能是機率、代碼，也可能是真正的量</h2>
+          <div class="output-lanes">
+            <div><small>分類機率</small><b>逾時機率 0.72</b><span>套用門檻 0.60</span><i>→</i><strong>類別：逾時</strong></div>
+            <div><small>類別代碼</small><b>0＝準時；1＝逾時</b><span>數字只是類別編碼</span><i>→</i><strong>仍是分類</strong></div>
+            <div><small>連續估計</small><b>預估 11.8 分鐘</b><span>差距與單位都有意義</span><i>→</i><strong>這是迴歸</strong></div>
+          </div>
+          <p>「輸出是數字」不足以判定迴歸。分類模型可輸出 0 到 1 的機率，也常用 0、1 或其他數字編碼類別；要看數字在任務中扮演的是類別訊號，還是要直接預測的連續量。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, TWO QUESTIONS</div>
+          <h2>四、貫穿情境：同一批訂單特徵，因目標不同而換任務</h2>
+          <p>店家希望改善備貨安排。歷史資料都有相同特徵：品項數、接單時段、當時待處理量與客製項目數；真正決定任務的是希望模型學哪一個標籤。</p>
+          <div class="scenario-fork">
+            <div class="shared"><span>SHARED INPUT X</span><b>同一批特徵</b><p>品項數、時段、待處理量、客製項目數</p></div>
+            <div class="fork-mark" aria-hidden="true">↗<br>↘</div>
+            <div class="targets">
+              <div><small>問題 A・分類</small><b>會準時，還是逾時？</b><p>標籤只有兩個類別，可先輸出逾時機率，再依門檻決定類別。</p></div>
+              <div><small>問題 B・迴歸</small><b>還需要幾分鐘？</b><p>標籤保留實際分鐘數，模型直接估計連續數值。</p></div>
+            </div>
+          </div>
+          <h3>目標工程：切分尺度，就會改變任務</h3>
+          <div class="target-transform">
+            <div><span>原始連續值</span><b>8.5、11.8、16.2 分鐘</b><small>直接預測分鐘數 → 迴歸</small></div><i>→</i>
+            <div><span>切成三段</span><b>快速／一般／延遲</b><small>直接預測等級 → 多類別分類</small></div>
+          </div>
+          <p>同一個應用目的可被定義成不同任務；選擇哪一種不是文字遊戲，而會影響標籤製作、輸出解讀、可採取的行動與後續評估。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY TARGET</div>
+          <h2>五、比較表：先看標籤，再看輸出怎麼用</h2>
+          <div style="overflow-x:auto">
+            <table class="compare task-compare">
+              <thead><tr><th>判斷面向</th><th>分類 Classification</th><th>迴歸 Regression</th><th>分群 Clustering</th></tr></thead>
+              <tbody>
+                <tr><td><b>是否有目標標籤</b></td><td>有，類別已事先定義</td><td>有，真實數值已知</td><td>沒有目標標籤</td></tr>
+                <tr><td><b>要回答什麼</b></td><td>是哪一類、是否發生</td><td>多少、多久、幅度多大</td><td>資料自然形成哪些群</td></tr>
+                <tr><td><b>典型輸出</b></td><td>類別或類別機率</td><td>連續數值</td><td>群組配置或群中心</td></tr>
+                <tr><td><b>備貨情境</b></td><td>準時／逾時</td><td>預估完成分鐘數</td><td>依相似性形成訂單群</td></tr>
+                <tr><td><b>高頻陷阱</b></td><td>機率與 0／1 仍可屬分類</td><td>不是「輸入有數字」就算迴歸</td><td>有群號不等於有標籤</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>非監督式分群不依賴有標記資料，而是尋找資料內在結構；其群組不是訓練前就提供的正確類別答案。[2]</p>
+        </section>
+
+        <section class="block panel" id="names">
+          <div class="section-kicker">NAME TRAPS</div>
+          <h2>六、演算法名稱不是答案：邏輯迴歸是經典陷阱</h2>
+          <div class="name-traps">
+            <div><span>線性迴歸</span><b>通常做迴歸</b><p>直接預測連續數值；官方指引以房價、銷售額與股票價格等連續值為例。[2]</p></div>
+            <div class="trap"><span>邏輯迴歸</span><b>名稱有迴歸，通常做分類</b><p>用 Sigmoid 將輸出轉為 0 到 1 的機率，再依閾值形成類別。[2]</p></div>
+            <div><span>K 最近鄰</span><b>可依輸出規則做兩種任務</b><p>分類可看鄰居多數類別；迴歸可取鄰居數值的平均或中位數。[2]</p></div>
+          </div>
+          <div class="mini-callout"><b>作答順序</b><span>先看標籤型態 → 再判斷任務 → 最後檢查演算法與輸出方式是否適配。只憑模型名稱猜答案，很容易被「邏輯迴歸」反制。</span></div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>數字 ≠ 迴歸：</b>0／1 若是準時與逾時的代碼，仍是分類。</li>
+            <li><b>機率 ≠ 連續值任務：</b>分類可先輸出類別機率，再用門檻決策。</li>
+            <li><b>分類 ≠ 分群：</b>分類有事先定義的標籤；分群沒有目標答案，只找相似結構。</li>
+            <li><b>邏輯迴歸 ≠ 迴歸任務：</b>它通常用於二元分類，名稱不能取代輸出判斷。</li>
+            <li><b>等級數字 ≠ 連續尺度：</b>低、中、高即使編成 1、2、3，仍是有限類別。</li>
+            <li><b>特徵相同 ≠ 任務相同：</b>預測是否逾時是分類；預測需要幾分鐘是迴歸。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 四問判斷法</h2>
+          <div class="number-grid task-method">
+            <div><b>01</b><span>先圈出「要預測的標籤」，不要被輸入欄位干擾。</span></div>
+            <div><b>02</b><span>標籤是有限類別，還是可連續變動的數值？</span></div>
+            <div><b>03</b><span>題目中的數字是類別代碼、機率，還是真正的量？</span></div>
+            <div><b>04</b><span>有既定答案可學，還是沒有標籤、只在找群組？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"目標是準時或逾時兩個既定類別，因此是二元分類；輸出機率不會改變任務本質。"},q2:{answer:"C",explain:"直接預測實際完成分鐘數，目標可在連續尺度上變動，屬於迴歸。"},q3:{answer:"A",explain:"0 與 1 只是類別代碼；若分別代表準時與逾時，任務仍是分類。"},q4:{answer:"D",explain:"邏輯迴歸雖然名稱含迴歸，通常先產生機率，再依門檻形成類別，因此用於分類。"},q5:{answer:"B",explain:"把連續分鐘數切成快速、一般、延遲三個等級後，直接預測等級就是多類別分類。"},q6:{answer:"C",explain:"沒有既定標籤、只依相似性形成三群，屬於非監督式分群。"}})'>
+            <fieldset><legend>1. 模型輸出「逾時機率 0.72」，再依門檻判成逾時。任務是什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 迴歸，因為輸出是小數</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 分類，因為最終目標是準時或逾時類別</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 分群，因為有兩個群</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 固定規則，因為使用門檻</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 使用歷史訂單的實際完成時間，預測新訂單需要 11.8 分鐘。這是什麼任務？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 二元分類</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 多類別分類</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 迴歸</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 分群</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 資料表用 0 代表準時、1 代表逾時。下列判斷何者正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 仍是分類，因為數字代表兩個離散類別</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 一定是迴歸，因為標籤是數字</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 一定是分群，因為沒有文字標籤</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 無法進行監督式學習</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 關於邏輯迴歸，下列何者最正確？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 名稱有迴歸，所以只能預測連續金額</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 沒有標籤也能自動形成自然群組</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 只要輸入有類別欄位就是分類</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 雖然名稱含迴歸，通常用機率與門檻完成分類</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 團隊把完成時間切成「快速／一般／延遲」，模型直接預測其中一級。這是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 連續值迴歸</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 多類別分類</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 無監督分群</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 強化學習</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 系統沒有準時標籤，只依訂單特徵相似性形成三群。最適合如何判斷？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 三類分類，因為最後有三群</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 迴歸，因為群編號可寫成 1、2、3</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 非監督式分群，因為沒有既定目標標籤</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 監督式分類，因為使用歷史資料</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先找標籤，再看答案型態</h2>
+          <p>自然台灣華語複習：用同一批訂單特徵，分清類別、機率、類別代碼與連續值，並拆解邏輯迴歸的名稱陷阱。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day14-classification-regression.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day14-classification-regression.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以監督式學習中的分類與迴歸、線性迴歸、邏輯迴歸及 K 最近鄰段落為主。勘誤表目前未列出本課所引段落的更正。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day14" onclick="toggleDone('day14',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-13.html">← Day 13｜監督式學習</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 15｜非監督式學習（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definition">核心定義</a><a href="#output">輸出解剖</a><a href="#scenario">貫穿情境</a><a href="#compare">任務比較</a><a href="#names">名稱陷阱</a><a href="#confuse">容易混淆</a><a href="#method">四問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
