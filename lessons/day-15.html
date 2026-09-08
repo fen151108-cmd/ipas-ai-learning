@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="非監督式學習概念統整：在沒有目標標籤時，從資料找出群組、低維結構與異常模式">
+  <title>Day 15｜非監督式學習</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab active" href="day-15.html" aria-current="page"><b>D15</b><span>非監督式學習</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero unsupervised-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 15</span></div>
+      <h1>非監督式學習</h1>
+      <p class="memory-line">沒有目標標籤，不是沒有目標：非監督式學習從未標記資料找結構，不是在預測既定答案。</p>
+      <p class="lede">昨天用標籤型態分清分類與迴歸；今天先把標籤拿掉，觀察演算法如何依特徵中的相似、變化與罕見程度，提出可供解讀的資料結構。</p>
+      <div class="meta"><span>Day 15</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：依「訓練訊號」分類的另一條路</h2>
+          <div class="concept-path"><span>可用特徵 X</span><b class="arrow">›</b><span>沒有目標標籤 y</span><b class="arrow">›</b><span>非監督式學習</span><b class="arrow">›</b><span>結構候選</span><b class="arrow">›</b><span>解讀與驗證</span></div>
+          <p>上位概念是機器學習；下位任務包括分群、資料探索、特徵提取、降維與異常偵測。相鄰概念是使用已知標籤的監督式學習，以及依獎勵回饋學策略的強化學習。前置是特徵、資料品質與尺度；後續會進入 K-means、PCA，再回到訓練流程與模型評估。官方指引把監督式、非監督式與強化學習列為依訓練方式區分的方法。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>先準備可比較的特徵</b></div>
+            <div><small>本課</small><b>不靠目標標籤找結構</b></div>
+            <div><small>後續</small><b>用 K-means 與 PCA 具體化</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="definition">
+          <div class="section-kicker">CORE DEFINITION</div>
+          <h2>二、正確定義：沒有「事先標好的答案」</h2>
+          <div class="unsupervised-equation">
+            <div><span>INPUT</span><b>只有特徵 X</b><p>品項數、接單時段、待處理量、客製項目數……</p></div>
+            <i>＋</i>
+            <div class="missing-label"><span>NO TARGET LABEL</span><b>沒有目標 y</b><p>沒有預先提供「這筆屬於哪一群」的正確答案。</p></div>
+            <i>→</i>
+            <div><span>DISCOVERY</span><b>找潛在結構</b><p>提出群組、低維表示、異常候選或其他模式。</p></div>
+          </div>
+          <p>非監督式學習無需使用事先標記好的訓練資料，而是從未標記資料發掘潛在模式、結構或分群；常見任務包括資料探索、特徵提取與資料降維。[2]</p>
+          <div class="mini-callout"><b>「非監督」真正拿掉的是什麼？</b><span>拿掉的是逐筆目標答案，不是拿掉資料清理、特徵選擇、演算法設定、品質檢查或人的解讀。</span></div>
+        </section>
+
+        <section class="block panel" id="families">
+          <div class="section-kicker">THREE DISCOVERY LENSES</div>
+          <h2>三、三種常見任務：群、軸、例外</h2>
+          <div class="discovery-grid">
+            <div><span>GROUP</span><b>分群 Clustering</b><p>依相似性讓組內較相似、組間較不同；輸出是群組配置，不是預先答案。</p><small>問：資料自然形成哪些群？</small></div>
+            <div><span>AXIS</span><b>降維 Dimensionality Reduction</b><p>把許多特徵濃縮成較少的新維度，盡量保留重要資訊，方便呈現或後續分析。</p><small>問：能否用更少軸看主要變化？</small></div>
+            <div><span>EXCEPTION</span><b>異常偵測 Anomaly Detection</b><p>找出偏離常見模式的資料點，作為待檢查候選；罕見不自動等於錯誤。</p><small>問：哪些資料和多數模式很不一樣？</small></div>
+          </div>
+          <p>官方指引另外將聚類分析描述為「組內相似度高、組間差異大」，將 PCA 說明為減少資料維度並保留大部分資訊，也把異常偵測定位為識別離群或罕見模式。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, THREE QUESTIONS</div>
+          <h2>四、貫穿情境：沒有備貨標籤，仍可先探索訂單型態</h2>
+          <p>店家累積了一批訂單紀錄，每筆都有品項數、接單時段、待處理量、客製項目數與包裝件數，但沒有「訂單類型」或「是否需要優先處理」的既定標籤。團隊先做探索，而不是假裝已有正確答案。</p>
+          <div class="scenario-discovery">
+            <div class="feature-sheet"><span>FEATURE SPACE</span><b>未標記訂單資料</b><ul><li>品項數</li><li>待處理量</li><li>客製項目數</li><li>包裝件數</li></ul></div>
+            <div class="route-list">
+              <div><small>分群</small><b>找出相似訂單組合</b><p>可能出現「少品項、高客製」與「多品項、低客製」等型態；名稱是分析後才解讀。</p></div>
+              <div><small>降維</small><b>把多個特徵濃縮成兩軸</b><p>用低維圖觀察主要變化與群組是否重疊，不把新軸硬說成原始欄位。</p></div>
+              <div><small>異常偵測</small><b>找出罕見特徵組合</b><p>例如品項少但包裝件數特別高；先查紀錄與情境，不立刻刪除。</p></div>
+            </div>
+          </div>
+          <div class="interpretation-loop"><div><small>01</small><b>演算法提出結構</b></div><i>→</i><div><small>02</small><b>團隊檢查穩定與差異</b></div><i>→</i><div><small>03</small><b>回到情境解讀</b></div><i>→</i><div><small>04</small><b>決定是否採用</b></div></div>
+          <p>群組編號只是演算法輸出，例如第 0 群或第 1 群；它本身不等於「高價值」「急件」或任何正確標籤。命名與行動仍需回到資料分布、用途與風險。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE LEARNING SIGNAL</div>
+          <h2>五、比較表：先問「模型靠什麼訊號學」</h2>
+          <div style="overflow-x:auto">
+            <table class="compare unsupervised-compare">
+              <thead><tr><th>判斷面向</th><th>監督式學習</th><th>非監督式學習</th><th>強化學習</th></tr></thead>
+              <tbody>
+                <tr><td><b>主要訓練訊號</b></td><td>逐筆特徵＋已知標籤</td><td>未標記特徵中的結構</td><td>行動後的獎勵與環境回饋</td></tr>
+                <tr><td><b>典型問題</b></td><td>是哪一類？有多少？</td><td>有哪些群、主要軸或異常？</td><td>怎麼行動可累積較高回報？</td></tr>
+                <tr><td><b>典型輸出</b></td><td>類別、機率、連續值</td><td>群號、低維表示、異常分數</td><td>策略、動作或價值估計</td></tr>
+                <tr><td><b>備貨情境</b></td><td>依已知答案預測是否逾時</td><td>從特徵探索訂單型態</td><td>反覆試排程並依回饋調整</td></tr>
+                <tr><td><b>高頻陷阱</b></td><td>「監督」不是逐筆盯著</td><td>沒有標籤不等於沒有目標</td><td>獎勵不等於類別標籤</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>官方指引以「帶有標記的訓練數據」描述監督式學習，以「未標記數據」描述非監督式學習，並以獎勵與環境互動描述強化學習。[2]</p>
+        </section>
+
+        <section class="block panel" id="decisions">
+          <div class="section-kicker">STRUCTURE IS NOT AUTOMATIC TRUTH</div>
+          <h2>六、結果為何會變：特徵、尺度與設定都在定義「相似」</h2>
+          <div class="decision-chain">
+            <div><span>選哪些特徵</span><b>比較什麼</b><p>用時段與品項數，和用客製數與包裝數，可能看見不同結構。</p></div><i>→</i>
+            <div><span>怎麼縮放</span><b>距離誰主導</b><p>數值範圍很大的欄位，可能在距離計算中壓過其他欄位。</p></div><i>→</i>
+            <div><span>演算法設定</span><b>想找哪種結構</b><p>群數、距離觀念與方法假設不同，輸出也可能改變。</p></div><i>→</i>
+            <div><span>解讀與驗證</span><b>是否有用</b><p>檢查群內／群間差異、穩定性、可解釋性與實際用途。</p></div>
+          </div>
+          <p>因此，非監督式結果是「資料、特徵表示、方法與設定共同產生的結構候選」，不是資料自己宣告的唯一真相。下一課會用 K-means 的 K 值與 PCA 的新軸，把這件事具體拆開。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>非監督式 ≠ 無人管理：</b>題目出現「無標記資料、探索結構」才是核心訊號。</li>
+            <li><b>分群 ≠ 分類：</b>分類的類別是訓練前提供的答案；分群的群組是分析後才形成。</li>
+            <li><b>群號 ≠ 類別標籤：</b>0、1、2 只是群組識別，不代表優劣、順序或真實類別。</li>
+            <li><b>異常 ≠ 錯誤：</b>異常點可能是輸入錯誤，也可能是罕見但有效的事件，需查原因。</li>
+            <li><b>降維 ≠ 任意刪欄：</b>降維通常建立較少的新表示；不能直接假設新軸等於某個原始欄位。</li>
+            <li><b>沒有標籤 ≠ 沒有設定：</b>仍要選特徵、處理尺度、設定方法並驗證結果。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 五問判斷法</h2>
+          <div class="number-grid unsupervised-method">
+            <div><b>01</b><span>訓練資料有沒有事先提供的目標標籤？</span></div>
+            <div><b>02</b><span>題目要預測既定答案，還是探索內在結構？</span></div>
+            <div><b>03</b><span>輸出是類別／數值，還是群組／新維度／異常候選？</span></div>
+            <div><b>04</b><span>群號只是識別，還是題目真的有已知類別答案？</span></div>
+            <div><b>05</b><span>若結果改變，是否可能來自特徵、尺度或方法設定？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"資料沒有訂單類型標籤，只依特徵相似性形成群組，符合非監督式分群。"},q2:{answer:"A",explain:"群號只是演算法用來識別群組的代碼，不是預先提供的正確類別，也不自帶優劣意義。"},q3:{answer:"D",explain:"PCA 的核心用途是把多維資料轉成較少的新維度，盡量保留重要資訊，便於呈現或後續分析。"},q4:{answer:"B",explain:"異常代表偏離常見模式的候選；可能是錯誤，也可能是罕見但有效的紀錄，應先查原因。"},q5:{answer:"C",explain:"距離與相似性會受特徵選擇和尺度影響，所以即使原始樣本相同，分群結果仍可能改變。"},q6:{answer:"D",explain:"非監督式只表示訓練時沒有逐筆目標標籤；仍需設定任務、準備資料、選方法並由團隊驗證解讀。"}})'>
+            <fieldset><legend>1. 訂單資料沒有「類型」標籤，系統依品項數、時段與客製數找出三個相似群組。這是什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 監督式三類分類</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 監督式迴歸</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 非監督式分群</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 強化學習</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. K-means 輸出第 0 群、第 1 群、第 2 群。最正確的解讀是哪一項？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 群號是識別代碼，不自動代表優劣或正確類別</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 第 2 群一定比第 0 群重要</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 有數字群號，所以一定是迴歸</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 群號就是人工預先提供的標籤</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 團隊想把十個訂單特徵濃縮成兩個新軸，以便觀察主要變化。最接近哪一種任務？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 二元分類</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 連續值迴歸</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 強化學習</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> PCA 降維</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 異常偵測標出一筆「少品項但包裝件數很高」的訂單。下一步最合理的是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 立即刪除，因為異常一定是錯誤</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 查核紀錄與情境，再判斷是錯誤或罕見有效事件</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 把它當成正確類別標籤</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 直接證明其他資料都沒有問題</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 同一批訂單改用不同特徵組合與縮放方式後，分群結果改變。最合理的說明是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 非監督式結果永遠不該改變</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 代表資料自動產生了標籤</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 特徵與尺度會影響相似性，因此可能形成不同結構</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 有變化就表示一定是強化學習</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 「非監督式學習」最正確的意思是哪一項？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 完全不需要人員設定與解讀</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 不需要任何資料品質處理</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 演算法輸出必然是真實世界唯一分法</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 訓練時沒有逐筆目標標籤，但仍需設定、驗證與解讀</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜沒有答案表，怎麼從資料找結構？</h2>
+          <p>自然台灣華語複習：用未標記的訂單資料，串起分群、降維、異常偵測，以及分類和分群的關鍵邊界。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day15-unsupervised-learning.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day15-unsupervised-learning.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；本課以非監督式學習、聚類分析、PCA 與異常偵測段落為主。勘誤表的 K-means 更正屬下一課範圍，本課未採用被更正的舊答案。本站測驗為原創理解題，不是官方考題。[1][2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day15" onclick="toggleDone('day15',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-14.html">← Day 14｜分類與迴歸</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 16｜K-means 與 PCA（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definition">核心定義</a><a href="#families">三種任務</a><a href="#scenario">貫穿情境</a><a href="#compare">學習方式比較</a><a href="#decisions">結果為何會變</a><a href="#confuse">容易混淆</a><a href="#method">五問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
