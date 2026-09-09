@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="K-means 與 PCA 概念統整：分清用中心分群與用新軸降維，掌握 K 值、尺度、群中心與主成分">
+  <title>Day 16｜K-means 與 PCA</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab active" href="day-16.html" aria-current="page"><b>D16</b><span>K-means 與 PCA</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero kpca-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 16</span></div>
+      <h1>K-means 與 PCA</h1>
+      <p class="memory-line">K-means 用中心把資料分成 K 群；PCA 用新軸把資料壓成較少維度——一個回答「分哪群」，一個回答「怎麼少幾軸」。</p>
+      <p class="lede">兩者都常見於非監督式探索，也能串在同一流程裡，但任務、輸出與判讀完全不同。今天用同一批訂單資料，把群中心、新主成分、尺度與 K 值一次理清。</p>
+      <div class="meta"><span>Day 16</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：同屬非監督式，但走向兩種輸出</h2>
+          <div class="concept-path"><span>未標記特徵 X</span><b class="arrow">›</b><span>非監督式學習</span><b class="arrow">›</b><span>K-means：分群</span><b class="arrow">／</b><span>PCA：降維</span><b class="arrow">›</b><span>解讀與驗證</span></div>
+          <p>上位概念是非監督式學習。K-means 的下位元素包括 K 值、群中心、分配與更新；PCA 的下位元素包括主成分、新座標與保留資訊。相鄰概念是分類、異常偵測與特徵選擇。前置是 Day 15 的未標記資料與相似性；後續會進入強化學習，以及訓練、驗證、測試流程。官方指引把聚類與降維列為非監督式學習的核心目標，並分別以 K-means 與 PCA 說明。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>先確認沒有目標標籤</b></div>
+            <div><small>本課</small><b>分群找組別；降維找新軸</b></div>
+            <div><small>後續</small><b>再評估結果能否支援任務</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="split">
+          <div class="section-kicker">TWO QUESTIONS, TWO OUTPUTS</div>
+          <h2>二、先分任務：K-means 不是 PCA，PCA 也不會直接給群號</h2>
+          <div class="kpca-split">
+            <div class="kmeans-card"><span>GROUP</span><b>K-means｜把樣本分成 K 群</b><p>依資料點和群中心的距離反覆分配與更新，讓同群資料靠近自己的中心。</p><em>輸出：每筆資料的群號＋K 個群中心</em></div>
+            <div class="pca-card"><span>AXIS</span><b>PCA｜把特徵轉成較少新軸</b><p>用線性轉換把高維資料壓到較低維，盡量保留主要資訊，方便視覺化或後續分析。</p><em>輸出：主成分座標＋各新軸的組成</em></div>
+          </div>
+          <p>官方指引將 K-means 說明為把資料分成若干群組，並將 PCA 說明為把高維資料壓到低維空間、保留主要訊息；這正是作答時最重要的任務邊界。[2]</p>
+          <div class="mini-callout"><b>最快判斷句</b><span>題目問「要幾群、分到哪一群」就想 K-means；題目問「特徵太多、要濃縮或畫成低維圖」就想 PCA。</span></div>
+        </section>
+
+        <section class="block panel" id="kmeans">
+          <div class="section-kicker">K-MEANS LOOP</div>
+          <h2>三、K-means：K 先指定，中心在迭代中更新</h2>
+          <div class="kmeans-loop">
+            <div><small>01</small><b>指定 K</b><span>先決定希望分成幾群</span></div><i>→</i>
+            <div><small>02</small><b>初始化中心</b><span>起點不同，結果可能不同</span></div><i>→</i>
+            <div><small>03</small><b>分配樣本</b><span>每點歸到最近中心</span></div><i>→</i>
+            <div><small>04</small><b>更新中心</b><span>以群內資料重算中心</span></div><i>↺</i>
+            <div><small>05</small><b>停止並解讀</b><span>結果穩定後檢查群組</span></div>
+          </div>
+          <p>勘誤表明確說明 K-means 會反覆把資料點分配到最近中心，再更新中心點，以縮小群內平方誤差；也指出不同起始中心可能造成不同分群，離群值容易影響群中心。[3]</p>
+          <div class="k-controls">
+            <div><span>K = 2</span><b>少數大群</b><p>可能把差異明顯的子型態合在一起。</p></div>
+            <div class="focus"><span>K = 3</span><b>三個候選群</b><p>不是因為「三」天然正確，而是待比較與解讀的設定。</p></div>
+            <div><span>K = 6</span><b>較多小群</b><p>可能切得更細，也可能失去實際可用性。</p></div>
+          </div>
+          <p>K 代表想分出的群組數，不是特徵數、樣本數或迭代次數；K 的選擇會直接影響分群結果。[2]</p>
+        </section>
+
+        <section class="block panel" id="pca">
+          <div class="section-kicker">PCA TRANSFORMATION</div>
+          <h2>四、PCA：不是挑兩欄，而是做出兩個新的組合軸</h2>
+          <div class="pca-transform">
+            <div class="original-features"><span>ORIGINAL FEATURES</span><b>原始 5 維</b><ul><li>品項數</li><li>待處理量</li><li>客製項目數</li><li>包裝件數</li><li>預估處理步驟</li></ul></div>
+            <i>→</i>
+            <div class="pca-core"><span>LINEAR TRANSFORM</span><b>PCA</b><p>重新組合原始特徵，將資料投影到較少的新座標。</p></div>
+            <i>→</i>
+            <div class="components"><span>NEW AXES</span><b>主成分 1＋主成分 2</b><p>是原始特徵的組合，不等於直接保留的某兩欄。</p></div>
+          </div>
+          <p>官方指引將 PCA 描述為以線性變換把高維資料壓縮到低維空間，同時保留主要訊息；它可減少冗餘、提升效率，也能讓高維資料更容易視覺化。[2]</p>
+          <div class="axis-board" aria-label="PCA 新軸示意圖">
+            <div class="axis-label y">主成分 2</div><div class="axis-line v"></div><div class="axis-line h"></div><div class="axis-label x">主成分 1</div>
+            <i style="--x:22%;--y:32%"></i><i style="--x:29%;--y:38%"></i><i style="--x:36%;--y:43%"></i><i style="--x:58%;--y:60%"></i><i style="--x:65%;--y:67%"></i><i style="--x:74%;--y:72%"></i>
+          </div>
+          <div class="mini-callout"><b>不要過度命名</b><span>若主成分一同時受到品項數、包裝件數與處理步驟影響，就不能只憑直覺把它改名成「品項數」。先看各原始特徵在新軸中的組合，再做情境解讀。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, ONE PIPELINE</div>
+          <h2>五、貫穿情境：先把訂單畫得出來，再決定是否分群</h2>
+          <p>店家有五個已標準化的訂單特徵，但沒有「訂單類型」標籤。團隊想先看資料主要形狀，再提出可供備貨討論的群組候選。</p>
+          <div class="kpca-pipeline">
+            <div><small>STEP 1</small><b>檢查與縮放特徵</b><p>確認單位、缺失與離群；避免數值範圍大的欄位主導距離。</p></div><i>→</i>
+            <div><small>STEP 2</small><b>PCA 壓到兩個新軸</b><p>先視覺化主要變化，觀察資料是否重疊或呈現大致結構。</p></div><i>→</i>
+            <div><small>STEP 3</small><b>比較不同 K 的 K-means</b><p>在候選 K 值間比較群內緊密、群間差異、穩定性與可用性。</p></div><i>→</i>
+            <div><small>STEP 4</small><b>回到原始特徵解讀</b><p>看各群真正差在哪裡，再決定是否命名或採取備貨行動。</p></div>
+          </div>
+          <p>PCA 和 K-means 可以串接，但不能把「低維圖上看起來分開」直接當成真實世界唯一分類。勘誤表也指出 K-means 可與 PCA 或 Elbow method 搭配；搭配是流程選擇，不代表 PCA 自己完成分群。[3]</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE MECHANISM</div>
+          <h2>六、比較表：對照任務、輸入、輸出與限制</h2>
+          <div style="overflow-x:auto">
+            <table class="compare kpca-compare">
+              <thead><tr><th>判斷面向</th><th>K-means</th><th>PCA</th></tr></thead>
+              <tbody>
+                <tr><td><b>主要任務</b></td><td>分群：形成 K 個互不重疊的群組</td><td>降維：轉成較少的新維度</td></tr>
+                <tr><td><b>核心觀念</b></td><td>距離、群中心、反覆分配與更新</td><td>線性轉換、主成分、新座標</td></tr>
+                <tr><td><b>關鍵設定</b></td><td>K 值與初始中心</td><td>保留幾個主成分</td></tr>
+                <tr><td><b>典型輸出</b></td><td>群號與群中心</td><td>低維座標與主成分組成</td></tr>
+                <tr><td><b>尺度影響</b></td><td>尺度會改變距離與中心</td><td>尺度會改變哪些變化被凸顯</td></tr>
+                <tr><td><b>高頻陷阱</b></td><td>K 不是由名稱自動決定；群號不是標籤</td><td>主成分不是原始欄位；降維不是分群</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>K-means 較適合球狀、大小與密度接近的群體；對非球形、密度差異大或有離群值的資料要特別小心。[3]</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、六組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>K ≠ 特徵數：</b>K 是希望形成的群組數，不是欄位數、樣本數或迭代次數。</li>
+            <li><b>群中心 ≠ 真實標籤：</b>中心是群內資料的位置代表，不會自動告訴你群組的業務名稱。</li>
+            <li><b>起始中心 ≠ 無關：</b>不同初始化可能落到不同結果，宜比較多次結果與穩定性。</li>
+            <li><b>PCA ≠ 特徵選擇：</b>特徵選擇保留部分原欄位；PCA 通常建立原特徵組合成的新軸。</li>
+            <li><b>低維圖有群 ≠ 完成分類：</b>PCA 負責降維，不會提供訓練前就存在的類別答案。</li>
+            <li><b>先 PCA ≠ 一定更好：</b>是否降維、保留幾軸與是否再分群，都要依資料與任務驗證。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 五問判斷法</h2>
+          <div class="number-grid kpca-method">
+            <div><b>01</b><span>題目要的是群組，還是較少的新維度？</span></div>
+            <div><b>02</b><span>K 指群數，還是題目故意混入的特徵數／樣本數？</span></div>
+            <div><b>03</b><span>輸出是群號與中心，還是主成分座標？</span></div>
+            <div><b>04</b><span>資料是否先處理尺度、離群值與初始化影響？</span></div>
+            <div><b>05</b><span>結果是否回到原始特徵、穩定性與任務用途驗證？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"K-means 中的 K 代表預先指定的群組數，不是特徵數、樣本數或迭代次數。"},q2:{answer:"D",explain:"反覆把資料分到最近中心，再依群內資料更新中心，是 K-means 的核心迭代。"},q3:{answer:"A",explain:"PCA 會建立由原始特徵組合而成的新軸；把主成分直接當成某一個原始欄位，會過度簡化。"},q4:{answer:"C",explain:"不同初始化可能得到不同分群，因此合理做法是多次執行並比較結果穩定性，而不是把第一次當唯一真相。"},q5:{answer:"B",explain:"數值範圍較大的欄位可能主導距離與主要變化，K-means 與 PCA 都可能受尺度影響，所以應先檢查縮放。"},q6:{answer:"D",explain:"PCA 負責降維，K-means 負責分群；兩者可以串接，但仍須回到原始特徵與任務驗證群組意義。"}})'>
+            <fieldset><legend>1. K-means 名稱中的 K 代表什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 資料的特徵數</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 希望形成的群組數</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 資料的樣本數</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 固定的迭代次數</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 下列哪一項最符合 K-means 的核心流程？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 依已知標籤訓練分類器</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 逐欄刪除特徵直到只剩兩欄</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 依獎勵反覆調整行動策略</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 分到最近中心，再更新各群中心</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 團隊用 PCA 把五個特徵轉成兩個主成分。下列哪項解讀較正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 兩個主成分是原始特徵組合成的新軸</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> PCA 已經替每筆資料給了真實類別</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 主成分一必然等於第一個原始欄位</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> PCA 的唯一用途是刪除離群值</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 同一批資料用 K-means 執行兩次，結果略有不同。最合理的處理是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 宣告第二次一定錯誤</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 把群號改成類別標籤即可</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 檢查初始化並多次比較穩定性</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 改用更多文字欄位就一定一致</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 一個特徵範圍是 0 到 1，另一個是 0 到 10000。直接套 K-means 與 PCA 最該留意什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 數值越大就一定越重要</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 尺度差異可能主導距離與主要變化</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> PCA 會自動產生正確群名</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> K 必須等於兩個特徵的最大值</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 團隊先用 PCA 將訂單資料轉成兩軸，再用 K-means 分成三群。哪個說法最正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> PCA 已完成分類，K-means 只是重新命名</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 三群必然是真實世界唯一訂單類型</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 群號 2 必然比群號 0 重要</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> PCA 做降維、K-means 做分群，結果仍需驗證解讀</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜一個找群，一個換軸</h2>
+          <p>自然台灣華語複習：沿用未標記訂單資料，串起 K 值、群中心、初始化、尺度、主成分與兩種方法的流程邊界。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day16-kmeans-pca.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day16-kmeans-pca.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍依據 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版；K-means 的流程、特性與第 3-31 頁練習解析，依 114.04 勘誤表更正後內容整理。本站測驗為原創理解題，不是官方考題。[1][2][3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95%E5%8B%98%E8%AA%A4%E8%A1%A811404_20251222101819.pdf — iPAS AI 應用規劃師（初級）學習指引勘誤表（114.04）
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day16" onclick="toggleDone('day16',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-15.html">← Day 15｜非監督式學習</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 17｜強化學習與半監督式學習（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#split">兩種任務</a><a href="#kmeans">K-means 流程</a><a href="#pca">PCA 新軸</a><a href="#scenario">貫穿情境</a><a href="#compare">方法比較</a><a href="#confuse">容易混淆</a><a href="#method">五問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
