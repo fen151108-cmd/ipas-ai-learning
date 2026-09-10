@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="強化學習與半監督式學習概念統整：分清環境回饋與少量標記加大量未標記資料">
+  <title>Day 17｜強化學習與半監督式學習</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab active" href="day-17.html" aria-current="page"><b>D17</b><span>強化學習與半監督式學習</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero mixed-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 17</span></div>
+      <h1>強化學習與半監督式學習</h1>
+      <p class="memory-line">半監督式用「少量標記＋大量未標記」學預測；強化學習用「行動＋環境回饋」學策略。</p>
+      <p class="lede">兩者都不是單純的監督式或非監督式，但混合的東西不同：半監督式混合兩種標記狀態；強化學習串起狀態、行動與延後回饋。</p>
+      <div class="meta"><span>Day 17</span><span>約 40–60 分鐘</span><span>概念統整＋家庭節能情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：同在「學習方式」，判斷訊號卻不同</h2>
+          <div class="concept-path"><span>機器學習</span><b class="arrow">›</b><span>依訓練方式辨認</span><b class="arrow">›</b><span>標記組成？</span><b class="arrow">／</b><span>互動回饋？</span><b class="arrow">›</b><span>模型或策略</span></div>
+          <p>上位概念是機器學習的訓練方式。半監督式的相鄰概念是監督式與非監督式：它同時使用少量已標記樣本與較多未標記樣本。強化學習則以代理和環境互動、累積獎勵與行動策略為核心。官方指引將強化學習和監督式、非監督式並列，強調回饋、試錯與長期規劃。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>先分清標籤、未標記資料與非監督探索</b></div>
+            <div><small>本課</small><b>少量標記學預測；環境回饋學策略</b></div>
+            <div><small>後續</small><b>訓練、驗證、測試與泛化評估</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="split">
+          <div class="section-kicker">TWO LEARNING SIGNALS</div>
+          <h2>二、先看「學習訊號」，不要只看資料多不多</h2>
+          <div class="mixed-split">
+            <div class="semi-card"><span>LABEL MIX</span><b>半監督式｜標記不足，但仍有一小部分答案</b><p>把少量已標記樣本和大量未標記樣本放進同一學習流程，希望利用未標記資料呈現的分布結構，改善對新樣本的預測。</p><em>典型輸出：類別或數值預測</em></div>
+            <div class="rl-card"><span>INTERACTION LOOP</span><b>強化學習｜答案不是逐筆標籤，而是行動後的回饋</b><p>代理觀察環境狀態、選擇行動、收到獎勵與下一狀態，再調整策略，追求長期累積回報。</p><em>典型輸出：在各種狀態下怎麼行動的策略</em></div>
+          </div>
+          <p>scikit-learn 1.9.1 文件把半監督式描述為訓練資料中只有部分樣本有標記，尤其適合少量標記點與大量未標記點的情境；但演算法必須對資料分布作出假設，不能保證未標記資料一定有幫助。[4]</p>
+          <div class="mini-callout"><b>最快判斷句</b><span>題幹出現「少量人工標記＋大量未標記」先想半監督式；出現「代理、環境、行動、獎勵、反覆互動」先想強化學習。</span></div>
+        </section>
+
+        <section class="block panel" id="semi">
+          <div class="section-kicker">SEMI-SUPERVISED LEARNING</div>
+          <h2>三、半監督式：未標記資料不是答案，而是額外結構</h2>
+          <div class="label-composition">
+            <div><span>少量 LABELED</span><b>有特徵 X，也有標籤 y</b><p>例如少數時段由使用者確認為「舒適」或「不舒適」。</p></div>
+            <i>＋</i>
+            <div><span>大量 UNLABELED</span><b>只有特徵 X，沒有標籤 y</b><p>例如大量溫度、濕度、能耗與時段紀錄，未逐筆確認感受。</p></div>
+            <i>→</i>
+            <div class="focus"><span>ONE MODEL</span><b>利用兩者訓練預測模型</b><p>目標仍是對新資料做分類或其他預測，不是只把資料分群。</p></div>
+          </div>
+          <p>一種常見路徑是自我訓練：先用已標記資料建立分類器，再對未標記樣本預測，挑選符合條件的預測加入下一輪訓練；另一類是標籤傳播，依樣本相似圖把標籤資訊傳向未標記樣本。[4]</p>
+          <div class="assumption-strip"><b>關鍵假設</b><span>資料中的相近或同一結構樣本，標籤也傾向一致。</span><i>若假設不成立</i><span>錯誤的偽標籤或不相干的未標記資料，可能把錯誤放大。</span></div>
+          <p>因此，「有更多未標記資料」不是自動加分。必須檢查資料是否來自相近分布、少量標記是否可靠且具代表性，以及加入未標記資料後的驗證表現。</p>
+        </section>
+
+        <section class="block panel" id="rl">
+          <div class="section-kicker">REINFORCEMENT LOOP</div>
+          <h2>四、強化學習：一次好回饋，不等於長期好策略</h2>
+          <div class="rl-loop">
+            <div><small>STATE</small><b>狀態</b><span>目前環境可觀察到的情況</span></div><i>→</i>
+            <div><small>AGENT</small><b>代理</b><span>根據策略選擇下一個行動</span></div><i>→</i>
+            <div><small>ACTION</small><b>行動</b><span>對環境採取可選操作</span></div><i>→</i>
+            <div><small>FEEDBACK</small><b>獎勵＋下一狀態</b><span>環境回傳結果，代理再調整策略</span></div><i>↺</i>
+          </div>
+          <p>官方指引指出，強化學習讓代理透過環境互動學習行動策略，方向是取得最大的累積回報，尤其適合試錯與長期規劃任務。[2]</p>
+          <div class="reward-horizon">
+            <div><span>眼前獎勵</span><b>當下立刻得到的分數</b><p>把設備全部關閉可能立刻省電，但舒適度會快速下降。</p></div>
+            <div><span>累積回報</span><b>一段時間內結果的總和</b><p>策略要權衡接下來多個時段的舒適、能耗與設備切換。</p></div>
+          </div>
+          <p>獎勵是設計給代理的學習訊號，不等於每個狀態的正確答案標籤。若獎勵函數只獎勵省電，系統可能學到犧牲舒適的捷徑；因此獎勵設計、限制條件、安全測試與人工監督都不能省略。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO, TWO PATHS</div>
+          <h2>五、貫穿情境：同一個家庭節能目標，兩條不同學習路徑</h2>
+          <p>家庭希望系統兼顧舒適與節能。資料包含室內溫度、濕度、時段、設備狀態與能耗；只有少數時段有人確認舒適度。</p>
+          <div class="scenario-dual">
+            <div><span>PATH A｜半監督式</span><b>補強「舒適／不舒適」預測</b><ol><li>少量時段有人工確認標籤</li><li>大量時段只有感測特徵</li><li>利用兩者訓練分類模型</li><li>在保留驗證資料上比較是否真的改善</li></ol><em>問題：這個時段較可能屬於哪個類別？</em></div>
+            <div><span>PATH B｜強化學習</span><b>學會「現在該怎麼調整」</b><ol><li>觀察目前室內狀態</li><li>選擇維持、調高或調低設定</li><li>收到舒適與能耗組成的獎勵</li><li>經反覆互動更新長期策略</li></ol><em>問題：在這個狀態下，採取哪個行動較好？</em></div>
+          </div>
+          <div class="mini-callout"><b>同一專案可以串接</b><span>半監督式模型可先估計舒適類別，估計結果再成為決策系統的部分狀態；但「預測狀態」與「選擇行動」仍是兩個不同問題。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE MECHANISM</div>
+          <h2>六、比較表：四種學習方式放在同一張圖</h2>
+          <div style="overflow-x:auto">
+            <table class="compare mixed-compare">
+              <thead><tr><th>判斷面向</th><th>監督式</th><th>非監督式</th><th>半監督式</th><th>強化學習</th></tr></thead>
+              <tbody>
+                <tr><td><b>主要訊號</b></td><td>每筆訓練樣本有標籤</td><td>沒有目標標籤</td><td>少量有標記＋大量未標記</td><td>行動後的獎勵與下一狀態</td></tr>
+                <tr><td><b>典型問題</b></td><td>新樣本是哪一類／數值多少</td><td>資料有何結構</td><td>標記昂貴時如何利用未標記資料</td><td>這個狀態下該採取什麼行動</td></tr>
+                <tr><td><b>典型輸出</b></td><td>預測模型</td><td>群組、低維表示或異常分數</td><td>預測模型</td><td>策略</td></tr>
+                <tr><td><b>高頻陷阱</b></td><td>人工監看不等於監督式</td><td>群號不是既定類別</td><td>偽標籤不是真實標籤</td><td>獎勵不是逐筆正確答案</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>四者的差異不在演算法名稱聽起來是否「有人監督」，而在訓練時到底得到什麼訊號：標籤、無標籤結構、混合標記狀態，或互動後的回饋。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、七組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>半監督式 ≠ 半套監督式：</b>「半」指已標記與未標記樣本並用，不是模型只訓練一半。</li>
+            <li><b>偽標籤 ≠ 人工真實標籤：</b>偽標籤是模型預測後暫時採用的結果，可能把錯誤帶進下一輪。</li>
+            <li><b>未標記越多 ≠ 一定越準：</b>若資料分布不同、標記偏誤或演算法假設不成立，額外資料可能無助益。</li>
+            <li><b>強化學習 ≠ 一般分類：</b>分類預測類別；強化學習在狀態中選行動並考慮後續結果。</li>
+            <li><b>獎勵 ≠ 標籤：</b>獎勵評價行動後果，不是告訴每個狀態唯一正確動作。</li>
+            <li><b>最高立即獎勵 ≠ 最佳策略：</b>題目出現延後效果或長期規劃，要看累積回報。</li>
+            <li><b>試錯 ≠ 可在真實環境任意冒險：</b>高影響情境仍要模擬、安全限制、監控與人工問責。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 五問判斷法</h2>
+          <div class="number-grid mixed-method">
+            <div><b>01</b><span>題目提供的是標籤，還是行動後的獎勵？</span></div>
+            <div><b>02</b><span>資料是全部有標記、全部無標記，還是少量有標記？</span></div>
+            <div><b>03</b><span>目標是預測類別／數值，還是學會行動策略？</span></div>
+            <div><b>04</b><span>是否出現代理、環境、狀態、行動與累積回報？</span></div>
+            <div><b>05</b><span>結果是否以保留資料或安全互動環境驗證？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"少量已標記樣本與大量未標記樣本共同用於訓練，是半監督式最直接的判斷訊號。"},q2:{answer:"B",explain:"代理反覆觀察狀態、採取行動並收到獎勵，是強化學習的互動迴圈。"},q3:{answer:"D",explain:"自我訓練中的偽標籤來自模型預測，不等於人工確認真值；錯誤可能在後續迭代被放大。"},q4:{answer:"A",explain:"強化學習追求一段時間內的累積回報，不能只選眼前分數最高、卻破壞後續狀態的行動。"},q5:{answer:"C",explain:"半監督式仍要檢查分布假設、標記品質與保留資料表現；未標記資料多不代表必然改善。"},q6:{answer:"D",explain:"半監督式負責預測狀態類別，強化學習負責在狀態下選行動；可以串接，但任務與輸出不同。"}})'>
+            <fieldset><legend>1. 店家只有 300 筆人工標記的查詢類別，另有 30,000 筆未標記查詢，希望改善分類器。最符合哪種學習方式？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 純非監督式分群</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 強化學習</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 半監督式學習</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 主成分分析</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 下列哪一組詞最直接指向強化學習？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 群中心、K 值、距離</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 狀態、行動、獎勵、策略</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 少量標記、大量未標記</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 主成分、新軸、降維</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 自我訓練把高信心預測加入下一輪訓練。對這些「偽標籤」最合理的理解是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 已成為不可修改的真實標籤</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 一定比人工標記可靠</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 只要資料多就不會出錯</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 是模型產生的暫定標記，可能帶入錯誤</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 節能代理有兩個行動：立刻關閉設備可得短期高分，但之後舒適度大幅下降；平緩調整短期分數較低，長期較穩定。應優先比較什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 一段時間的累積回報</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 第一個行動的名稱</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 未標記樣本數</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 群中心數量</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 團隊加入大量未標記資料後，半監督式模型反而變差。下列哪個處理最合理？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 宣告半監督式一定無效</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 再加入更多任意來源資料</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 檢查資料分布、標記品質、假設與驗證設計</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 把所有模型預測改稱真實標籤</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 家庭系統先估計「舒適／不舒適」，再根據狀態選擇設備調整。哪個說法最正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 兩步都必然是 K-means</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 有獎勵就不需要任何驗證</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 預測類別與選擇行動是同一輸出</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 前者可用半監督式，後者可用強化學習，兩者任務不同</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜標記混合，還是互動回饋？</h2>
+          <p>自然台灣華語複習：沿用家庭節能情境，串起少量標記、偽標籤、代理、環境、獎勵、策略與累積回報。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day17-reinforcement-semisupervised.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day17-reinforcement-semisupervised.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並核對 114.04 勘誤表。[1][2][3]</p>
+          <p>半監督式細節補充自 scikit-learn 1.9.1 官方文件；本站測驗為原創理解題，不是官方考題。[4]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95%E5%8B%98%E8%AA%A4%E8%A1%A811404_20251222101819.pdf — iPAS AI 應用規劃師（初級）學習指引勘誤表（114.04）
+[4] https://scikit-learn.org/stable/modules/semi_supervised.html — scikit-learn User Guide｜Semi-supervised learning (stable)
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day17" onclick="toggleDone('day17',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-16.html">← Day 16｜K-means 與 PCA</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 18｜訓練、驗證、測試流程（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#split">兩種學習訊號</a><a href="#semi">半監督式</a><a href="#rl">強化學習</a><a href="#scenario">貫穿情境</a><a href="#compare">四種方式比較</a><a href="#confuse">容易混淆</a><a href="#method">五問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
