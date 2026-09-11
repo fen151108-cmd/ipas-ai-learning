@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="訓練集、驗證集與測試集概念統整：分清模型學習、方案選擇與最後獨立評估">
+  <title>Day 18｜訓練、驗證、測試流程</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab active" href="day-18.html" aria-current="page"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero split-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 18</span></div>
+      <h1>訓練、驗證、測試流程</h1>
+      <p class="memory-line">訓練集用來學，驗證集用來選，測試集只在最後驗收。</p>
+      <p class="lede">三份資料不是把同一件事做三次，而是刻意隔離「學習、選擇、驗收」三種責任，避免結果看似漂亮卻無法泛化。</p>
+      <div class="meta"><span>Day 18</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從資料準備走向可信評估</h2>
+          <div class="concept-path"><span>資料整理與標籤定義</span><b class="arrow">›</b><span>資料分工</span><b class="arrow">›</b><span>訓練／驗證／測試</span><b class="arrow">›</b><span>泛化評估</span></div>
+          <p>上位概念是機器學習的建模流程。官方指引把流程整理為資料處理、模型訓練、模型評估與優化，並說明訓練時透過損失函數與優化器調整模型參數。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>資料品質、特徵與標籤、學習方式</b></div>
+            <div><small>本課</small><b>用資料分工隔離學習、選擇與驗收</b></div>
+            <div><small>後續</small><b>過擬合、正則化、交叉驗證與評估指標</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="roles">
+          <div class="section-kicker">THREE RESPONSIBILITIES</div>
+          <h2>二、三份資料，三種不能交換的責任</h2>
+          <div class="split-trio">
+            <div class="train"><span>TRAIN</span><b>訓練集｜用來學</b><p>反覆計算預測與標籤的差距，更新模型參數，擬合資料中的關係。</p><em>回答：模型如何學出規則？</em></div>
+            <div class="validate"><span>VALIDATE</span><b>驗證集｜用來選</b><p>比較模型、特徵、超參數或停止時點，決定保留哪一個候選方案。</p><em>回答：哪個版本較值得保留？</em></div>
+            <div class="test"><span>TEST</span><b>測試集｜最後驗收</b><p>方案凍結後，估計整套流程面對未參與學習與選擇資料的表現。</p><em>回答：泛化表現如何？</em></div>
+          </div>
+          <p>scikit-learn 官方文件提醒：若依測試結果反覆調整參數，測試資訊會洩漏進模型選擇，評估指標也不再代表泛化表現。[3]</p>
+          <div class="mini-callout"><b>最快判斷句</b><span>更新參數看訓練集；比較候選看驗證集；方案凍結後才看測試集。</span></div>
+        </section>
+
+        <section class="block panel" id="loop">
+          <div class="section-kicker">ITERATE WITHOUT LEAKING</div>
+          <h2>三、建模是迴圈，但測試集不在迴圈裡</h2>
+          <div class="build-loop">
+            <div><small>01 SPLIT</small><b>先固定切分</b><span>寫清資料範圍與時間界線</span></div><i>→</i>
+            <div><small>02 FIT</small><b>只在訓練集擬合</b><span>包含模型與會學統計量的前處理</span></div><i>→</i>
+            <div><small>03 SELECT</small><b>在驗證集比較</b><span>決定特徵、模型與超參數</span></div><i>↺</i>
+            <div class="freeze"><small>04 FREEZE</small><b>凍結整套方案</b><span>不再依結果臨時修改</span></div><i>→</i>
+            <div class="final"><small>05 FINAL</small><b>測試集最後評估</b><span>取得獨立泛化估計</span></div>
+          </div>
+          <p>正確迴圈在「訓練 ↔ 驗證」之間進行；選定方案後，才讓測試集進場。若測試結果已影響後續修改，原測試集就不再完全獨立，正式再驗收時應準備新的測試資料或重新設計評估程序。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>四、貫穿情境：隔日需求量預測</h2>
+          <p>店家希望根據品項、星期、促銷狀態與近期需求，預測隔日需求量，減少缺貨與剩貨。每筆歷史紀錄都有特徵與隔日實際需求量標籤。</p>
+          <div class="timeline-split" aria-label="依時間切分訓練、驗證與測試資料">
+            <div class="train"><small>較早期間</small><b>訓練集</b><span>學習需求規律</span></div>
+            <div class="validate"><small>中間期間</small><b>驗證集</b><span>比較候選方案</span></div>
+            <div class="test"><small>最近保留期間</small><b>測試集</b><span>模擬預測未來</span></div>
+          </div>
+          <ol class="scenario-steps">
+            <li><b>先切再處理：</b>因為任務預測未來，切分維持時間先後，避免未來資訊流向過去。</li>
+            <li><b>前處理也要守界線：</b>缺失值填補、尺度或特徵選擇規則只從訓練集學得，再原樣套到驗證與測試。</li>
+            <li><b>候選都用同一原則：</b>每個版本在訓練集擬合，只依驗證結果決定取捨。</li>
+            <li><b>最後才揭曉：</b>凍結前處理、特徵、模型與超參數，才在測試集做一次最終評估。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="leakage">
+          <div class="section-kicker">LEAKAGE CHECK</div>
+          <h2>五、三條資訊洩漏路徑</h2>
+          <div class="leak-grid">
+            <div><span>LEAK 01</span><b>先用全資料算尺度</b><p>測試集的平均值、最大值或分布已提前影響訓練流程。</p><small>改法：只在訓練集 fit，再對其他資料 transform。</small></div>
+            <div><span>LEAK 02</span><b>用未來特徵預測過去</b><p>在真正預測當下不可能取得的資訊，被放進模型輸入。</p><small>改法：逐欄確認特徵可取得時間。</small></div>
+            <div><span>LEAK 03</span><b>反覆看測試分數調參</b><p>測試結果持續影響方案，測試集已變相成為驗證集。</p><small>改法：凍結方案後再測；需要重來就換新測試資料。</small></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE SIGNALS</div>
+          <h2>六、比較表：角色、動作與高頻誤判</h2>
+          <div style="overflow-x:auto">
+            <table class="compare split-compare">
+              <thead><tr><th>判斷面向</th><th>訓練集</th><th>驗證集</th><th>測試集</th></tr></thead>
+              <tbody>
+                <tr><td><b>主要責任</b></td><td>學習模型參數</td><td>比較與選擇候選方案</td><td>最後獨立評估</td></tr>
+                <tr><td><b>何時使用</b></td><td>每次模型擬合</td><td>開發與調整期間</td><td>方案凍結之後</td></tr>
+                <tr><td><b>是否影響模型</b></td><td>直接更新參數</td><td>間接影響模型／超參數選擇</td><td>不應影響已完成的選擇</td></tr>
+                <tr><td><b>典型動詞</b></td><td>擬合、更新、最小化損失</td><td>比較、選擇、調參、早停</td><td>最終、獨立、泛化、驗收</td></tr>
+                <tr><td><b>高頻陷阱</b></td><td>訓練高分就宣稱可泛化</td><td>把它說成最後成績單</td><td>反覆用來除錯與調參</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>七、七組容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>訓練集 ≠ 單純最大的一份：</b>核心判準是它是否用來擬合模型參數。</li>
+            <li><b>驗證集 ≠ 最終成績：</b>它支援模型選擇、超參數調整與早停。</li>
+            <li><b>測試集 ≠ 除錯工具：</b>反覆看分數再修改，就把測試集變相用成驗證集。</li>
+            <li><b>模型參數 ≠ 超參數：</b>前者由訓練資料學得；後者通常靠驗證結果選擇。</li>
+            <li><b>不更新參數 ≠ 角色相同：</b>驗證集會影響選擇；測試集不應影響既定方案。</li>
+            <li><b>先前處理再切分 ≠ 安全：</b>若前處理看過全資料，測試統計資訊已經洩漏。</li>
+            <li><b>所有資料都能隨機切：</b>預測未來的時序任務通常要保留時間方向。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、iPAS 三問判斷法</h2>
+          <div class="number-grid split-method">
+            <div><b>01</b><span>這份資料是否用來更新模型參數？是，就先判訓練集。</span></div>
+            <div><b>02</b><span>是否用來比較模型、特徵或超參數？是，就先判驗證集。</span></div>
+            <div><b>03</b><span>方案是否已凍結，且正在做最後獨立評估？是，才判測試集。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"更新模型權重或係數屬於參數學習，應只使用訓練集。"},q2:{answer:"C",explain:"驗證集負責比較候選模型與超參數，測試集應留到方案凍結後才做獨立評估。"},q3:{answer:"D",explain:"反覆依測試分數修改方案，會讓測試資訊滲入模型選擇，原測試集便不再獨立。"},q4:{answer:"A",explain:"會從資料學得的填補值與尺度只能在訓練集擬合，再把同一轉換套到驗證集與測試集。"},q5:{answer:"C",explain:"預測未來需求時，依時間先後切分較能模擬真實使用，也避免未來資訊流入過去。"},q6:{answer:"B",explain:"訓練高分只表示對訓練資料擬合良好；必須看未參與擬合與選擇的資料，才能估計泛化。"}})'>
+            <fieldset><legend>1. 某模型在每一輪中計算預測誤差並更新權重。這一輪應使用哪份資料？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 測試集</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 訓練集</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 只用驗證集</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 任意一份都相同</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 團隊要從三組正則化強度中選一組，最合理的資料分工是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 直接挑訓練分數最高者，完全不需其他資料</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 用測試集反覆挑選，再用同一測試集報告最終成績</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 各自在訓練集擬合，用驗證集選擇，最後才用測試集評估</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 三份資料全部混合，確保樣本最多</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 團隊看過測試分數後修改特徵，重測後再調超參數，直到分數滿意。主要問題是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 訓練資料一定太少</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 驗證集一定不能存在</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 所有超參數都變成模型參數</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 測試集已參與選擇，不再提供獨立評估</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 資料需要用平均值填補缺失，再做標準化。哪個流程最合理？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 只用訓練集求填補值與尺度，再套用到另外兩份</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 先用全資料求平均值和尺度，再切分</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 分別用每份資料自己的平均值和尺度</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 只用測試集決定所有前處理規則</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 店家要用過去需求預測未來備貨量。下列哪個切分原則最值得優先考慮？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 讓未來紀錄平均散入訓練集</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 依品項名稱字數切分</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 維持時間先後，用較早資料訓練、較新資料驗證與測試</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 只保留銷量最高的期間</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 模型訓練準確率非常高。下列哪個結論最正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 已證明部署後一定同樣準確</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 只能說對訓練資料擬合良好，仍需獨立資料估計泛化</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 測試集可以刪除</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 表示沒有任何資訊洩漏</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜學、選、驗收，資料不能串場</h2>
+          <p>自然台灣華語複習：沿用店家備貨情境，串起三份資料責任、建模迴圈、前處理洩漏與時序切分。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day18-train-validation-test.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day18-train-validation-test.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主。[1][2]</p>
+          <p>資料切分與測試資訊洩漏的細節補充自 scikit-learn 官方交叉驗證指南；本站測驗為原創理解題，不是官方考題。[3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://scikit-learn.org/stable/modules/cross_validation.html — scikit-learn User Guide｜Cross-validation: evaluating estimator performance
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day18" onclick="toggleDone('day18',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-17.html">← Day 17｜強化學習與半監督式學習</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 19｜過擬合、正則化與交叉驗證（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#roles">三份資料責任</a><a href="#loop">建模迴圈</a><a href="#scenario">貫穿情境</a><a href="#leakage">資訊洩漏</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">三問判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
