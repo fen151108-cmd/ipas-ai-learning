@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="過擬合、欠擬合、正則化與交叉驗證概念統整：用訓練與驗證落差判讀泛化問題">
+  <title>Day 19｜過擬合、正則化與交叉驗證</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab active" href="day-19.html" aria-current="page"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero fit-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 19</span></div>
+      <h1>過擬合、正則化與交叉驗證</h1>
+      <p class="memory-line">訓練太貼叫過擬合；加上合理限制，再用交叉驗證看穩不穩。</p>
+      <p class="lede">先從訓練與驗證表現的落差辨認欠擬合、適度擬合與過擬合，再把正則化、提早停止與交叉驗證放回正確位置。</p>
+      <div class="meta"><span>Day 19</span><span>約 40–60 分鐘</span><span>概念統整＋店家備貨情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：資料分工之後，先處理泛化</h2>
+          <div class="concept-path"><span>訓練／驗證／測試</span><b class="arrow">›</b><span>擬合狀態診斷</span><b class="arrow">›</b><span>複雜度控制</span><b class="arrow">›</b><span>穩健評估</span></div>
+          <p>上位概念是機器學習的模型訓練、評估與優化。官方指引把過擬合防範放在模型訓練，把交叉驗證放在模型評估與優化，並列出正則化、提早停止與資料增強等策略。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>訓練集學習、驗證集選擇、測試集驗收</b></div>
+            <div><small>本課</small><b>診斷擬合狀態、控制複雜度、檢查穩定性</b></div>
+            <div><small>後續</small><b>Accuracy、Precision、Recall、F1 與錯誤代價</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="states">
+          <div class="section-kicker">THREE FIT STATES</div>
+          <h2>二、不是只分「準」與「不準」</h2>
+          <div class="fit-trio">
+            <div class="under"><span>UNDERFIT</span><b>欠擬合｜規律也沒學到</b><p>模型過度簡單或資訊不足，訓練與驗證表現通常都不理想。[3]</p><em>訊號：兩邊都差，落差未必大。</em></div>
+            <div class="balanced"><span>GOOD FIT</span><b>適度擬合｜規律可遷移</b><p>訓練表現合理，驗證表現接近，而且在不同資料切分下相對穩定。[3]</p><em>訊號：不只分數好，落差與波動也可接受。</em></div>
+            <div class="over"><span>OVERFIT</span><b>過擬合｜把細節當規律</b><p>模型把訓練資料的雜訊或偶然組合也記住，遇到新資料便失準。[2][4]</p><em>訊號：訓練很好，驗證明顯落後。</em></div>
+          </div>
+          <p>官方指引將過擬合描述為模型在訓練資料上表現優異，但在測試資料上表現不佳。[2] scikit-learn 的學習曲線指南則用偏差與變異說明：太簡單的模型常呈現高偏差，對訓練資料變化過度敏感的模型常呈現高變異。[3]</p>
+        </section>
+
+        <section class="block panel" id="curve">
+          <div class="section-kicker">READ THE GAP</div>
+          <h2>三、用兩條表現曲線讀出問題</h2>
+          <div class="gap-board" aria-label="訓練與驗證表現隨模型複雜度變化示意">
+            <div class="gap-plot">
+              <span class="axis y">表現</span><span class="axis x">模型複雜度 →</span>
+              <svg viewBox="0 0 700 280" role="img" aria-label="訓練表現維持較高，驗證表現先升後降">
+                <path class="grid" d="M58 35V238H660M58 184H660M58 126H660M58 68H660"/>
+                <path class="train-line" d="M70 170 C180 110 270 75 360 60 S540 45 640 42"/>
+                <path class="valid-line" d="M70 202 C180 150 270 96 365 88 S535 130 640 188"/>
+              </svg>
+              <span class="line-label train">訓練</span><span class="line-label valid">驗證</span>
+            </div>
+            <div class="gap-notes">
+              <div><small>左側</small><b>兩邊都低</b><span>先查欠擬合：模型太簡單、特徵不足或訓練不足。[3]</span></div>
+              <div><small>中段</small><b>驗證最佳</b><span>候選設定較有機會兼顧學習與泛化。[3]</span></div>
+              <div><small>右側</small><b>落差擴大</b><span>先查過擬合：模型繼續貼近訓練細節。[3]</span></div>
+            </div>
+          </div>
+          <div class="mini-callout"><b>題目不要只看一條線</b><span>訓練分數高本身不是成功證明；要一起看未參與擬合資料的表現與兩者落差。</span></div>
+        </section>
+
+        <section class="block panel" id="regularization">
+          <div class="section-kicker">CONTROL COMPLEXITY</div>
+          <h2>四、正則化：不是刪資料，是限制模型</h2>
+          <div class="regularization-scale">
+            <div><span>限制太弱</span><b>模型自由度過高</b><small>仍可能追逐雜訊 → 過擬合</small></div>
+            <i>調整強度</i>
+            <div class="focus"><span>合理限制</span><b>保留主要規律</b><small>用驗證結果選擇平衡點</small></div>
+            <i>調整強度</i>
+            <div><span>限制太強</span><b>有用規律也被壓掉</b><small>模型可能變得太簡單 → 欠擬合</small></div>
+          </div>
+          <p>正則化在學習目標中加入對複雜度的限制或懲罰。L1 與 L2 是常見名稱；初級題先抓共同目的：抑制過度複雜，降低過擬合風險。正則化強度屬於超參數，通常用驗證資料或交叉驗證選擇，而不是越大越好。[2]</p>
+          <div class="control-grid">
+            <div><span>REGULARIZATION</span><b>正則化</b><p>限制係數或模型複雜度，換取較佳泛化。[2]</p></div>
+            <div><span>EARLY STOPPING</span><b>提早停止</b><p>驗證表現開始惡化時停止，不讓模型繼續追逐訓練細節。[2]</p></div>
+            <div><span>DATA AUGMENTATION</span><b>資料增強</b><p>在不改變標籤語意下增加訓練多樣性；方法必須符合資料型態。[2]</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="cross-validation">
+          <div class="section-kicker">REPEAT THE CHECK</div>
+          <h2>五、K 折交叉驗證：輪流驗，不是挑最高分</h2>
+          <div class="folds" aria-label="五折交叉驗證示意">
+            <div><b>第 1 輪</b><span class="valid-fold">驗 1</span><span>訓 2</span><span>訓 3</span><span>訓 4</span><span>訓 5</span></div>
+            <div><b>第 2 輪</b><span>訓 1</span><span class="valid-fold">驗 2</span><span>訓 3</span><span>訓 4</span><span>訓 5</span></div>
+            <div><b>第 3 輪</b><span>訓 1</span><span>訓 2</span><span class="valid-fold">驗 3</span><span>訓 4</span><span>訓 5</span></div>
+            <div><b>第 4 輪</b><span>訓 1</span><span>訓 2</span><span>訓 3</span><span class="valid-fold">驗 4</span><span>訓 5</span></div>
+            <div><b>第 5 輪</b><span>訓 1</span><span>訓 2</span><span>訓 3</span><span>訓 4</span><span class="valid-fold">驗 5</span></div>
+          </div>
+          <p>K 折交叉驗證把開發用資料分成 K 折，每輪使用 K−1 折訓練、剩下一折驗證，讓每一折都輪流當過驗證折，再彙整各輪結果。[2][4]</p>
+          <div class="cv-rules">
+            <div><small>看什麼</small><b>平均表現＋折間波動</b><p>彙整跨折表現，不以單一輪最高分代表整體穩健性。[2][4]</p></div>
+            <div><small>留什麼</small><b>測試集仍在迴圈外</b><p>交叉驗證服務模型選擇；測試集等方案凍結後再驗收。[4]</p></div>
+            <div><small>守什麼</small><b>每輪各自擬合前處理</b><p>尺度、填補與特徵選擇不能先看完整資料。[4]</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：讓備貨模型穩定面對新日期</h2>
+          <p>店家用星期、品項類型、促銷狀態與近期需求預測隔日需求量。資料有明確時間順序，因此切分方式也要模擬「用過去預測未來」。</p>
+          <div class="scenario-fit-flow">
+            <div><small>01 HOLD OUT</small><b>保留最近期間</b><p>作為最後測試集，不參與複雜度與正則化選擇。</p></div><i>→</i>
+            <div><small>02 COMPARE</small><b>比較候選設定</b><p>在較早資料中比較模型複雜度與正則化強度。</p></div><i>→</i>
+            <div><small>03 VALIDATE</small><b>保留時間方向</b><p>每輪訓練資料早於驗證資料，避免未來流回過去。</p></div><i>→</i>
+            <div><small>04 FREEZE</small><b>看平均與波動</b><p>選出表現合理而且跨折穩定的整套流程。</p></div><i>→</i>
+            <div><small>05 TEST</small><b>最後驗收</b><p>凍結後才打開最近期間，估計真實泛化表現。</p></div>
+          </div>
+          <p>若模型用日期編號記住少見促銷組合，舊資料可能近乎完美，新日期卻失準，這是過擬合。若模型只輸出固定平均值，連星期與促銷規律都抓不到，則更接近欠擬合。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE SIGNALS</div>
+          <h2>七、比較表：問題、證據與對策不能錯配</h2>
+          <div style="overflow-x:auto">
+            <table class="compare fit-compare">
+              <thead><tr><th>概念</th><th>訓練表現</th><th>驗證表現</th><th>主要判斷</th><th>常見方向</th></tr></thead>
+              <tbody>
+                <tr><td><b>欠擬合</b></td><td>差</td><td>差</td><td>連主要規律都沒學好</td><td>改善特徵、增加合理複雜度或充分訓練</td></tr>
+                <tr><td><b>適度擬合</b></td><td>合理</td><td>接近且穩定</td><td>學到可遷移規律</td><td>凍結流程，再用測試集驗收</td></tr>
+                <tr><td><b>過擬合</b></td><td>很好</td><td>明顯較差</td><td>把訓練細節或雜訊當規律</td><td>正則化、提早停止、合理簡化、更多合適資料</td></tr>
+                <tr><td><b>交叉驗證</b></td><td>每輪重訓</td><td>各折輪流驗證</td><td>檢查候選設定的平均與波動</td><td>依資料結構選 K 折、分層、群組或時序切分</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>八、八個容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>訓練高分 ≠ 模型一定好：</b>要看未參與擬合資料的表現與落差。[2][4]</li>
+            <li><b>兩邊都差 ≠ 過擬合：</b>訓練與驗證都差，先查欠擬合方向。[3]</li>
+            <li><b>正則化 ≠ 資料切分：</b>它限制模型複雜度，不是把資料重新分組。[2]</li>
+            <li><b>正則化越強 ≠ 一定越好：</b>過強會壓掉有用規律，造成欠擬合。[3]</li>
+            <li><b>交叉驗證 ≠ 最終測試：</b>它支援模型選擇，最終測試集仍應保留。[4]</li>
+            <li><b>五折 ≠ 挑五輪最高分：</b>要彙整同一設定跨折的表現與波動。</li>
+            <li><b>交叉驗證 ≠ 自動防洩漏：</b>前處理必須在每輪訓練折內擬合。[4]</li>
+            <li><b>所有資料 ≠ 都能隨機 K 折：</b>時序、群組或重複個體要用符合結構的切分。[4]</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 四步判斷法</h2>
+          <div class="number-grid fit-method">
+            <div><b>01</b><span>先比較訓練與驗證：都差偏欠擬合；訓練好、驗證差偏過擬合。</span></div>
+            <div><b>02</b><span>再看動作：限制複雜度是正則化；驗證轉差就停是提早停止。</span></div>
+            <div><b>03</b><span>看到 K 折，確認是否每折輪流驗證並彙整，而非只挑單次最高分。</span></div>
+            <div><b>04</b><span>最後確認測試集仍獨立，且前處理、時間與群組界線沒有洩漏。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"訓練表現很好但驗證明顯落後，是模型過度貼合訓練細節的典型訊號。"},q2:{answer:"C",explain:"兩邊都不理想且差距小，較像模型連主要規律都沒學到，應先查欠擬合方向。"},q3:{answer:"A",explain:"正則化限制模型複雜度以降低過擬合風險，但過強也可能造成欠擬合，並非越大越好。"},q4:{answer:"D",explain:"五折交叉驗證讓每一折輪流當一次驗證折；每輪其餘四折負責訓練。"},q5:{answer:"B",explain:"交叉驗證用於開發與選擇；獨立測試集仍應留到方案凍結後做最終驗收。"},q6:{answer:"C",explain:"預測未來時要保留時間方向，讓訓練資料早於驗證資料，不能任意把未來紀錄混入訓練折。"}})'>
+            <fieldset><legend>1. 某模型訓練誤差極低，但驗證誤差明顯較高。最應優先懷疑什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 欠擬合</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 過擬合</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 資料載入</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 非監督式分群</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 模型在訓練集與驗證集上的表現都不理想，而且兩者相近。最合理的初步判讀是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 一定是測試集洩漏</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 模型一定已經適度擬合</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 可能欠擬合，連主要規律都沒學好</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 只要再加強正則化就一定改善</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 下列哪一項最符合正則化的概念？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 對模型複雜度加入限制，並用驗證結果選適當強度</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 把測試資料移回訓練集，讓資料更多</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 正則化越強，泛化一定越好</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 把所有連續特徵轉為類別</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 在五折交叉驗證中，每一輪通常如何分工？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 五折全部只做測試</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 一折訓練，其餘四折丟棄</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 挑最高分的一折當永久答案</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 四折訓練、一折驗證，輪流五次</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 團隊用交叉驗證挑好模型與正則化強度後，下一步最合理的是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 宣稱交叉驗證已等於部署後表現，不需測試集</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 凍結流程，再用未參與選擇的測試集做最終評估</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 把分數最低的一折刪除再取平均</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 用測試結果繼續無限調參，再報同一分數</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 店家要用過去需求預測未來。交叉驗證切分最應注意什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 任意打亂，讓未來紀錄平均進入每個訓練折</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 每輪都用完整資料計算前處理統計量</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 保留時間方向，讓訓練資料早於驗證資料</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只保留需求最高的日期</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜學得太少，還是學得太死？</h2>
+          <p>自然台灣華語複習：沿用店家備貨情境，串起欠擬合、過擬合、正則化強度、提早停止與 K 折交叉驗證。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day19-overfitting-regularization-cv.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day19-overfitting-regularization-cv.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主。[1][2]</p>
+          <p>擬合狀態與交叉驗證細節補充自 scikit-learn 官方使用指南；本站測驗為原創理解題，不是官方考題。[3][4]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://scikit-learn.org/stable/modules/learning_curve.html — scikit-learn User Guide｜Learning curve
+[4] https://scikit-learn.org/stable/modules/cross_validation.html — scikit-learn User Guide｜Cross-validation: evaluating estimator performance
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day19" onclick="toggleDone('day19',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-18.html">← Day 18｜訓練、驗證、測試流程</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 20｜Accuracy、Precision、Recall、F1（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#states">三種擬合狀態</a><a href="#curve">讀表現落差</a><a href="#regularization">正則化與控制</a><a href="#cross-validation">K 折交叉驗證</a><a href="#scenario">貫穿情境</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">四步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
