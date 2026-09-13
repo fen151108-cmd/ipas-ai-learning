@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Accuracy、Precision、Recall、F1 概念統整：先定義正類，再從混淆矩陣與錯誤代價選分類指標">
+  <title>Day 20｜Accuracy、Precision、Recall、F1</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab active" href="day-20.html" aria-current="page"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero metrics-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 03・機器學習</span><span>›</span><span>Day 20</span></div>
+      <h1>Accuracy、Precision、Recall、F1</h1>
+      <p class="memory-line">Accuracy 看整體；Precision 管誤報；Recall 管漏報；F1 折衷兩者。</p>
+      <p class="lede">先定義哪一類是正類，再從混淆矩陣找分母；不要只看最高分，要看哪種錯誤更不能接受。</p>
+      <div class="meta"><span>Day 20</span><span>約 40–60 分鐘</span><span>概念統整＋缺貨預警情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：模型會泛化之後，才問錯在哪裡</h2>
+          <div class="concept-path"><span>資料切分與泛化</span><b class="arrow">›</b><span>分類預測</span><b class="arrow">›</b><span>混淆矩陣</span><b class="arrow">›</b><span>指標與門檻</span></div>
+          <p>上位概念是機器學習的模型評估與優化。iPAS 科目一指引把 Accuracy、F1 與迴歸用 MSE 並列為效能評估指標，強調要依任務選擇；分類指標不能拿去回答連續數值預測的誤差。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>分類任務、測試資料、過擬合與泛化</b></div>
+            <div><small>本課</small><b>正類、混淆矩陣、四個分類指標與錯誤代價</b></div>
+            <div><small>後續</small><b>線性迴歸與邏輯迴歸：模型名稱不等於任務類型</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="positive">
+          <div class="section-kicker">NAME THE POSITIVE CLASS</div>
+          <h2>二、算之前先說：哪一類叫「正類」？</h2>
+          <p>「正」不是好事，「負」也不是壞事；它們只是評估時指定的焦點類別。今天把「明日會缺貨」定為正類，把「明日不缺貨」定為負類。正類一換，TP、FP、FN、TN 與 Precision、Recall 都會跟著換視角。</p>
+          <div class="positive-strip">
+            <div><small>POSITIVE</small><b>會缺貨</b><span>本課要優先找出的事件</span></div>
+            <i>先固定焦點</i>
+            <div><small>NEGATIVE</small><b>不缺貨</b><span>相對的另一類</span></div>
+          </div>
+          <div class="mini-callout"><b>題幹訊號</b><span>看到「找出異常、風險、詐欺、瑕疵、疾病」時，這些通常被設為正類；但仍以題目明確定義為準。</span></div>
+        </section>
+
+        <section class="block panel" id="matrix">
+          <div class="section-kicker">CONFUSION MATRIX</div>
+          <h2>三、四格不是四個公式，是四種判斷結果</h2>
+          <p>二元分類中，positive／negative 指模型預測的類別，true／false 表示預測是否符合實際結果；四種組合構成混淆矩陣。[3]</p>
+          <div class="matrix-wrap">
+            <table class="confusion-matrix">
+              <thead><tr><th>模型 \ 實際</th><th>實際會缺貨（正）</th><th>實際不缺貨（負）</th></tr></thead>
+              <tbody>
+                <tr><th>預測會缺貨（正）</th><td class="tp"><small>TP・真陽性</small><b>有報，而且真的缺</b><span>命中正類</span></td><td class="fp"><small>FP・假陽性</small><b>有報，但其實不缺</b><span>誤報</span></td></tr>
+                <tr><th>預測不缺貨（負）</th><td class="fn"><small>FN・假陰性</small><b>沒報，但其實會缺</b><span>漏報</span></td><td class="tn"><small>TN・真陰性</small><b>沒報，而且真的不缺</b><span>正確排除</span></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="matrix-memory"><span><b>T／F</b>：判斷對不對</span><span><b>P／N</b>：模型報正或報負</span></div>
+        </section>
+
+        <section class="block panel" id="metrics">
+          <div class="section-kicker">FOUR QUESTIONS, FOUR DENOMINATORS</div>
+          <h2>四、四個指標，各自回答不同問題</h2>
+          <p>Accuracy 是所有預測中答對的比例；Precision 以「模型報正」為分母；Recall 以「實際為正」為分母；F1 是 Precision 與 Recall 的調和平均。[2][3]</p>
+          <div class="metric-grid">
+            <div class="accuracy"><span>ACCURACY</span><b>整體答對多少？</b><code>(TP + TN) ÷ 全部</code><p>正類與負類的正確判斷都算進來。</p><em>看全體</em></div>
+            <div class="precision"><span>PRECISION</span><b>報出來的有多準？</b><code>TP ÷ (TP + FP)</code><p>模型判為正的案例裡，真的為正有多少。</p><em>管誤報 FP</em></div>
+            <div class="recall"><span>RECALL</span><b>真的正類抓到多少？</b><code>TP ÷ (TP + FN)</code><p>實際正類裡，模型成功找出多少。</p><em>管漏報 FN</em></div>
+            <div class="f1"><span>F1 SCORE</span><b>兩者能否兼顧？</b><code>2PR ÷ (P + R)</code><p>Precision 或 Recall 任一偏低，都會拉低 F1。</p><em>折衷 P 與 R</em></div>
+          </div>
+          <div class="denominator-route">
+            <div><small>看到「全部」</small><b>Accuracy</b></div>
+            <i>／</i><div><small>看到「預測為正」</small><b>Precision</b></div>
+            <i>／</i><div><small>看到「實際為正」</small><b>Recall</b></div>
+            <i>／</i><div><small>看到「兼顧兩者」</small><b>F1</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="worked-example">
+          <div class="section-kicker">ONE MATRIX, FOUR READINGS</div>
+          <h2>五、同一百天，四個分數會說不同故事</h2>
+          <p>店家以 100 天新資料驗收缺貨預警：TP 8 天、FP 12 天、FN 2 天、TN 78 天。這組數字只是本站原創教學例，不是實際營運資料。</p>
+          <div class="count-strip"><span class="tp">TP <b>8</b></span><span class="fp">FP <b>12</b></span><span class="fn">FN <b>2</b></span><span class="tn">TN <b>78</b></span></div>
+          <div class="score-board">
+            <div><small>ACCURACY</small><b>86%</b><span>(8＋78) ÷ 100</span><p>整體多數判斷正確。</p></div>
+            <div><small>PRECISION</small><b>40%</b><span>8 ÷ (8＋12)</span><p>二十次警示只有八次真的缺貨，誤報不少。</p></div>
+            <div><small>RECALL</small><b>80%</b><span>8 ÷ (8＋2)</span><p>十次實際缺貨抓到八次，漏掉兩次。</p></div>
+            <div><small>F1</small><b>53.3%</b><span>2 × .4 × .8 ÷ 1.2</span><p>Precision 偏低，把綜合分數拉下來。</p></div>
+          </div>
+          <p>這就是為什麼 86% Accuracy 不能單獨代表模型夠好：它沒有直接告訴你警示有多少誤報，也沒有直接告訴你實際缺貨漏掉多少。</p>
+        </section>
+
+        <section class="block panel" id="tradeoff">
+          <div class="section-kicker">ERROR COST BEFORE SCORE</div>
+          <h2>六、先問錯誤代價，再選主要指標</h2>
+          <div class="cost-grid">
+            <div><span>FALSE POSITIVE</span><b>誤報代價較高</b><p>每次警示都要昂貴複核，或錯誤行動會造成明顯成本。</p><em>優先關注 Precision</em></div>
+            <div><span>FALSE NEGATIVE</span><b>漏報代價較高</b><p>沒抓到真正風險會造成更嚴重後果，例如缺貨預警失效。</p><em>優先關注 Recall</em></div>
+            <div><span>BOTH MATTER</span><b>兩邊都不能太差</b><p>需要在誤報與漏報間取得單一綜合讀值。</p><em>可關注 F1</em></div>
+          </div>
+          <p>調整分類門檻通常會改變 Precision 與 Recall 的取捨：更容易判為正，常能抓到更多正類，但也可能帶來更多誤報；門檻不是指標，指標是門檻設定後的評估結果。[3]</p>
+          <div class="threshold-track" aria-label="分類門檻與誤報漏報取捨示意"><span>較容易報正<br><b>Recall 常上升</b></span><i></i><strong>調整門檻</strong><i></i><span>較謹慎報正<br><b>Precision 常上升</b></span></div>
+        </section>
+
+        <section class="block panel" id="imbalance">
+          <div class="section-kicker">THE ACCURACY TRAP</div>
+          <h2>七、類別不平衡時，Accuracy 可能看起來太漂亮</h2>
+          <p>若 100 天裡只有 10 天缺貨，模型每天都回答「不缺貨」，仍會得到 90% Accuracy；但它一個缺貨日都沒抓到，Recall 是 0%。因此官方指引把 Accuracy 說明為適用於平衡的分類問題，並指出 F1 適合處理資料不平衡的問題。[2]</p>
+          <div class="imbalance-demo">
+            <div><small>90 DAYS</small><b>實際不缺貨</b><span>全部猜對</span></div>
+            <div class="miss"><small>10 DAYS</small><b>實際會缺貨</b><span>全部漏掉</span></div>
+            <div class="result"><small>LOOKS GOOD?</small><b>Accuracy 90%</b><span>Recall 0% → 對正類完全失效</span></div>
+          </div>
+          <div class="mini-callout"><b>不是「不平衡就只看 F1」</b><span>仍要依錯誤代價選 Precision、Recall 或 F1，並同時查看混淆矩陣；F1 也不包含 TN。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>八、貫穿情境：缺貨預警該怕誤報，還是漏報？</h2>
+          <div class="scenario-metric-flow">
+            <div><small>01 DEFINE</small><b>正類＝明日會缺貨</b><p>先固定評估焦點，四格才不會倒置。</p></div><i>→</i>
+            <div><small>02 COUNT</small><b>先做混淆矩陣</b><p>分清命中、誤報、漏報與正確排除。</p></div><i>→</i>
+            <div><small>03 PRICE</small><b>估錯誤代價</b><p>漏報可能失去交易；誤報可能增加備貨與檢查成本。</p></div><i>→</i>
+            <div><small>04 CHOOSE</small><b>選主要指標</b><p>缺貨損失較重時先看 Recall；誤報成本高時先看 Precision。</p></div><i>→</i>
+            <div><small>05 TUNE</small><b>驗證門檻</b><p>在驗證資料調整，再以獨立測試資料報告結果。</p></div>
+          </div>
+          <p>指標選擇不是純數學比大小，而是把模型錯誤連回實際行動。若團隊宣稱「Precision 最高所以模型最好」，卻沒有先說正類與誤報代價，判斷仍不完整。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE SIGNALS</div>
+          <h2>九、比較表：題目問哪個分母？</h2>
+          <div style="overflow-x:auto">
+            <table class="compare metrics-compare">
+              <thead><tr><th>指標</th><th>分子</th><th>分母</th><th>主要在意</th><th>常見題幹訊號</th></tr></thead>
+              <tbody>
+                <tr><td><b>Accuracy</b></td><td>TP＋TN</td><td>全部案例</td><td>整體答對比例</td><td>「所有預測中有多少正確」</td></tr>
+                <tr><td><b>Precision</b></td><td>TP</td><td>TP＋FP</td><td>減少誤報</td><td>「判為正的裡面有多少是真的」</td></tr>
+                <tr><td><b>Recall</b></td><td>TP</td><td>TP＋FN</td><td>減少漏報</td><td>「實際正類有多少被找出」</td></tr>
+                <tr><td><b>F1</b></td><td>2 × P × R</td><td>P＋R</td><td>平衡 Precision 與 Recall</td><td>「兼顧兩者、類別不平衡」</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>十、八個容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>正類 ≠ 好事：</b>正類只是被關注的類別，可能是缺貨、異常或風險。</li>
+            <li><b>Precision ≠ Accuracy：</b>Precision 只看模型報正的案例；Accuracy 看全部案例。</li>
+            <li><b>Recall ≠ 漏報率：</b>Recall 是成功找出的比例；漏報率是 FN ÷ (TP＋FN)，兩者互補。</li>
+            <li><b>分母口訣：</b>「預測為正」找 Precision；「實際為正」找 Recall。[3]</li>
+            <li><b>高 Accuracy ≠ 正類抓得好：</b>類別不平衡時，模型可能只靠猜多數類拿高分。[2]</li>
+            <li><b>高 Recall ≠ 誤報少：</b>模型可以把很多案例都報正來提高 Recall，卻犧牲 Precision。</li>
+            <li><b>F1 ≠ 四格全包：</b>F1 結合 Precision 與 Recall，但沒有直接使用 TN。[3]</li>
+            <li><b>指標 ≠ 門檻：</b>門檻決定如何把分數轉成類別；指標評估轉換後的結果。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>十一、iPAS 五步判斷法</h2>
+          <div class="number-grid metrics-method">
+            <div><b>01</b><span>先圈出正類：題目究竟要找誰？</span></div>
+            <div><b>02</b><span>把誤報對到 FP，把漏報對到 FN。</span></div>
+            <div><b>03</b><span>找分母：全部、預測為正，還是實際為正？</span></div>
+            <div><b>04</b><span>比較錯誤代價，再決定主看 Precision、Recall 或 F1。</span></div>
+            <div><b>05</b><span>檢查是否類別不平衡，別被單一 Accuracy 騙過。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"本課把「會缺貨」定為正類；實際會缺貨卻預測不缺貨，是假陰性 FN，也就是漏報。"},q2:{answer:"B",explain:"Precision 的分母是所有被模型判為正的案例，也就是 TP＋FP。"},q3:{answer:"D",explain:"漏掉真正異常的代價較高時，應優先提高 Recall，因為它衡量實際正類被找出的比例。"},q4:{answer:"A",explain:"只猜多數類仍可能得到高 Accuracy，卻完全抓不到少數正類；應再看 Recall、Precision 與混淆矩陣。"},q5:{answer:"C",explain:"F1 是 Precision 與 Recall 的調和平均，任一指標偏低都會把 F1 拉低；它不直接納入 TN。"},q6:{answer:"B",explain:"題目問「所有警示中有多少是真的」，分母是模型發出的全部警示 TP＋FP，因此看 Precision。"}})'>
+            <fieldset><legend>1. 以「明日會缺貨」為正類。實際會缺貨，但模型預測不缺貨，屬於哪一格？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> TP</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> FP</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> FN</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> TN</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. Precision 的分母是哪一組？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> TP＋FN</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> TP＋FP</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> TN＋FN</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> FP＋FN</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 系統用來偵測少見異常，而漏掉真正異常的代價遠高於多做一次複核。最應優先關注哪個指標？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 只看 Accuracy</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 只看 TN 數量</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> Precision</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> Recall</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 正類只占 2%，模型全部預測為負類，Accuracy 仍很高。最合理的判讀是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 高 Accuracy 可能掩蓋正類完全漏掉，應再看其他指標</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 模型一定已經可以部署</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> Precision 與 Recall 一定都是 98%</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 類別比例不影響指標解讀</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 下列哪一項最符合 F1？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> TP 與 TN 的算術平均</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只衡量模型整體速度</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> Precision 與 Recall 的調和平均，不直接使用 TN</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 分類門檻本身</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 題目問：「系統發出的所有缺貨警示中，有多少後來真的缺貨？」應看哪個指標？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> Recall</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> Precision</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> MSE</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 標準差</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜不是分數越高越好，先看你怕錯哪一種</h2>
+          <p>自然台灣華語複習：沿用店家缺貨預警，從正類、四格混淆矩陣一路串到 Accuracy、Precision、Recall、F1 與門檻取捨。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day20-classification-metrics.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day20-classification-metrics.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並以本機保存的官方樣題 114.09 版核對題型語意。[1][2]</p>
+          <p>混淆矩陣、Precision、Recall 與 F1 的公式及多類別延伸，補充自 scikit-learn 官方使用指南；本站測驗與數值情境均為原創，不是官方考題。[3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://scikit-learn.org/stable/modules/model_evaluation.html — scikit-learn User Guide｜Classification metrics
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day20" onclick="toggleDone('day20',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-19.html">← Day 19｜過擬合、正則化與交叉驗證</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 21｜線性迴歸與邏輯迴歸（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#positive">先定義正類</a><a href="#matrix">混淆矩陣</a><a href="#metrics">四個指標</a><a href="#worked-example">完整算例</a><a href="#tradeoff">錯誤代價與門檻</a><a href="#imbalance">Accuracy 陷阱</a><a href="#scenario">貫穿情境</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
