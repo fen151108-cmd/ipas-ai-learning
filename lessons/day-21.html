@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="線性迴歸與邏輯迴歸概念統整：從目標型態、輸出流程、損失與門檻分清兩種模型">
+  <title>Day 21｜線性迴歸與邏輯迴歸</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab active" href="day-21.html" aria-current="page"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero regression-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 04・常見模型</span><span>›</span><span>Day 21</span></div>
+      <h1>線性迴歸與邏輯迴歸</h1>
+      <p class="memory-line">線性迴歸直接估連續值；邏輯迴歸先算機率，再切分類別。</p>
+      <p class="lede">兩個模型都會做特徵加權，但目標、最後輸出、損失與評估不同。先看題目要的答案，再看模型名稱。</p>
+      <div class="meta"><span>Day 21</span><span>約 40–60 分鐘</span><span>概念統整＋家庭用電情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從「任務類型」走進「模型選擇」</h2>
+          <div class="concept-path"><span>監督式學習</span><b class="arrow">›</b><span>分類／迴歸任務</span><b class="arrow">›</b><span>常見模型</span><b class="arrow">›</b><span>輸出與評估</span></div>
+          <p>上位概念是監督式學習；線性迴歸處理連續數值預測，邏輯迴歸雖然名稱有「迴歸」，實際上用於分類。iPAS 科目一指引明確列出這個名稱陷阱，並說明邏輯迴歸以 Sigmoid 函數把線性輸出轉成 0 到 1 的機率，再用門檻轉為類別。[2]</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>特徵與標籤、分類與迴歸、分類指標</b></div>
+            <div><small>本課</small><b>線性加權、連續值、機率、門檻與模型辨析</b></div>
+            <div><small>後續</small><b>決策樹、隨機森林與 SVM 的規則、集成與間隔</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="fork">
+          <div class="section-kicker">ONE SCENARIO, TWO QUESTIONS</div>
+          <h2>二、同一份特徵，只換問題就換任務</h2>
+          <p>家庭能源管理系統使用近七日用電量、平均氣溫、在家時數與是否為假日等特徵。以下只是本站原創教學情境，不是實際家庭資料。</p>
+          <div class="regression-fork">
+            <div class="shared-features"><span>SHARED FEATURES</span><b>同一組輸入線索</b><ul><li>近七日用電量</li><li>平均氣溫</li><li>在家時數</li><li>是否為假日</li></ul></div>
+            <i>→</i>
+            <div class="question-pair">
+              <div><small>QUESTION A</small><b>明天會用幾度電？</b><span>答案：連續數值</span><em>線性迴歸方向</em></div>
+              <div><small>QUESTION B</small><b>明天是否為高用電日？</b><span>答案：會／不會</span><em>邏輯迴歸方向</em></div>
+            </div>
+          </div>
+          <div class="mini-callout"><b>先看目標，不看輸入外觀</b><span>兩個問題的特徵可以完全相同；真正決定分類或迴歸的是目標答案型態。</span></div>
+        </section>
+
+        <section class="block panel" id="linear">
+          <div class="section-kicker">LINEAR REGRESSION</div>
+          <h2>三、線性迴歸：加權後直接輸出連續值</h2>
+          <p>線性模型把特徵做加權組合，再加上截距，得到預測值。普通最小平方法會選擇係數，使觀測目標與線性近似預測之間的殘差平方和最小。[3]</p>
+          <div class="linear-equation" aria-label="線性迴歸預測式">
+            <span>ŷ</span><i>=</i><b>截距</b><i>＋</i><b>權重₁ × 特徵₁</b><i>＋ … ＋</i><b>權重ₚ × 特徵ₚ</b>
+          </div>
+          <div class="coefficient-grid">
+            <div><small>POSITIVE</small><b>正權重</b><p>在其他條件相同時，特徵增加，模型預測通常往上。</p></div>
+            <div><small>NEGATIVE</small><b>負權重</b><p>在其他條件相同時，特徵增加，模型預測通常往下。</p></div>
+            <div><small>INTERCEPT</small><b>截距</b><p>所有特徵取零時的模型基準點；是否具有實際意義要看特徵尺度。</p></div>
+          </div>
+          <p>線性迴歸輸出通常沒有自然的 0 到 1 邊界，因此可以用來估計明日用電量，卻不應把原始輸出直接當成發生機率。基本模型擅長描述線性加權關係；若資料關係明顯彎曲，需考慮合理轉換、加入適當特徵或換模型。</p>
+        </section>
+
+        <section class="block panel" id="logistic">
+          <div class="section-kicker">LOGISTIC REGRESSION</div>
+          <h2>四、邏輯迴歸：線性分數先變機率，再用門檻分類</h2>
+          <p>邏輯迴歸是線性分類模型。它以邏輯函數描述結果機率；數值輸出是預測機率，套用門檻後才成為類別，因此目標應是類別而不是連續數值。[2][3]</p>
+          <div class="logistic-pipeline">
+            <div><small>01 SCORE</small><b>線性分數 z</b><span>權重 × 特徵，再加截距</span></div><i>→</i>
+            <div class="sigmoid"><small>02 SQUASH</small><b>Sigmoid</b><code>p = 1 ÷ (1 + e<sup>−z</sup>)</code></div><i>→</i>
+            <div><small>03 PROBABILITY</small><b>0 到 1 的機率</b><span>例如：高用電機率 0.72</span></div><i>→</i>
+            <div class="decision"><small>04 THRESHOLD</small><b>門檻切類別</b><span>若門檻 0.5 → 判為「會」</span></div>
+          </div>
+          <div class="threshold-example">
+            <div><small>同一筆輸出</small><b>p = 0.72</b></div>
+            <div><span>門檻 0.50</span><b>0.72 ≥ 0.50</b><em>判為「會高用電」</em></div>
+            <div><span>門檻 0.80</span><b>0.72 &lt; 0.80</b><em>判為「不會高用電」</em></div>
+          </div>
+          <p>0.72 是模型估計，不是已發生的事實。門檻也不一定固定為 0.5；應在驗證資料上依誤報與漏報代價選擇，並觀察 Precision、Recall 等分類指標。</p>
+        </section>
+
+        <section class="block panel" id="relationship">
+          <div class="section-kicker">SAME FRONT HALF, DIFFERENT FINISH</div>
+          <h2>五、關係圖：共同起點，不同終點</h2>
+          <div class="model-relationship">
+            <div class="common"><small>COMMON</small><b>特徵加權＋截距</b><p>兩者都能從有標記資料學到模型參數。</p></div>
+            <i>↙</i><i>↘</i>
+            <div class="linear-end"><small>LINEAR</small><b>直接輸出 ŷ</b><p>對照連續真值，衡量數值差距。</p></div>
+            <div class="logistic-end"><small>LOGISTIC</small><b>Sigmoid → p → 門檻</b><p>對照類別標籤，衡量分類表現。</p></div>
+          </div>
+          <div class="loss-pair">
+            <div><span>線性迴歸常見</span><b>均方誤差 MSE</b><p>預測值與真實連續值的平方差平均；誤差越大，懲罰增長越快。[2]</p></div>
+            <div><span>邏輯迴歸常見</span><b>對數損失／交叉熵</b><p>讓模型為正確類別分配較高機率；最後再用分類指標檢查實務錯誤。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：從需求到可行動輸出</h2>
+          <div class="energy-flow">
+            <div><small>01 ASK</small><b>先寫清楚問題</b><p>要估明日用電量，還是要決定是否提醒？</p></div><i>→</i>
+            <div><small>02 TARGET</small><b>定義目標</b><p>連續度數，或依明確規則建立的高用電類別。</p></div><i>→</i>
+            <div><small>03 MODEL</small><b>選模型方向</b><p>連續值配線性迴歸；二元類別配邏輯迴歸。</p></div><i>→</i>
+            <div><small>04 VALIDATE</small><b>使用相符指標</b><p>前者看數值誤差；後者看混淆矩陣與分類指標。</p></div><i>→</i>
+            <div><small>05 ACT</small><b>設定行動規則</b><p>邏輯迴歸還要依錯誤代價驗證分類門檻。</p></div>
+          </div>
+          <p>若家庭需要安排明日用電，可直接使用連續預測值做估算；若系統只要決定是否發出提醒，就需要類別決策。模型好壞不能脫離問題定義：估得準與分得準是不同要求。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE MODELS</div>
+          <h2>七、比較表：四個欄位就能分清</h2>
+          <div style="overflow-x:auto">
+            <table class="compare regression-compare">
+              <thead><tr><th>比較面向</th><th>線性迴歸</th><th>邏輯迴歸</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td><b>任務</b></td><td>迴歸</td><td>分類</td><td>先看目標是連續值或類別</td></tr>
+                <tr><td><b>共同結構</b></td><td>特徵加權＋截距</td><td>特徵加權＋截距</td><td>同為線性模型家族</td></tr>
+                <tr><td><b>輸出</b></td><td>直接輸出連續預測值</td><td>輸出類別機率，再依門檻分類</td><td>「幾度」對「會不會」</td></tr>
+                <tr><td><b>常見訓練損失</b></td><td>平方誤差</td><td>對數損失／交叉熵</td><td>損失函數要配目標</td></tr>
+                <tr><td><b>常見評估</b></td><td>MSE、MAE、R²</td><td>Accuracy、Precision、Recall、F1</td><td>分類指標不能評估連續誤差</td></tr>
+                <tr><td><b>核心陷阱</b></td><td>原始輸出不是自然機率</td><td>名稱有「迴歸」卻做分類</td><td>看任務，不靠名稱猜</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>八、八個容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>邏輯迴歸 ≠ 迴歸任務：</b>名稱雖有「迴歸」，在機器學習分類中是分類模型。[2][3]</li>
+            <li><b>機率是數字 ≠ 連續值任務：</b>若目標是「會／不會」，輸出機率仍服務分類。</li>
+            <li><b>線性迴歸輸出 ≠ 自然機率：</b>原始數值不受 0 到 1 限制。</li>
+            <li><b>Sigmoid ≠ 分類門檻：</b>Sigmoid 產生機率；門檻把機率轉成類別。</li>
+            <li><b>0.5 ≠ 永遠最佳：</b>依驗證結果與錯誤代價調整，門檻改變會影響 Precision 與 Recall。[3]</li>
+            <li><b>係數關聯 ≠ 因果：</b>正負權重描述模型中的關聯方向，不能單獨證明因果。</li>
+            <li><b>線性 ≠ 只能有一個特徵：</b>多元線性迴歸可有多個特徵，高維時是超平面。</li>
+            <li><b>模型選對 ≠ 流程就完成：</b>仍要處理資料、避免洩漏、驗證泛化並使用相符指標。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 五步判斷法</h2>
+          <div class="number-grid regression-method">
+            <div><b>01</b><span>圈出目標：連續數值，還是離散類別？</span></div>
+            <div><b>02</b><span>看輸出：直接估值，還是機率經門檻轉類別？</span></div>
+            <div><b>03</b><span>配模型：連續值找線性迴歸；二元類別找邏輯迴歸。</span></div>
+            <div><b>04</b><span>配評估：數值誤差對迴歸；混淆矩陣與分類指標對分類。</span></div>
+            <div><b>05</b><span>抓名稱與門檻陷阱：邏輯迴歸做分類，0.5 只是常見預設。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"明日用電量是連續數值目標，適合先考慮線性迴歸；是否高用電才是分類問題。"},q2:{answer:"D",explain:"邏輯迴歸雖然名稱有「迴歸」，但它輸出類別機率並以門檻轉成類別，屬於分類模型。"},q3:{answer:"A",explain:"Sigmoid 把線性分數映射到 0 到 1；門檻才負責把機率轉成離散類別。"},q4:{answer:"C",explain:"同一個 0.72 在門檻 0.8 下低於門檻，因此會判為負類；這說明類別取決於機率與門檻的比較。"},q5:{answer:"B",explain:"分類任務應使用混淆矩陣、Precision、Recall、F1 等分類評估；MSE 用於連續數值誤差。"},q6:{answer:"C",explain:"模型係數描述在模型與資料條件下的關聯方向，不能單憑正係數推論提高在家時數必然造成用電增加。"}})'>
+            <fieldset><legend>1. 系統要預測明日家庭用電量為多少度。最符合哪個模型方向？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> K-means，因為答案是數字</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 線性迴歸，因為目標是連續數值</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 邏輯迴歸，因為輸入有多個特徵</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> PCA，因為需要直接產生標籤</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 關於邏輯迴歸，下列哪一項最正確？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 名稱有迴歸，所以只能預測連續值</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 不需要有標記資料</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 原始線性分數直接就是最終類別</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 以機率和門檻形成類別決策，屬於分類模型</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 邏輯迴歸流程中，Sigmoid 與門檻的分工是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> Sigmoid 產生 0 到 1 的機率；門檻把機率轉成類別</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> Sigmoid 切分訓練集；門檻計算平均數</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 兩者都是資料清洗方法</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 兩者都只用於線性迴歸</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 邏輯迴歸輸出高用電機率 0.72，分類門檻設為 0.80。應如何判斷？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 一定判為正類，因為 0.72 大於 0.5</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 這是線性迴歸，不能分類</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 判為負類，因為 0.72 低於目前門檻 0.80</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 0.72 表示事件已經發生</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 評估「是否高用電」的邏輯迴歸分類結果，哪組指標較合適？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 只看明日預測度數的 MSE</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 混淆矩陣、Precision、Recall 與 F1</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 只看資料列數</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> K-means 的群內距離</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 線性模型中，「在家時數」的係數為正。哪個解讀最穩健？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 已證明增加在家時數一定造成用電增加</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 係數正負與模型預測完全無關</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 在模型與其他條件相同下呈正向關聯，但不能單憑係數證明因果</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 表示這一定是非監督式學習</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜名字都叫迴歸，為什麼一個做分類？</h2>
+          <p>約 6 分鐘自然台灣華語複習：沿用家庭用電情境，串起連續值、線性加權、Sigmoid、機率、分類門檻與評估指標。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day21-linear-logistic-regression.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day21-linear-logistic-regression.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並以本機保存的官方樣題核對題型語意。[1][2]</p>
+          <p>普通最小平方法、邏輯迴歸的分類定位、機率與門檻補充自 scikit-learn 官方使用指南；本站測驗與家庭用電情境均為原創，不是官方考題。[3]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://scikit-learn.org/stable/modules/linear_model.html — scikit-learn User Guide｜Linear Models</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day21" onclick="toggleDone('day21',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-20.html">← Day 20｜Accuracy、Precision、Recall、F1</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 22｜決策樹、隨機森林與 SVM（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#fork">一情境兩問題</a><a href="#linear">線性迴歸</a><a href="#logistic">邏輯迴歸</a><a href="#relationship">共同與差異</a><a href="#scenario">貫穿情境</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
