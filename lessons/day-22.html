@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="決策樹、隨機森林與 SVM 概念統整：分清規則切分、多樹集成與最大間隔分類">
+  <title>Day 22｜決策樹、隨機森林與 SVM</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab active" href="day-22.html" aria-current="page"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero model-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 04・常見模型</span><span>›</span><span>Day 22</span></div>
+      <h1>決策樹、隨機森林與 SVM</h1>
+      <p class="memory-line">樹用規則一路切；森林讓多棵樹表決；SVM 找離兩類都最遠的邊界。</p>
+      <p class="lede">三者都能做監督式分類，但「怎麼形成決策」完全不同。今天不背模型清單，而是從規則、集成與幾何邊界建立可遷移的判斷架構。</p>
+      <div class="meta"><span>Day 22</span><span>約 40–60 分鐘</span><span>概念統整＋家庭用電情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：同是監督式模型，決策機制不同</h2>
+          <div class="concept-path"><span>監督式學習</span><b class="arrow">›</b><span>分類／迴歸</span><b class="arrow">›</b><span>模型選擇</span><b class="arrow">›</b><span>驗證與部署</span></div>
+          <p>iPAS 科目一指引把決策樹、隨機森林與支援向量機列為常見分類模型，並分別說明樹形規則、多樹集成與最大間隔邊界。[2] 它們的上位概念都是從有標記資料學習輸入到目標的映射；下位則是切分準則、樹數、深度、核函數與正則化等設定。</p>
+          <div class="adjacent">
+            <div><small>前置</small><b>分類任務、訓練驗證測試、過擬合與分類指標</b></div>
+            <div><small>本課</small><b>規則切分、多樹集成、最大間隔與核技巧</b></div>
+            <div><small>後續</small><b>神經網路、深度學習與更複雜的非線性表示</b></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="overview">
+          <div class="section-kicker">THREE DECISION MECHANISMS</div>
+          <h2>二、先抓三種「作決定的方法」</h2>
+          <div class="model-triad">
+            <div class="tree"><span>DECISION TREE</span><b>一路問規則</b><p>每個節點問一個特徵條件，沿分支走到葉節點得到預測。</p><em>像流程圖</em></div>
+            <div class="forest"><span>RANDOM FOREST</span><b>很多棵樹表決</b><p>對樣本與特徵引入隨機性，訓練多棵樹，再投票或平均。</p><em>像多組判斷會議</em></div>
+            <div class="svm"><span>SVM</span><b>找最大間隔邊界</b><p>尋找分隔類別的超平面，讓邊界與最近樣本的間隔盡量大。</p><em>像畫一條最寬走道</em></div>
+          </div>
+          <p>這三種模型不是依「資料是不是數字」區分，而是依學到的決策結構區分。模型選擇仍要回到資料量、特徵尺度、非線性程度、可解釋需求與驗證表現。</p>
+        </section>
+
+        <section class="block panel" id="tree">
+          <div class="section-kicker">DECISION TREE</div>
+          <h2>三、決策樹：逐層切分，把條件變成路徑</h2>
+          <p>決策樹會遞迴選擇特徵與切分點，把資料分成較純的子集合；分類常見切分準則包含吉尼不純度與資訊增益，迴歸則可用平方誤差等準則。[2][3]</p>
+          <div class="tree-demo" aria-label="高用電提醒決策樹示意">
+            <div class="tree-node root"><small>ROOT</small><b>預測氣溫高於門檻？</b></div>
+            <div class="tree-branches"><span>否 ↙</span><span>↘ 是</span></div>
+            <div class="tree-level">
+              <div class="tree-leaf safe"><small>LEAF</small><b>暫不提醒</b><span>葉節點給出類別</span></div>
+              <div class="tree-node"><small>NODE</small><b>近三日用電偏高？</b></div>
+            </div>
+            <div class="tree-branches second"><span></span><span>否 ↙　↘ 是</span></div>
+            <div class="tree-level final"><div></div><div class="tree-leaf safe"><b>暫不提醒</b></div><div class="tree-leaf warn"><b>發出提醒</b></div></div>
+          </div>
+          <p>上圖只是教學示意，不是實際家庭資料或固定規則。單棵小樹可以沿路徑說明判斷，因此直觀、可解釋；但若樹不斷加深，可能把訓練資料的雜訊也記住。限制最大深度、提高葉節點最少樣本數或剪枝，都是控制複雜度的方向。[3]</p>
+        </section>
+
+        <section class="block panel" id="forest">
+          <div class="section-kicker">RANDOM FOREST</div>
+          <h2>四、隨機森林：用差異化的多棵樹降低單樹波動</h2>
+          <p>隨機森林不是把一棵樹長得更深，而是用 Bootstrap 樣本與隨機特徵子集訓練多棵樹，分類時投票、迴歸時平均。這種隨機性讓樹彼此不完全相同，集成後通常能降低單棵樹的變異並提升穩定性。[2][4]</p>
+          <div class="forest-vote">
+            <div><small>TREE 01</small><b>提醒</b><span>樣本集 A・特徵組 A</span></div>
+            <div><small>TREE 02</small><b>不提醒</b><span>樣本集 B・特徵組 B</span></div>
+            <div><small>TREE 03</small><b>提醒</b><span>樣本集 C・特徵組 C</span></div>
+            <i>→</i>
+            <div class="vote-result"><small>MAJORITY VOTE</small><b>提醒</b><span>三票中取得兩票</span></div>
+          </div>
+          <div class="mini-callout"><b>關鍵不是「樹多」而已</b><span>如果每棵樹看到完全相同資料、完全相同特徵且做出高度相似的錯誤，集成效益有限；樣本與特徵隨機性用來增加差異。</span></div>
+        </section>
+
+        <section class="block panel" id="svm">
+          <div class="section-kicker">SUPPORT VECTOR MACHINE</div>
+          <h2>五、SVM：讓決策邊界與兩類最近樣本保持最大間隔</h2>
+          <p>SVM 尋找分隔類別的超平面，並最大化不同類別樣本之間的間隔；最接近邊界、會影響邊界位置的樣本稱為支援向量。[2][5]</p>
+          <div class="margin-board" aria-label="SVM 最大間隔示意圖">
+            <span class="dot a" style="--x:15%;--y:24%"></span><span class="dot a" style="--x:25%;--y:38%"></span><span class="dot a support" style="--x:38%;--y:44%"></span><span class="dot a" style="--x:22%;--y:64%"></span>
+            <span class="dot b" style="--x:82%;--y:70%"></span><span class="dot b" style="--x:74%;--y:48%"></span><span class="dot b support" style="--x:61%;--y:55%"></span><span class="dot b" style="--x:78%;--y:28%"></span>
+            <i class="margin left"></i><i class="boundary"></i><i class="margin right"></i>
+            <b class="margin-label">最大間隔</b><small class="support-label">外圈＝支援向量</small>
+          </div>
+          <p>若原始空間無法用直線或平面妥善分開，可使用核函數計算轉換後空間的相似性，形成非線性邊界。核函數不是替資料自動產生標籤，也不是保證零錯誤；參數仍要用驗證資料選擇。[2][5]</p>
+          <p>SVM 的間隔與距離會受特徵尺度影響。若「氣溫」大約落在數十，而「累積用電」落在數千，未做合適尺度處理時，大尺度特徵可能主導幾何關係，因此標準化常是重要前處理。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：家庭高用電提醒怎麼選模型？</h2>
+          <p>系統使用氣溫、近三日用電、在家時數與是否假日等特徵，預測隔日是否為高用電日。資料與規則皆為本站原創教學設定。</p>
+          <div class="model-scenario-flow">
+            <div><small>01 NEED</small><b>先定義目標</b><p>二元分類：高用電／一般用電。</p></div><i>→</i>
+            <div><small>02 PRIORITY</small><b>辨認限制</b><p>要逐條解釋？追求穩定？邊界可能彎曲？</p></div><i>→</i>
+            <div><small>03 CANDIDATES</small><b>訓練候選模型</b><p>小樹、森林與不同設定的 SVM 都可比較。</p></div><i>→</i>
+            <div><small>04 VALIDATE</small><b>同一驗證規則</b><p>比較 Recall、Precision、F1 與跨折波動。</p></div><i>→</i>
+            <div><small>05 DEPLOY</small><b>配合行動成本</b><p>確認延遲、解釋、監控與更新需求。</p></div>
+          </div>
+          <div class="scenario-choices">
+            <div><b>若必須清楚說明每條規則</b><span>優先比較受控深度的決策樹，但仍要驗證表現。</span></div>
+            <div><b>若單樹結果太容易隨資料波動</b><span>可比較隨機森林，用多樹集成換取較穩定預測。</span></div>
+            <div><b>若類別可由清楚間隔分開</b><span>可比較 SVM；若非線性，再驗證合適的核與參數。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE THE MODELS</div>
+          <h2>七、比較表：規則、集成、幾何邊界</h2>
+          <div style="overflow-x:auto">
+            <table class="compare model-compare">
+              <thead><tr><th>比較面向</th><th>決策樹</th><th>隨機森林</th><th>SVM</th></tr></thead>
+              <tbody>
+                <tr><td><b>核心機制</b></td><td>特徵條件逐層切分</td><td>多棵隨機化樹投票／平均</td><td>最大化分類邊界間隔</td></tr>
+                <tr><td><b>重要角色</b></td><td>節點、分支、葉節點</td><td>Bootstrap、特徵子集、集成</td><td>超平面、間隔、支援向量</td></tr>
+                <tr><td><b>非線性</b></td><td>以多次軸向切分形成複雜區域</td><td>集成多棵樹形成複雜邊界</td><td>可用核函數形成非線性邊界</td></tr>
+                <tr><td><b>可解釋性</b></td><td>小樹通常最直觀</td><td>整體不如單樹直觀</td><td>通常不呈現成逐條規則</td></tr>
+                <tr><td><b>尺度敏感</b></td><td>通常較不敏感</td><td>通常較不敏感</td><td>通常敏感，常需標準化</td></tr>
+                <tr><td><b>常見風險</b></td><td>樹太深而過擬合</td><td>計算與解釋成本增加，仍非保證不過擬合</td><td>核與參數選擇不當、尺度未處理</td></tr>
+                <tr><td><b>題目訊號</b></td><td>規則、節點、葉節點</td><td>多樹、投票、Bootstrap</td><td>最大間隔、超平面、核函數</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">DO NOT CONFUSE</div>
+          <h2>八、八個容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>決策樹 ≠ 只能分類：</b>葉節點可給類別，也可給連續預測值；分類樹與迴歸樹要看目標與切分準則。[3]</li>
+            <li><b>可解釋 ≠ 一定簡單：</b>小樹路徑直觀；很深的大樹仍可能難讀，而且容易記住雜訊。</li>
+            <li><b>隨機森林 ≠ 一棵更深的樹：</b>它是多棵樹的集成，核心訊號是樣本／特徵隨機化與投票或平均。[2][4]</li>
+            <li><b>森林較穩定 ≠ 永不過擬合：</b>集成通常降低變異，但仍要驗證樹數、深度、特徵設定與資料品質。</li>
+            <li><b>SVM ≠ 找一條隨便能分開的線：</b>核心是最大化間隔，最近邊界的支援向量特別重要。[2][5]</li>
+            <li><b>核函數 ≠ 把原資料真的加成很多欄：</b>核技巧計算轉換空間中的相似性，使非線性邊界成為可能。</li>
+            <li><b>支援向量 ≠ 所有樣本：</b>它們是靠近間隔、對決策邊界位置有關鍵影響的樣本。</li>
+            <li><b>模型特色 ≠ 自動勝出：</b>要用相同資料切分與指標比較候選模型，也要考慮解釋、延遲與維護成本。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 五步判斷法</h2>
+          <div class="number-grid model-method">
+            <div><b>01</b><span>先圈機制詞：規則切分、多樹表決，還是最大間隔？</span></div>
+            <div><b>02</b><span>看結構詞：節點與葉、Bootstrap 與特徵子集、超平面與支援向量。</span></div>
+            <div><b>03</b><span>抓目的：要易解釋、降單樹變異，還是找幾何邊界？</span></div>
+            <div><b>04</b><span>找控制點：樹深與剪枝、樹數與隨機性、尺度與核參數。</span></div>
+            <div><b>05</b><span>回到驗證：沒有模型只靠名稱就保證最佳，也沒有技巧能免除測試。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"節點依特徵條件逐層切分、沿路徑到葉節點，是決策樹的典型機制。"},q2:{answer:"C",explain:"隨機森林以不同 Bootstrap 樣本和隨機特徵子集建立多棵樹，再投票或平均；不是只把單樹加深。"},q3:{answer:"A",explain:"SVM 的核心是尋找分類超平面並最大化間隔；靠近邊界的支援向量對邊界位置特別重要。"},q4:{answer:"D",explain:"樹太深可能記住訓練雜訊；限制深度、設定葉節點最少樣本或剪枝，都可控制模型複雜度。"},q5:{answer:"B",explain:"SVM 的幾何間隔容易受特徵尺度影響，因此通常應在訓練流程內做適當標準化，並避免資料洩漏。"},q6:{answer:"C",explain:"模型特色只能形成候選方向；最後仍要用相同切分、相符指標與實務限制驗證，不能只靠名稱宣布勝出。"}})'>
+            <fieldset><legend>1. 模型依序詢問「氣溫是否高於門檻」與「近三日用電是否偏高」，最後走到葉節點。最符合哪個模型？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> PCA</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 決策樹</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> K-means</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 線性迴歸</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 哪一項最能描述隨機森林與單棵決策樹的差異？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 隨機森林完全不使用決策樹</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 隨機森林只是把同一棵樹無限加深</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 隨機森林訓練多棵具隨機差異的樹，再投票或平均</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 隨機森林只能做非監督式分群</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. SVM 題目出現「超平面、最近邊界的樣本、兩類之間留出最大空間」，核心概念是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 最大化分類間隔，最近樣本是支援向量</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 讓每棵樹投票</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 只計算平均數</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 把所有樣本刪除</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 一棵決策樹在訓練資料幾乎全對，但驗證表現明顯較差。下列哪個方向最合理？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 繼續加深，直到每筆訓練資料各有葉節點</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 宣稱訓練高分已證明泛化</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 刪除驗證資料</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 檢查過擬合，驗證較淺樹、最少葉樣本或剪枝</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. SVM 使用的兩個數值特徵尺度相差上千倍。哪個處理最恰當？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 忽略尺度，因為所有模型都不受尺度影響</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 在訓練流程內做適當標準化，並用訓練資料估計轉換參數</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 先用測試資料決定全資料的平均與標準差</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 把分類標籤也標準化成連續值</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 系統需要預測高用電日，團隊同時考慮小型決策樹、隨機森林與 SVM。哪個結論最穩健？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 隨機森林名稱較複雜，所以一定最好</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> SVM 有最大間隔，所以任何資料都零錯誤</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 依解釋與部署需求形成候選，再用相同資料切分和指標驗證</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 決策樹可解釋，所以不需要測試集</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜三種模型，三種作決定的方法</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用家庭用電情境，串起規則路徑、多樹投票、最大間隔、核函數、尺度與模型選擇。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day22-tree-forest-svm.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day22-tree-forest-svm.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並以本機保存的官方樣題核對題型語意。[1][2]</p>
+          <p>決策樹切分與剪枝、隨機森林的樣本與特徵隨機性、SVM 的最大間隔與核函數另以 scikit-learn 官方使用指南交叉核對。[3][4][5] 本站測驗、圖示與家庭用電情境均為原創，不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://scikit-learn.org/stable/modules/tree.html — scikit-learn User Guide｜Decision Trees
+[4] https://scikit-learn.org/stable/modules/ensemble.html — scikit-learn User Guide｜Random Forests
+[5] https://scikit-learn.org/stable/modules/svm.html — scikit-learn User Guide｜Support Vector Machines</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day22" onclick="toggleDone('day22',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-21.html">← Day 21｜線性迴歸與邏輯迴歸</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 23｜神經網路與深度學習（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#overview">三種機制</a><a href="#tree">決策樹</a><a href="#forest">隨機森林</a><a href="#svm">SVM</a><a href="#scenario">貫穿情境</a><a href="#compare">比較表</a><a href="#confuse">容易混淆</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
