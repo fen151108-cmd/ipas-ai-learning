@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="神經網路與深度學習概念統整：分清神經元、層、激勵函數、前向傳播與反向傳播">
+  <title>Day 23｜神經網路與深度學習</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab active" href="day-23.html" aria-current="page"><b>D23</b><span>神經網路與深度學習</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero neural-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 04・常見模型</span><span>›</span><span>Day 23</span></div>
+      <h1>神經網路與深度學習</h1>
+      <p class="memory-line">神經元做加權與轉換；多層網路逐層學表示；前向算輸出，反向把誤差變成權重更新。</p>
+      <p class="lede">不把神經網路背成一團縮寫。今天沿著「神經元 → 層 → 前向 → 損失 → 反向 → 更新」拆開結構、方向與訓練責任。</p>
+      <div class="meta"><span>Day 23</span><span>約 40–60 分鐘</span><span>概念統整＋家庭資源分類情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：神經網路是模型，深度學習是多層表示學習</h2>
+          <div class="concept-path"><span>人工智慧</span><b class="arrow">›</b><span>機器學習</span><b class="arrow">›</b><span>神經網路</span><b class="arrow">›</b><span>深度學習</span></div>
+          <p>iPAS 科目一指引把神經網路列為監督式學習的重要模型，也把深度學習說明為透過多層人工神經網路，從文本、語音、影像等資料自動學習特徵的機器學習子領域。[2] Google 的機器學習課程也把節點、隱藏層、激勵函數、推論與反向傳播列為神經網路基本組件。[3]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>機器學習、監督式學習、損失函數、梯度下降與過擬合</b></div>
+            <div><small>本課</small><b>神經元、層、非線性、前向傳播、反向傳播與參數更新</b></div>
+            <div><small>相鄰／後續</small><b>CNN、RNN、鑑別式與生成式 AI、GAN 與大型語言模型</b></div>
+          </div>
+          <div class="mini-callout"><b>位置陷阱</b><span>深度學習不是和機器學習並列的獨立大類；它使用多層神經網路，是機器學習的重要分支。神經網路也不等於所有 AI。</span></div>
+        </section>
+
+        <section class="block panel" id="neuron">
+          <div class="section-kicker">ONE ARTIFICIAL NEURON</div>
+          <h2>二、神經元：加權加總、偏差、激勵函數</h2>
+          <p>一個人工神經元接收多個輸入，分別乘上權重後加總，再加上偏差，最後通過激勵函數形成輸出。權重與偏差是模型在訓練中學到的參數；激勵函數則決定加權結果如何轉換。[2][3]</p>
+          <div class="neuron-equation" aria-label="人工神經元計算流程">
+            <div class="inputs"><small>INPUTS</small><span>x₁</span><span>x₂</span><span>x₃</span></div>
+            <i>× 權重</i>
+            <div class="sum"><small>WEIGHTED SUM</small><b>Σ wᵢxᵢ + b</b><span>加權加總＋偏差</span></div>
+            <i>→</i>
+            <div class="activation"><small>ACTIVATION</small><b>f( · )</b><span>ReLU、Sigmoid 等</span></div>
+            <i>→</i>
+            <div class="neuron-output"><small>OUTPUT</small><b>a</b><span>傳給下一層</span></div>
+          </div>
+          <div class="parameter-grid">
+            <div><span>PARAMETER</span><b>權重 w</b><p>控制每條輸入連線的影響；訓練會更新。</p></div>
+            <div><span>PARAMETER</span><b>偏差 b</b><p>讓神經元的轉換不必固定通過原點；訓練會更新。</p></div>
+            <div><span>FUNCTION</span><b>激勵函數 f</b><p>引入非線性，讓多層網路能表示更複雜關係。</p></div>
+          </div>
+          <p>如果每一層都只有線性轉換而沒有非線性激勵，多層線性運算仍可合併成一次線性轉換。ReLU 等激勵函數加入非線性，使網路有機會學到更複雜的決策邊界。[3]</p>
+        </section>
+
+        <section class="block panel" id="layers">
+          <div class="section-kicker">NETWORK LAYERS</div>
+          <h2>三、從神經元到網路：輸入層、隱藏層、輸出層</h2>
+          <div class="network-board" aria-label="四層神經網路示意">
+            <div class="net-layer input-layer"><small>INPUT LAYER</small><b>輸入層</b><span class="nodes"><i></i><i></i><i></i><i></i></span><em>接收特徵</em></div>
+            <div class="net-arrow">→</div>
+            <div class="net-layer hidden-layer"><small>HIDDEN 01</small><b>隱藏層</b><span class="nodes"><i></i><i></i><i></i></span><em>重新組合訊號</em></div>
+            <div class="net-arrow">→</div>
+            <div class="net-layer hidden-layer alt"><small>HIDDEN 02</small><b>隱藏層</b><span class="nodes"><i></i><i></i><i></i></span><em>形成較高階表示</em></div>
+            <div class="net-arrow">→</div>
+            <div class="net-layer output-layer"><small>OUTPUT</small><b>輸出層</b><span class="nodes"><i></i><i></i><i></i></span><em>紙類／容器類／其他</em></div>
+          </div>
+          <p><b>輸入層</b>接收資料特徵；<b>隱藏層</b>位在輸入與輸出之間，逐層重組訊號；<b>輸出層</b>依任務產生類別分數、機率或數值。含有多個隱藏層的神經網路通常稱為深度神經網路。[2][3]</p>
+          <div class="layer-traps">
+            <div><b>「隱藏」不是祕密資料</b><span>只是表示這些層位於輸入和輸出之間。</span></div>
+            <div><b>「深度」不是資料筆數</b><span>主要描述多層表示轉換，不是樣本很多就自動成為深度學習。</span></div>
+            <div><b>神經元不是一筆樣本</b><span>它是計算單元；樣本是送進網路的資料實例。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>四、貫穿情境：家庭資源分類照片如何逐層表示？</h2>
+          <p>系統接收物品照片，輸出紙類、容器類或其他類。以下是概念性教學路徑，不代表每個神經元都有唯一、固定、可直接命名的意義；照片與類別均為本站原創設定。</p>
+          <div class="representation-flow">
+            <div><small>RAW INPUT</small><b>像素數值</b><p>照片經尺寸、數值範圍等一致化處理。</p></div><i>→</i>
+            <div><small>EARLY LAYERS</small><b>局部線索</b><p>對邊緣、明暗、方向或紋理形成反應。</p></div><i>→</i>
+            <div><small>LATER LAYERS</small><b>組合表示</b><p>把低階線索組合成較複雜的形狀與材質訊號。</p></div><i>→</i>
+            <div><small>OUTPUT</small><b>類別分數</b><p>轉成三類的分數或機率，再依規則給出預測。</p></div>
+          </div>
+          <div class="scenario-choices">
+            <div><b>任務先行</b><span>先定義類別、標記規則與錯誤成本，再談網路層數。</span></div>
+            <div><b>資料一致</b><span>訓練、驗證、測試的前處理流程要一致，且避免資料洩漏。</span></div>
+            <div><b>結果驗證</b><span>不能只看訓練損失，還要看未見資料、類別表現與部署限制。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="training">
+          <div class="section-kicker">TRAINING LOOP</div>
+          <h2>五、訓練循環：前向算預測，反向算梯度</h2>
+          <p>神經網路訓練會先做前向傳播，計算預測與損失；再透過反向傳播由後往前計算損失對各參數的梯度，交由優化器更新權重與偏差。[2][4]</p>
+          <div class="training-loop">
+            <div><small>01 FORWARD</small><b>前向傳播</b><span>輸入依序通過各層，得到預測。</span></div><i>→</i>
+            <div><small>02 LOSS</small><b>計算損失</b><span>衡量預測與目標之間的差距。</span></div><i>→</i>
+            <div><small>03 BACKPROP</small><b>反向傳播</b><span>用鏈式法則計算各參數的梯度。</span></div><i>→</i>
+            <div><small>04 UPDATE</small><b>參數更新</b><span>優化器依梯度與學習率調整參數。</span></div><i class="loopback">↺ 下一批資料</i>
+          </div>
+          <div class="direction-pair">
+            <div><span>FORWARD</span><b>資料訊號往前</b><p>目的是算出目前參數下的預測與損失。</p></div>
+            <div><span>BACKWARD</span><b>梯度訊號往回</b><p>目的是知道每個參數該往哪個方向調整；不是把原始照片倒著播放。</p></div>
+          </div>
+          <div class="mini-callout"><b>學習率是超參數</b><span>過大可能震盪或越過較佳位置；過小可能更新很慢。它通常由驗證流程調整，不是由反向傳播自動保證最佳。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">DO NOT MIX THE ROLES</div>
+          <h2>六、比較表：結構、訓練、評估各有責任</h2>
+          <div style="overflow-x:auto">
+            <table class="compare neural-compare">
+              <thead><tr><th>概念</th><th>它在回答什麼？</th><th>典型內容</th><th>不是什麼</th><th>題目訊號</th></tr></thead>
+              <tbody>
+                <tr><td><b>神經元</b></td><td>單一計算單元如何轉換輸入？</td><td>權重、偏差、激勵函數</td><td>一筆訓練樣本</td><td>加權加總、ReLU、Sigmoid</td></tr>
+                <tr><td><b>隱藏層</b></td><td>中間表示如何逐層形成？</td><td>多個神經元與連線</td><td>被隱藏的敏感資料</td><td>輸入與輸出之間、多層表示</td></tr>
+                <tr><td><b>前向傳播</b></td><td>目前模型預測什麼？</td><td>輸入一路算到輸出與損失</td><td>參數更新本身</td><td>推論、輸出、計算損失</td></tr>
+                <tr><td><b>反向傳播</b></td><td>損失對參數有多敏感？</td><td>鏈式法則、梯度</td><td>把資料倒放</td><td>誤差反傳、梯度</td></tr>
+                <tr><td><b>優化器</b></td><td>參數要如何更新？</td><td>梯度下降、SGD、Adam</td><td>激勵函數</td><td>學習率、更新權重</td></tr>
+                <tr><td><b>評估指標</b></td><td>模型是否符合任務需求？</td><td>Accuracy、Recall、F1 等</td><td>必然等同訓練損失</td><td>驗證、測試、錯誤成本</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="architectures">
+          <div class="section-kicker">ARCHITECTURE SIGNALS</div>
+          <h2>七、相鄰架構：先辨資料結構，再辨模型</h2>
+          <div class="architecture-grid">
+            <div><span>DENSE</span><b>全連接網路</b><p>相鄰層神經元廣泛連接，是理解加權、激勵與多層表示的起點。</p><em>訊號：每層節點、權重連線</em></div>
+            <div><span>CNN</span><b>卷積神經網路</b><p>使用卷積等結構擷取局部與空間特徵，常與影像任務相連。[2]</p><em>訊號：卷積、局部、影像</em></div>
+            <div><span>RNN</span><b>循環神經網路</b><p>使用循環狀態處理序列與前文資訊，常與文字、語音、時間序列相連。[2]</p><em>訊號：序列、前一狀態、記憶</em></div>
+          </div>
+          <p>架構名稱提供候選方向，不代表看到影像就一定只能用 CNN，也不代表網路越新越適合。最後仍要比較資料、任務、效能、延遲、資源與維護需求。</p>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>八、八個容易混淆處與 iPAS 判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>深度學習 ≠ 所有機器學習：</b>它是以多層神經網路為核心的機器學習分支。[2]</li>
+            <li><b>人工神經元 ≠ 生物神經元的完整複製：</b>考題重點是加權、偏差與激勵函數的計算單元。</li>
+            <li><b>隱藏層 ≠ 祕密資料：</b>它只是輸入層和輸出層之間的中間層。</li>
+            <li><b>反向傳播 ≠ 參數更新：</b>反向傳播先算梯度；優化器再依梯度與學習率更新參數。[4]</li>
+            <li><b>反向傳播 ≠ 把原始資料倒放：</b>前向算預測，反向算損失對參數的影響方向。</li>
+            <li><b>層數越多 ≠ 一定越好：</b>表達能力提高的同時，資料、運算、調參與過擬合風險也可能增加。</li>
+            <li><b>訓練損失下降 ≠ 已證明泛化：</b>仍要用驗證與測試資料檢查未見資料表現。</li>
+            <li><b>神經網路 ≠ 只能分類：</b>輸出設計與損失函數可配合分類、迴歸與生成等不同任務。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 五步判斷法</h2>
+          <div class="number-grid neural-method">
+            <div><b>01</b><span>先定位層：輸入、隱藏，還是輸出？</span></div>
+            <div><b>02</b><span>拆神經元：加權加總、偏差、激勵函數。</span></div>
+            <div><b>03</b><span>辨方向：前向算預測；反向算梯度。</span></div>
+            <div><b>04</b><span>分角色：權重與偏差是參數；學習率與層數通常是超參數。</span></div>
+            <div><b>05</b><span>回到泛化：訓練損失再低，也要驗證與測試。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"人工神經元先把輸入依權重加總、加入偏差，再通過激勵函數；權重與偏差會在訓練中更新。"},q2:{answer:"B",explain:"激勵函數引入非線性；若各層都只有線性轉換，多層合成後仍可化為一次線性轉換。"},q3:{answer:"D",explain:"前向傳播先算預測與損失；反向傳播計算損失對各參數的梯度，再由優化器更新參數。"},q4:{answer:"A",explain:"學習率太大可能越過較佳位置而震盪或無法收斂，不代表一定更快得到好模型。"},q5:{answer:"C",explain:"多個隱藏層是深度神經網路的典型訊號；深度不是指樣本多或單層神經元多。"},q6:{answer:"B",explain:"訓練損失下降只代表模型更貼近訓練目標；仍要用驗證與測試資料檢查泛化、各類別錯誤與部署限制。"}})'>
+            <fieldset><legend>1. 下列哪一項最符合人工神經元的基本計算？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 將每筆資料分配給一棵樹投票</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 只計算未加權的輸入平均</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 輸入加權加總、加入偏差，再通過激勵函數</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 將所有輸入直接視為類別標籤</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 多層網路為什麼常需要 ReLU 等非線性激勵函數？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 用來自動增加訓練樣本數</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 避免多層只剩線性轉換，讓模型能表示更複雜關係</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 保證測試資料永遠零錯誤</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 取代損失函數與優化器</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 哪一項正確描述前向傳播與反向傳播？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 前向只更新權重，反向只讀取照片</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 兩者都只是把原始資料改變方向播放</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 反向先產生標籤，前向再猜測輸入</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 前向算預測與損失，反向算損失對參數的梯度</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 團隊把學習率大幅調高，希望模型一定更快學好。最大的問題是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 更新可能越過較佳位置而震盪，應用驗證流程調整</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 學習率只會影響輸入層名稱</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 學習率是由每張照片的類別決定</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 學習率越大一定越準</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 哪個敘述最能辨認「深度」神經網路？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 訓練資料筆數很多</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只有一層，但神經元名稱很複雜</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 輸入與輸出之間有多個隱藏層，逐層轉換表示</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 所有權重都固定不更新</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 家庭資源分類模型的訓練損失持續下降。哪個結論最穩健？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 已證明所有新照片都會分類正確</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 仍要檢查驗證與測試表現、各類別錯誤和部署限制</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 可以刪除驗證集，避免看到不同結果</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只要把網路再加深就不會過擬合</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜從一個神經元走完整個訓練循環</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用家庭資源分類情境，串起神經元、層、激勵函數、前向傳播、損失、反向傳播與參數更新。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day23-neural-network-deep-learning.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day23-neural-network-deep-learning.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並以本機保存的官方樣題核對命題語意。[1][2]</p>
+          <p>神經網路組件與反向傳播流程另以 Google for Developers 的機器學習課程交叉核對。[3][4] 本站測驗、圖示與家庭資源分類情境均為原創，不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://developers.google.com/machine-learning/crash-course/neural-networks — Google for Developers｜Neural networks
+[4] https://developers.google.com/machine-learning/crash-course/backprop-scroll — Google for Developers｜Backpropagation</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day23" onclick="toggleDone('day23',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-22.html">← Day 22｜決策樹、隨機森林與 SVM</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 24｜鑑別式與生成式 AI（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#neuron">人工神經元</a><a href="#layers">網路層級</a><a href="#scenario">貫穿情境</a><a href="#training">訓練循環</a><a href="#compare">角色比較</a><a href="#architectures">相鄰架構</a><a href="#confuse">容易混淆</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
