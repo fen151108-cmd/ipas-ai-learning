@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="鑑別式與生成式 AI 概念統整：分清條件機率、決策邊界、資料分布與生成目標">
+  <title>Day 24｜鑑別式與生成式 AI</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab active" href="day-24.html" aria-current="page"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero genai-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 05・生成式 AI</span><span>›</span><span>Day 24</span></div>
+      <h1>鑑別式與生成式 AI</h1>
+      <p class="memory-line">鑑別式學邊界，回答「這是什麼」；生成式學分布，回答「還能產生什麼」。</p>
+      <p class="lede">先不背模型名單。今天用「任務 → 學習目標 → 輸出」三層判斷，分清 P(y|x) 的邊界與 P(x)、P(x,y) 的資料分布。</p>
+      <div class="meta"><span>Day 24</span><span>約 40–60 分鐘</span><span>概念統整＋活動資訊情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：不是兩份互斥的模型清單，而是兩種學習目標</h2>
+          <div class="concept-path"><span>人工智慧</span><b class="arrow">›</b><span>機器學習／深度學習</span><b class="arrow">›</b><span>鑑別式目標</span><b class="arrow">／</b><span>生成式目標</span></div>
+          <p>iPAS 科目一把「鑑別式 AI 與生成式 AI 概念」列為人工智慧基礎概論的四大評鑑主題之一，並要求理解兩者的基本原理與整合應用。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>AI、機器學習、監督式學習、分類迴歸、神經網路</b></div>
+            <div><small>本課核心</small><b>條件機率、決策邊界、資料分布、生成新樣本</b></div>
+            <div><small>相鄰／後續</small><b>LLM 與 Token、GAN／VAE／擴散模型、整合應用</b></div>
+          </div>
+          <div class="mini-callout"><b>先抓問題，不先抓技術名</b><span>同樣使用神經網路，可能訓練成分類器，也可能訓練成文字、圖像或語音生成模型；分類依據應回到目標與輸出。</span></div>
+        </section>
+
+        <section class="block panel" id="core">
+          <div class="section-kicker">TWO LEARNING TARGETS</div>
+          <h2>二、正確定義：一邊直接判斷目標，一邊學會資料如何分布</h2>
+          <div class="dvg-split">
+            <div class="dvg-card discriminate">
+              <span>DISCRIMINATIVE</span><b>鑑別式 AI</b>
+              <code>P(y|x)</code>
+              <p>給定輸入 x，直接學習目標 y 的條件機率或映射，重點是分類、迴歸與決策邊界。[2]</p>
+              <em>問：這個輸入應該判成什麼？</em>
+            </div>
+            <div class="dvg-divider"><i>目標不同</i><strong>≠</strong><small>不只看介面或模型名</small></div>
+            <div class="dvg-card generate">
+              <span>GENERATIVE</span><b>生成式 AI</b>
+              <code>P(x) 或 P(x,y)</code>
+              <p>學習資料的邊際分布或聯合分布，據此產生與資料型態相似的新樣本。[2]</p>
+              <em>問：符合這種分布的新內容可能是什麼？</em>
+            </div>
+          </div>
+          <p>「邊界」與「分布」是初學時最穩定的兩張圖。鑑別式模型只需把任務所需的輸入到目標關係學好；生成式模型則試圖掌握足以取樣或重建新資料的結構。[2]</p>
+        </section>
+
+        <section class="block panel" id="visual">
+          <div class="section-kicker">BOUNDARY VS DISTRIBUTION</div>
+          <h2>三、關係圖：同一批資料，看的問題不同</h2>
+          <div class="dvg-visuals">
+            <div>
+              <div class="dvg-plot boundary-plot" role="img" aria-label="兩群資料與決策邊界示意">
+                <span class="dot blue" style="--x:16%;--y:18%"></span><span class="dot blue" style="--x:24%;--y:32%"></span><span class="dot blue" style="--x:32%;--y:22%"></span><span class="dot blue" style="--x:38%;--y:42%"></span><span class="dot blue" style="--x:21%;--y:53%"></span>
+                <span class="dot amber" style="--x:65%;--y:48%"></span><span class="dot amber" style="--x:73%;--y:66%"></span><span class="dot amber" style="--x:82%;--y:54%"></span><span class="dot amber" style="--x:69%;--y:81%"></span><span class="dot amber" style="--x:88%;--y:75%"></span>
+                <i class="decision-line"></i><b>決策邊界</b>
+              </div>
+              <h3>鑑別式：找到能完成任務的分界</h3>
+              <p>輸入已出現，模型判斷它落在哪一類，或直接預測目標值。</p>
+            </div>
+            <div>
+              <div class="dvg-plot density-plot" role="img" aria-label="兩群資料分布與新取樣點示意">
+                <span class="cloud c1"></span><span class="cloud c2"></span><span class="sample s1">＋</span><span class="sample s2">＋</span><b>從分布取樣</b>
+              </div>
+              <h3>生成式：掌握資料可能出現在哪裡</h3>
+              <p>模型從學到的分布產生新樣本；「新」不代表必然正確或適用。</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>四、貫穿情境：活動詢問，要分類還是要生成？</h2>
+          <p>活動資訊系統收到一句詢問：「明天下雨，活動會改時間嗎？」輸入文字相同，但任務目標可以完全不同。以下情境與內容均為本站原創教學設定。</p>
+          <div class="dvg-scenario-input"><small>INPUT x</small><b>「明天下雨，活動會改時間嗎？」</b><span>同一句輸入，不代表同一種任務</span></div>
+          <div class="dvg-scenario-fork">
+            <div class="disc-lane"><span>鑑別式路徑</span><b>判斷既定問題類別</b><p>時間／地點／取消／費用／其他</p><i>→ 輸出 y：時間異動類</i></div>
+            <div class="gen-lane"><span>生成式路徑</span><b>依核准資訊寫新回覆</b><p>輸入提示＋檢索到的公告內容</p><i>→ 輸出 x′：一段回覆草稿</i></div>
+          </div>
+          <div class="mini-callout"><b>題目轉換訊號</b><span>「把問題送到正確類別」是鑑別；「根據事實寫出一段新回覆」是生成。先看任務動詞與輸出，不要只看輸入是文字。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY PURPOSE</div>
+          <h2>五、比較表：目標、輸出、模型與風險</h2>
+          <div style="overflow-x:auto">
+            <table class="compare dvg-compare">
+              <thead><tr><th>觀察面向</th><th>鑑別式 AI</th><th>生成式 AI</th><th>題目判斷訊號</th></tr></thead>
+              <tbody>
+                <tr><td><b>學習目標</b></td><td>條件機率 P(y|x) 或直接映射</td><td>邊際 P(x) 或聯合分布 P(x,y)</td><td>邊界 vs. 分布</td></tr>
+                <tr><td><b>主要輸出</b></td><td>類別、分數、機率、連續預測值</td><td>新文字、圖像、語音或資料樣本</td><td>既定目標 vs. 新內容</td></tr>
+                <tr><td><b>典型任務</b></td><td>分類、辨識、迴歸、風險評估</td><td>生成、合成、重建、模擬、轉換</td><td>判斷 vs. 產生</td></tr>
+                <tr><td><b>指引例子</b></td><td>邏輯迴歸、SVM、決策樹、隨機森林、分類神經網路</td><td>GAN、VAE、擴散模型</td><td>模型名只能輔助，不能取代任務判斷[2]</td></tr>
+                <tr><td><b>常見風險</b></td><td>偏差、過擬合、標記成本、誤分類</td><td>虛構內容、可控性、偏差、計算成本</td><td>錯判 vs. 不可靠生成[2]</td></tr>
+                <tr><td><b>評估起點</b></td><td>依錯誤成本看 Accuracy、Precision、Recall、F1 或迴歸誤差</td><td>依任務看真實性、品質、多樣性、安全與人工評估</td><td>不能共用一個萬用分數</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="models">
+          <div class="section-kicker">MODEL NAMES ARE SECONDARY</div>
+          <h2>六、模型名稱放回正確位置</h2>
+          <div class="dvg-family-grid">
+            <div><span>DISCRIMINATIVE</span><b>直接學輸入 → 目標</b><p>邏輯迴歸、SVM、決策樹、隨機森林，以及以分類或迴歸為目標的神經網路。[2]</p><em>輸出：標籤、機率、數值</em></div>
+            <div><span>GENERATIVE</span><b>學資料分布 → 新樣本</b><p>自迴歸模型、GAN、VAE 與擴散模型等；本課先認目標，後續再拆架構。[2]</p><em>輸出：新文字、圖像、語音或資料</em></div>
+          </div>
+          <div class="dvg-name-traps">
+            <div><b>有機率 ≠ 生成式</b><span>邏輯迴歸輸出類別機率 P(y|x)，仍屬鑑別式。</span></div>
+            <div><b>有神經網路 ≠ 一定生成</b><span>神經網路可依訓練目標做分類、迴歸或生成。</span></div>
+            <div><b>有「鑑別器」 ≠ 整體是鑑別式</b><span>GAN 的鑑別器與生成器一起形成生成模型的對抗機制。[2]</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="integration">
+          <div class="section-kicker">COMPOSE THE ROLES</div>
+          <h2>七、整合：生成內容可以支援判斷，但不能跳過驗證</h2>
+          <p>官方指引把資料增強、多模態處理，以及生成與判斷的協同列為鑑別式與生成式 AI 的整合方向。[2]</p>
+          <div class="dvg-pipeline">
+            <div><small>01 CLASSIFY</small><b>判斷問題類別</b><p>鑑別式模型先路由。</p></div><i>→</i>
+            <div><small>02 RETRIEVE</small><b>取得核准資料</b><p>避免只靠模型記憶。</p></div><i>→</i>
+            <div><small>03 GENERATE</small><b>產生回覆草稿</b><p>生成式模型依條件寫作。</p></div><i>→</i>
+            <div><small>04 CHECK</small><b>規則／模型／人工覆核</b><p>檢查事實、格式與風險。</p></div>
+          </div>
+          <div class="dvg-guardrails">
+            <div><b>合成資料不是自動加分</b><span>先檢查代表性、偏差、類別比例與標記品質。</span></div>
+            <div><b>測試集不能被污染</b><span>獨立測試資料不應混入生成、調參或篩選流程。</span></div>
+            <div><b>看下游結果</b><span>只有在一致評估下改善真實任務，才有增強價值。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="confuse">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>八、八個容易混淆處與 iPAS 訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>生成式 AI ≠ 所有 AI：</b>分類、辨識、迴歸與決策支援仍是重要 AI 任務。</li>
+            <li><b>鑑別式 ≠ 只做二元分類：</b>它也可做多類別分類與連續值預測。</li>
+            <li><b>輸出機率 ≠ 生成式：</b>P(y|x) 的類別機率仍是鑑別式核心訊號。[2]</li>
+            <li><b>輸入是文字 ≠ 生成式：</b>文字分類、情感判斷與意圖辨識可屬鑑別式。</li>
+            <li><b>聊天介面 ≠ 純生成：</b>背後也可能先分類意圖、檢索資料、再生成回覆。</li>
+            <li><b>鑑別器 ≠ 鑑別式模型全貌：</b>GAN 內的鑑別器只是生成對抗流程的一個組件。[2]</li>
+            <li><b>生成新樣本 ≠ 真實資料：</b>輸出可能不準確、不完整或帶偏差，需要驗證。</li>
+            <li><b>生成式 ≠ 一定更適合：</b>若目標只是穩定分類，應比較更直接、可驗證的鑑別式方案。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、iPAS 四步判斷法</h2>
+          <div class="number-grid dvg-method">
+            <div><b>01</b><span>圈動詞：分類／辨識／預測，還是生成／合成／模擬？</span></div>
+            <div><b>02</b><span>看輸出：既定標籤或目標值，還是新的資料樣本？</span></div>
+            <div><b>03</b><span>看目標：P(y|x) 與決策邊界，還是 P(x)、P(x,y) 與資料分布？</span></div>
+            <div><b>04</b><span>排陷阱：神經網路、機率、鑑別器與聊天介面都不是單獨判準。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"把輸入問題分到既定類別，是學習 P(y|x) 或輸入到標籤映射的鑑別式任務。"},q2:{answer:"D",explain:"根據核准資訊產生一段新的回覆草稿，輸出是新文字內容，屬生成式任務。"},q3:{answer:"A",explain:"邏輯迴歸雖輸出機率，但它估計的是給定輸入後的類別機率 P(y|x)，仍是鑑別式模型。"},q4:{answer:"C",explain:"GAN 的鑑別器負責區分真實與生成樣本，但它與生成器一起構成生成模型的對抗訓練。"},q5:{answer:"B",explain:"合成資料需驗證代表性、偏差與標記，並用未污染的獨立測試集確認是否改善真實任務。"},q6:{answer:"C",explain:"判斷應先看任務目標與輸出；同一種神經網路技術可依訓練目標支援鑑別或生成。"}})'>
+            <fieldset><legend>1. 活動資訊系統把每句詢問分成「時間、地點、取消、費用、其他」。這最符合哪一類任務？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 生成式，因為輸入是自然語言</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 鑑別式，因為輸出是既定類別</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 生成式，因為模型可能使用神經網路</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 非監督式，因為類別名稱已知</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 下列哪一項最能辨認生成式任務？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 判斷詢問是否屬於時間異動類</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 估計取消機率並套用門檻</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 將活動分成室內或戶外兩類</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 根據核准公告產生一段新的回覆草稿</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 邏輯迴歸輸出類別機率，為什麼仍屬鑑別式模型？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 它直接估計給定輸入後的類別機率 P(y|x)</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 只要有機率就一定是生成式</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 它會從資料分布產生全新活動文字</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 它不需要任何訓練資料</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 關於 GAN 裡的「鑑別器」，哪一項正確？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 名稱含鑑別器，所以 GAN 整體不是生成模型</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 鑑別器負責產生所有新樣本</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 鑑別器分真假，與生成器一起形成生成模型的對抗訓練</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 鑑別器與生成器都不需要更新參數</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 團隊想用生成式模型產生合成詢問，增強分類器。最穩健的做法是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 合成越多一定越準，直接全部加入</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 檢查偏差與標記，並用未污染測試集驗證真實任務</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 把獨立測試集也送進生成器模仿</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 只看生成文字是否流暢，不必看分類結果</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 面對「這個系統用了神經網路，所以一定是生成式 AI」的說法，哪個判斷最好？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 正確，所有神經網路都只能生成</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 正確，因為深度學習與分類無關</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 錯誤，應看訓練目標與輸出，而非只看模型技術</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 錯誤，因為生成式 AI 不使用神經網路</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜同一句詢問，為什麼可以是兩種 AI？</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用活動資訊情境，串起條件機率、決策邊界、資料分布、生成新樣本、GAN 名稱陷阱與整合流程。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day24-discriminative-generative-ai.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day24-discriminative-generative-ai.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源與《AI 應用規劃師（初級）學習指引・科目一：人工智慧基礎概論》114.12.03 版為主，並以本機保存的官方樣題 114.09 版核對題型語意。[1][2]</p>
+          <p>本課定義、模型家族與整合方向依學習指引第 3.4 節整理；網站測驗、關係圖與活動資訊情境均為原創，不是官方考題。[2]</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day24" onclick="toggleDone('day24',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-23.html">← Day 23｜神經網路與深度學習</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 25｜LLM、Token 與機率生成（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#core">正確定義</a><a href="#visual">邊界與分布</a><a href="#scenario">貫穿情境</a><a href="#compare">比較表</a><a href="#models">模型家族</a><a href="#integration">整合與驗證</a><a href="#confuse">容易混淆</a><a href="#method">四步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
