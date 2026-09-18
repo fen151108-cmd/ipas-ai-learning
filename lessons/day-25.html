@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="LLM、Token 與逐步機率生成概念統整：從文字切分、向量化到下一個 Token 的反覆預測">
+  <title>Day 25｜LLM、Token 與逐步機率生成</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab active" href="day-25.html" aria-current="page"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero llm-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 05・生成式 AI</span><span>›</span><span>Day 25</span></div>
+      <h1>LLM、Token 與逐步機率生成</h1>
+      <p class="memory-line">LLM 不是一次寫完整句，而是把文字轉成 Token，反覆預測下一個 Token。</p>
+      <p class="lede">今天把「生成文字」拆成一條可追蹤的鏈：文字切分 → 數值表示 → 下一步機率 → 解碼選擇 → 接回上下文 → 繼續生成。</p>
+      <div class="meta"><span>Day 25</span><span>約 40–60 分鐘</span><span>概念統整＋家庭提醒情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從「生成式目標」走到「文字如何真的被生成」</h2>
+          <div class="concept-path"><span>生成式 AI</span><b class="arrow">›</b><span>語言模型</span><b class="arrow">›</b><span>大型語言模型 LLM</span><b class="arrow">›</b><span>Token 機率序列</span></div>
+          <p>iPAS 科目一先建立生成式 AI 與常見生成模型的基礎，科目二再把生成式 AI 的應用領域與工具使用列為評鑑主題；官方指引並把 Tokenization、向量化、Transformer、自注意力與推理採樣放在同一條技術脈絡中。[1][2][3]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>生成式 AI、神經網路、資料分布、訓練與推論</b></div>
+            <div><small>本課核心</small><b>LLM、Token、下一步機率、解碼與逐步生成</b></div>
+            <div><small>相鄰／後續</small><b>Transformer、自注意力、Prompt、幻覺與工具整合</b></div>
+          </div>
+          <div class="mini-callout"><b>先分清層級</b><span>LLM 是模型類型；Token 是模型處理文字的單位；機率分布是每一步的預測結果；Temperature、Top-k、Top-p 是從候選中選下一步的控制方式。</span></div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">FOUR LAYERS, FOUR JOBS</div>
+          <h2>二、正確定義：不要把模型、單位、機率與解碼混成一件事</h2>
+          <div class="llm-four">
+            <div><span>MODEL</span><b>大型語言模型 LLM</b><p>以大量文字與大量參數學習語言序列模式，輸入上下文後，估計下一個 Token 的候選分布。</p><em>回答：誰在預測？</em></div>
+            <div><span>UNIT</span><b>Token</b><p>Tokenization 切出的基本單元，可能是字、詞、子詞、標點或其他片段；不保證等於一個中文字或一個單字。[3]</p><em>回答：模型一次處理什麼？</em></div>
+            <div><span>PREDICTION</span><b>下一步機率分布</b><p>針對詞彙表中的候選 Token 分配相對可能性；它描述「在目前上下文後較可能接什麼」。</p><em>回答：候選有多可能？</em></div>
+            <div><span>DECODING</span><b>解碼／採樣</b><p>依規則從候選分布選出下一個 Token。Temperature、Top-k 與 Top-p 會改變選擇範圍或隨機性。[3]</p><em>回答：這一步選哪一個？</em></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="token">
+          <div class="section-kicker">TOKEN IS NOT A WORD</div>
+          <h2>三、Token：切分單位，不是固定的「一字」或「一詞」</h2>
+          <p>官方指引將 Tokenization 定義為把文本拆成基本單元，例如詞或子詞，再透過向量化轉成模型可處理的數值形式。[3]</p>
+          <div class="token-demo" aria-label="Token 切分示意">
+            <div class="raw-text"><small>原始文字</small><b>週六前整理採買清單。</b></div>
+            <i>→</i>
+            <div class="token-row"><small>示意切分；實際結果依模型而異</small><span>週六</span><span>前</span><span>整理</span><span>採買</span><span>清單</span><span>。</span></div>
+          </div>
+          <div class="token-layers">
+            <div><span>01 SEGMENT</span><b>Tokenization</b><p>先決定切成哪些片段。</p></div>
+            <div><span>02 IDENTIFY</span><b>Token ID</b><p>每個片段對應詞彙表中的編號。</p></div>
+            <div><span>03 REPRESENT</span><b>向量表示</b><p>把離散編號轉成模型可運算的數值表示。</p></div>
+          </div>
+          <div class="mini-callout"><b>考題陷阱</b><span>「Token 數＝字數＝詞數」通常不成立；同一段文字在不同 Tokenizer 下也可能有不同切法與數量。</span></div>
+        </section>
+
+        <section class="block panel" id="loop">
+          <div class="section-kicker">AUTOREGRESSIVE LOOP</div>
+          <h2>四、關係圖：一次選一個，再把結果放回去</h2>
+          <p>自迴歸生成會把目前已有的 Token 序列當作條件，預測下一個 Token；選定後把它接回序列，重新預測下一步，直到遇到停止條件。官方指引也以自迴歸模型、交叉熵損失與生成詞語的預測誤差說明語言生成訓練。[3]</p>
+          <div class="generation-loop">
+            <div><small>01 CONTEXT</small><b>讀取目前序列</b><p>提示＋已生成 Token</p></div><i>→</i>
+            <div><small>02 SCORE</small><b>計算候選分數</b><p>對詞彙表產生分數</p></div><i>→</i>
+            <div><small>03 PROBABILITY</small><b>形成機率分布</b><p>比較候選相對可能性</p></div><i>→</i>
+            <div><small>04 DECODE</small><b>選下一個 Token</b><p>依解碼規則選擇</p></div><i>↺</i>
+          </div>
+          <div class="formula-strip"><code>P(t<sub>1</sub>, …, t<sub>n</sub>) = ∏ P(t<sub>i</sub> | t<sub>1</sub>, …, t<sub>i−1</sub>)</code><span>整段序列的生成，可看成每一步條件機率的連鎖；每一步都會改變後續上下文。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：把採買項目整理成家庭提醒</h2>
+          <p>使用者輸入：「請把家庭共用採買清單整理成一段提醒：燕麥、洗碗精，週六前完成。」以下機率與切分均為本站原創示意，不代表任何真實模型輸出。</p>
+          <div class="prompt-card"><small>PROMPT</small><b>請把家庭共用採買清單整理成一段提醒：燕麥、洗碗精，週六前完成。</b></div>
+          <div class="prob-steps">
+            <div class="prob-step">
+              <span>STEP 01</span><b>目前上下文：提示結尾</b>
+              <div class="candidate"><strong>提醒</strong><i style="--p:78%">44%</i></div><div class="candidate"><strong>請</strong><i style="--p:46%">26%</i></div><div class="candidate"><strong>週六</strong><i style="--p:28%">16%</i></div>
+              <em>選出「提醒」</em>
+            </div>
+            <div class="prob-step">
+              <span>STEP 02</span><b>上下文加入「提醒」</b>
+              <div class="candidate"><strong>：</strong><i style="--p:84%">51%</i></div><div class="candidate"><strong>大家</strong><i style="--p:38%">23%</i></div><div class="candidate"><strong>事項</strong><i style="--p:20%">12%</i></div>
+              <em>選出「：」</em>
+            </div>
+            <div class="prob-step">
+              <span>STEP 03</span><b>上下文加入「提醒：」</b>
+              <div class="candidate"><strong>請</strong><i style="--p:74%">42%</i></div><div class="candidate"><strong>燕麥</strong><i style="--p:44%">25%</i></div><div class="candidate"><strong>週六</strong><i style="--p:25%">14%</i></div>
+              <em>選出「請」並繼續</em>
+            </div>
+          </div>
+          <div class="result-line"><small>逐步生成的可能結果</small><b>提醒：請在週六前完成燕麥與洗碗精的採買。</b><span>看起來像完整規劃，其實底層是反覆進行「依上下文算分布 → 選下一個 Token」。</span></div>
+        </section>
+
+        <section class="block panel" id="decoding">
+          <div class="section-kicker">HOW TO PICK THE NEXT TOKEN</div>
+          <h2>六、比較表：Temperature、Top-k、Top-p 各控制什麼？</h2>
+          <div style="overflow-x:auto">
+            <table class="compare llm-compare">
+              <thead><tr><th>方法</th><th>主要作用</th><th>值較小時</th><th>值較大時</th><th>常見陷阱</th></tr></thead>
+              <tbody>
+                <tr><td><b>Temperature</b></td><td>調整機率分布的尖銳或平坦程度</td><td>較集中、較保守、較穩定</td><td>較分散、較多樣、較隨機</td><td>提高不等於提高正確率[3]</td></tr>
+                <tr><td><b>Top-k</b></td><td>只保留機率最高的前 k 個候選</td><td>候選集合較窄</td><td>候選集合較寬</td><td>k 是候選個數，不是機率門檻[3]</td></tr>
+                <tr><td><b>Top-p</b></td><td>保留累積機率達 p 的最小候選集合</td><td>候選通常較集中</td><td>候選通常較多</td><td>p 是累積機率，不是固定候選數[3]</td></tr>
+                <tr><td><b>Greedy</b></td><td>每一步直接選最高機率候選</td><td colspan="2">同一分布下選擇較固定</td><td>局部最高不保證整段最佳，也不保證事實正確</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="decode-signal">
+            <div><b>想要穩定格式</b><span>通常降低隨機性，並搭配明確格式約束與驗證。</span></div>
+            <div><b>想要探索多樣草稿</b><span>可提高多樣性，但仍需篩選品質與查核事實。</span></div>
+            <div><b>想要正確答案</b><span>不能只調採樣；還要處理資料、檢索、工具、規則與人工覆核。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>七、四組最常混淆的差異</h2>
+          <div class="llm-differences">
+            <div><small>Tokenization vs. 向量化</small><b>切分單位 ≠ 轉成數值</b><p>前者決定片段，後者把片段轉成模型可運算的表示。[3]</p></div>
+            <div><small>訓練 vs. 推論</small><b>更新參數 ≠ 生成內容</b><p>訓練用資料與損失更新模型；推論用既有參數對新上下文產生預測。</p></div>
+            <div><small>機率高 vs. 事實真</small><b>語言可能性 ≠ 外部真實性</b><p>下一個 Token 在語句中很合理，不代表整句已被可靠來源證實。</p></div>
+            <div><small>LLM vs. 聊天介面</small><b>核心模型 ≠ 完整系統</b><p>聊天產品還可能包含提示模板、檢索、工具、記憶、內容過濾與權限控制。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>八、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「把文字切成詞或子詞」：</b>指向 Tokenization，不是模型訓練或向量化。[3]</li>
+            <li><b>「轉成模型可處理的數值」：</b>指向向量化／數值表示，不是 Tokenization 本身。[3]</li>
+            <li><b>「依前文反覆預測下一步」：</b>指向自迴歸式生成。</li>
+            <li><b>「低值較保守，高值較多樣」：</b>通常是在描述 Temperature。[3]</li>
+            <li><b>「只留最高的前 k 個」：</b>是 Top-k；「累積機率達門檻」才是 Top-p。[3]</li>
+            <li><b>「提高 Temperature 可消除幻覺」：</b>錯。它調整隨機性，不提供事實保證。</li>
+            <li><b>「每步選最高機率，所以整段必定最佳」：</b>錯。逐步局部選擇不等於全序列最佳。</li>
+            <li><b>「回答流暢，所以內容正確」：</b>錯。流暢度與事實正確性是不同評估面向。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、五步還原法：看到 LLM 題先把流程排回去</h2>
+          <div class="number-grid llm-method">
+            <div><b>01</b><span>切分：原始文字如何變成 Token？</span></div>
+            <div><b>02</b><span>表示：Token 如何成為模型可運算的數值？</span></div>
+            <div><b>03</b><span>預測：目前上下文後，各候選的相對機率為何？</span></div>
+            <div><b>04</b><span>解碼：Greedy、Temperature、Top-k 或 Top-p 如何選？</span></div>
+            <div><b>05</b><span>迭代：選出的 Token 接回上下文，何時停止？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"Token 是 Tokenizer 切出的基本單元，可能是字、詞、子詞或標點；不保證等於固定的一個字或單字。"},q2:{answer:"C",explain:"自迴歸生成會把已選 Token 接回上下文，再預測下一個 Token，反覆進行直到停止。"},q3:{answer:"A",explain:"Top-k 以候選個數限制範圍；Top-p 則保留累積機率達門檻的候選集合。"},q4:{answer:"D",explain:"Temperature 主要調整分布與隨機性；提高它不會自動查證事實，也不能保證消除幻覺。"},q5:{answer:"B",explain:"Tokenization 負責切分文字，向量化／數值表示才把 Token 轉成模型可運算的形式。"},q6:{answer:"C",explain:"流暢表示序列在語言模式上合理，不等於外部事實已被驗證；仍需檢索、工具或人工查核。"}})'>
+            <fieldset><legend>1. 關於 Token，哪一項最正確？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 一個 Token 永遠等於一個中文字</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> Token 是模型切分出的基本單元，切法依 Tokenizer 而異</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> Token 就是模型的參數</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> Token 只會出現在英文文字</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 哪一個流程最符合自迴歸文字生成？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 一次先寫好全文，再隨機刪字</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 只把文字切成 Token，不做預測</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 預測下一個 Token，接回上下文，再預測下一步</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 每個 Token 都彼此獨立，不受前文影響</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. Top-k 與 Top-p 的差異是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> Top-k 限制前 k 個候選；Top-p 依累積機率形成候選集合</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 兩者都固定保留 p 個候選</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> Top-k 負責切分文字，Top-p 負責向量化</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 兩者都會更新模型參數</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 使用者希望回答更正確，因此把 Temperature 調高。哪個判斷最好？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 正確，高溫度一定會查到更多事實</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 正確，高溫度等於增加訓練資料</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 正確，高溫度會把所有錯誤候選刪除</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 不正確，Temperature 調整隨機性，不是事實查核機制</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 「把『週六前完成』拆成片段，再轉成模型可運算的數值」包含哪兩層？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 分類與迴歸</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> Tokenization 與向量化／數值表示</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> Top-k 與 Top-p</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 訓練集與測試集</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 家庭提醒文字非常流暢，是否可直接推論內容一定正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 可以，流暢就等於有外部證據</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 可以，最高機率 Token 一定是真實資料</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 不可以，語言可能性與事實正確性必須分開驗證</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 不可以，因為 LLM 完全不會生成通順文字</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜一句提醒，是怎麼一個 Token 一個 Token 長出來的？</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用家庭採買提醒，串起 LLM、Token、向量表示、下一步機率、自迴歸迴圈，以及 Temperature、Top-k、Top-p 的差異。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day25-llm-token-probability.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day25-llm-token-probability.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列初級科目一、科目二學習指引為主。[1][2][3]</p>
+          <p>本課 Tokenization、向量化、Temperature、Top-k、Top-p、自迴歸模型與交叉熵脈絡，依科目二學習指引第 3.2、3.3 節整理；機率數值、切分結果、關係圖、家庭採買情境與測驗均為原創教學示意，不代表任何真實模型，也不是官方考題。[3]</p>
+          <pre class="source-ledger">Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day25" onclick="toggleDone('day25',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-24.html">← Day 24｜鑑別式與生成式 AI</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 26｜Transformer 與自注意力（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definitions">四層定義</a><a href="#token">Token 切分</a><a href="#loop">逐步生成迴圈</a><a href="#scenario">貫穿情境</a><a href="#decoding">解碼比較</a><a href="#compare">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">五步還原法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
