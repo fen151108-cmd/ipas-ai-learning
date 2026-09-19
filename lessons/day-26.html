@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Transformer 與自注意力概念統整：位置資訊、Query、Key、Value、多頭注意力與遮罩">
+  <title>Day 26｜Transformer 與自注意力</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab active" href="day-26.html" aria-current="page"><b>D26</b><span>Transformer 與自注意力</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero transformer-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 05・生成式 AI</span><span>›</span><span>Day 26</span></div>
+      <h1>Transformer 與自注意力</h1>
+      <p class="memory-line">位置告訴模型「先後」，自注意力決定「此刻該看哪裡」，多頭則同時看不同關係。</p>
+      <p class="lede">今天不背架構名詞，而是把 Token 如何得到上下文表示拆成一條路：嵌入＋位置 → Query、Key、Value → 注意力權重 → 加權取值 → 多頭整合 → 遮罩控制。</p>
+      <div class="meta"><span>Day 26</span><span>約 40–60 分鐘</span><span>概念統整＋家庭提醒情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：上一課會「逐步生成」，這一課回答「如何讀懂上下文」</h2>
+          <div class="concept-path"><span>Token 序列</span><b class="arrow">›</b><span>Transformer</span><b class="arrow">›</b><span>自注意力</span><b class="arrow">›</b><span>上下文表示</span><b class="arrow">›</b><span>下一步預測</span></div>
+          <p>iPAS 科目二把 Transformer 架構與自注意力列入生成式 AI 的技術脈絡，並指出自注意力有助於處理長距離依賴與學習序列結構。[1][3] 原始 Transformer 論文則以注意力機制作為核心，並以堆疊的自注意力與逐位置前饋網路組成編碼器與解碼器。[4]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>神經網路、向量表示、Token、逐步機率生成</b></div>
+            <div><small>本課核心</small><b>Transformer、自注意力、位置、Q／K／V、多頭與遮罩</b></div>
+            <div><small>相鄰／後續</small><b>提示設計、上下文視窗、幻覺、RAG 與工具整合</b></div>
+          </div>
+          <div class="mini-callout"><b>先分清層級</b><span>Transformer 是整體架構；自注意力是架構裡的重要機制；注意力權重是一次計算的結果；多頭注意力是多組投影平行計算後再整合。</span></div>
+        </section>
+
+        <section class="block panel" id="architecture">
+          <div class="section-kicker">ARCHITECTURE ≠ ONE MECHANISM</div>
+          <h2>二、Transformer 不是「只有注意力」的一個方塊</h2>
+          <p>原始架構會重複堆疊注意力子層與逐位置前饋網路，並使用殘差連接與層正規化；因此「Transformer＝自注意力」是過度簡化。[4]</p>
+          <div class="transformer-stack" aria-label="Transformer 層級關係圖">
+            <div class="stack-input"><small>INPUT</small><b>Token 嵌入＋位置資訊</b><span>內容與順序一起進入</span></div>
+            <i>↓</i>
+            <div class="stack-layer"><small>CONTEXT</small><b>多頭自注意力</b><span>各位置依關聯取用資訊</span></div>
+            <i>↓</i>
+            <div class="stack-layer feed"><small>TRANSFORM</small><b>逐位置前饋網路</b><span>對每個位置做非線性轉換</span></div>
+            <i>↓</i>
+            <div class="stack-output"><small>OUTPUT</small><b>上下文化表示</b><span>供下一層或輸出頭使用</span></div>
+          </div>
+          <div class="architecture-notes"><div><b>殘差連接</b><span>把子層輸入繞接到輸出，協助深層訊息與梯度傳遞。</span></div><div><b>層正規化</b><span>調整層內表示尺度，配合堆疊訓練。</span></div><div><b>重複堆疊</b><span>每一層可在前一層表示上再整合更高階關係。</span></div></div>
+        </section>
+
+        <section class="block panel" id="position">
+          <div class="section-kicker">CONTENT NEEDS ORDER</div>
+          <h2>三、為什麼還要位置資訊？同一批字，順序不同，意思可能不同</h2>
+          <p>原始 Transformer 不使用循環或卷積，因此必須把 Token 的相對或絕對位置資訊注入輸入表示；論文將位置編碼加到嵌入上，讓模型可利用序列順序。[4]</p>
+          <div class="position-contrast">
+            <div><small>內容相同</small><b>系統 提醒 使用者</b><span>誰做動作？誰接收提醒？</span></div>
+            <i>⇄</i>
+            <div><small>順序改變</small><b>使用者 提醒 系統</b><span>詞相同，但角色關係不同。</span></div>
+          </div>
+          <div class="formula-strip"><code>輸入表示 = Token embedding + position information</code><span>Token 嵌入回答「這是什麼內容」；位置資訊補上「它在序列哪裡」。兩者用途不同。</span></div>
+        </section>
+
+        <section class="block panel" id="qkv">
+          <div class="section-kicker">QUERY · KEY · VALUE</div>
+          <h2>四、Q、K、V：先比對關聯，再取回內容</h2>
+          <p>在自注意力中，Query、Key 與 Value 都來自同一段序列的表示；注意力會用 Query 與各 Key 的相容程度形成權重，再對對應的 Value 做加權和。[4]</p>
+          <div class="qkv-grid">
+            <div class="query"><span>Q · QUERY</span><b>我現在要找什麼？</b><p>目前位置提出的查詢方向。</p></div>
+            <div class="key"><span>K · KEY</span><b>我和查詢有多相關？</b><p>每個候選位置用來比對的索引特徵。</p></div>
+            <div class="value"><span>V · VALUE</span><b>若相關，要取回什麼？</b><p>依權重被加總的實際內容表示。</p></div>
+          </div>
+          <div class="attention-math">
+            <code>Attention(Q, K, V) = softmax(QKᵀ / √d<sub>k</sub>)V</code>
+            <ol><li><b>比對：</b>Q 與 K 做點積，得到關聯分數。</li><li><b>縮放：</b>除以 √d<sub>k</sub>，避免維度大時分數過度放大。</li><li><b>正規化：</b>Softmax 把分數轉成可比較的權重。</li><li><b>取值：</b>用權重加總 V，形成新的上下文表示。</li></ol>
+          </div>
+          <div class="mini-callout"><b>最常見顛倒</b><span>Key 不是最後輸出的內容，Value 才是被加權取用的內容；Q 與 K 先決定「看多少」，權重再作用在 V。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：把家庭採買清單整理成期限提醒</h2>
+          <p>輸入：「請把週六採買清單中的燕麥與洗碗精整理成提醒，並標示週六前完成。」以下權重只用來教學示意，不代表真實模型，也不宣稱是模型的完整解釋。</p>
+          <div class="prompt-card"><small>INPUT SEQUENCE</small><b>請把週六採買清單中的燕麥與洗碗精整理成提醒，並標示週六前完成。</b></div>
+          <div class="attention-board" aria-label="注意力權重教學示意">
+            <div class="focus-token"><small>目前位置的 Query</small><b>完成</b><span>這個位置要整合哪些前文？</span></div>
+            <div class="attention-links">
+              <div style="--w:92%"><b>週六前</b><span>高關聯：期限</span><i>0.34</i></div>
+              <div style="--w:74%"><b>採買清單</b><span>高關聯：任務</span><i>0.26</i></div>
+              <div style="--w:56%"><b>燕麥</b><span>中關聯：項目</span><i>0.18</i></div>
+              <div style="--w:50%"><b>洗碗精</b><span>中關聯：項目</span><i>0.16</i></div>
+              <div style="--w:18%"><b>請把</b><span>低關聯：語氣</span><i>0.06</i></div>
+            </div>
+          </div>
+          <div class="scenario-result"><small>整合後的教學示意</small><b>「完成」的位置帶入期限、任務與項目資訊，形成具上下文的表示。</b><span>注意力不是把某個詞整句複製過來，而是依權重混合 Value 表示。</span></div>
+        </section>
+
+        <section class="block panel" id="multihead">
+          <div class="section-kicker">MULTIPLE RELATIONSHIP LENSES</div>
+          <h2>六、多頭注意力：不是重複看同一件事，而是允許不同表示子空間並行</h2>
+          <p>多頭注意力會對 Q、K、V 做多組不同的線性投影，平行計算各頭後串接再投影；原始論文指出，這讓模型能同時關注不同位置與不同表示子空間的資訊。[4]</p>
+          <div class="head-grid">
+            <div><small>HEAD A</small><b>期限關係</b><span>「完成」較關注「週六前」</span></div>
+            <div><small>HEAD B</small><b>項目並列</b><span>連結「燕麥」與「洗碗精」</span></div>
+            <div><small>HEAD C</small><b>任務角色</b><span>連結「整理」與「採買清單」</span></div>
+            <div class="merge"><small>CONCAT + PROJECT</small><b>整合各頭輸出</b><span>得到一個新的位置表示</span></div>
+          </div>
+          <div class="mini-callout"><b>不要過度解讀</b><span>頭可以學到不同關係，但不能因某次權重較高，就直接斷言那是模型的唯一理由、因果證據或完整可解釋性。</span></div>
+        </section>
+
+        <section class="block panel" id="mask">
+          <div class="section-kicker">WHO MAY LOOK WHERE?</div>
+          <h2>七、一般自注意力與遮罩自注意力：差在能不能看未來</h2>
+          <p>原始 Transformer 的解碼器會遮住後續位置，使第 i 個位置的預測只能依賴較早、已知的輸出，藉此保留自迴歸生成條件。[4]</p>
+          <div style="overflow-x:auto">
+            <table class="compare attention-compare">
+              <thead><tr><th>類型</th><th>可看範圍</th><th>主要用途</th><th>題目訊號</th></tr></thead>
+              <tbody>
+                <tr><td><b>一般自注意力</b></td><td>同一輸入序列中允許的各位置</td><td>形成整段輸入的上下文表示</td><td>「全句互相參照」「同序列內關聯」</td></tr>
+                <tr><td><b>遮罩自注意力</b></td><td>目前位置以前的已知內容</td><td>避免生成時偷看到未來答案</td><td>「自迴歸」「只依賴先前 Token」「因果遮罩」</td></tr>
+                <tr><td><b>交叉注意力</b></td><td>Query 來自解碼器；K、V 來自編碼器輸出</td><td>讓輸出位置參照來源序列</td><td>「輸入與輸出兩段序列」「編碼器—解碼器」</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mask-row" aria-label="因果遮罩示意"><b>位置 4 可看：</b><span class="open">1</span><span class="open">2</span><span class="open">3</span><span class="open">4</span><span class="closed">5 ×</span><span class="closed">6 ×</span><em>未來位置被遮住</em></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>八、五組容易混淆的差異</h2>
+          <div class="attention-differences">
+            <div><small>Transformer vs. 自注意力</small><b>整體架構 ≠ 單一機制</b><p>Transformer 還包含前饋網路、殘差、正規化與位置資訊等元件。</p></div>
+            <div><small>位置資訊 vs. 注意力</small><b>序列順序 ≠ 關聯權重</b><p>位置補順序；注意力依目前表示計算位置間的取用比例。</p></div>
+            <div><small>Key vs. Value</small><b>用來比對 ≠ 被加權取回</b><p>Q 與 K 形成權重，權重再加總 V。[4]</p></div>
+            <div><small>多頭 vs. 多層</small><b>同層平行 ≠ 深度堆疊</b><p>多頭在同一注意力子層平行；多層是前一層輸出再送往下一層。</p></div>
+            <div><small>注意力高 vs. 因果重要</small><b>運算權重 ≠ 完整解釋</b><p>權重描述該次計算的混合比例，不能單獨證明人類語意或因果。</p></div>
+            <div><small>平行訓練 vs. 一次生成全文</small><b>訓練計算 ≠ 推論解碼</b><p>Transformer 可平行處理訓練位置，但自迴歸推論仍逐步產生下一個 Token。[4]</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>九、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「同一序列各位置彼此建立關聯」：</b>指向自注意力。[3][4]</li>
+            <li><b>「沒有循環仍要知道先後」：</b>指向位置編碼或位置資訊。[4]</li>
+            <li><b>「Q 與 K 算相似度，再加權 V」：</b>先比對、後取值，不要顛倒。[4]</li>
+            <li><b>「同時從不同表示子空間看關係」：</b>指向多頭注意力。[4]</li>
+            <li><b>「生成時不能看後面的正確 Token」：</b>指向遮罩自注意力。</li>
+            <li><b>「注意力權重最高就是模型唯一理由」：</b>錯；權重不是完整因果解釋。</li>
+            <li><b>「Transformer 完全等於自注意力」：</b>錯；自注意力是核心子層之一。</li>
+            <li><b>「可平行訓練，所以推論一次產生全文」：</b>錯；自迴歸解碼仍是逐步生成。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>十、六問還原法：看到 Transformer 題先問這六件事</h2>
+          <div class="number-grid transformer-method">
+            <div><b>01</b><span>層級：題目在問架構、子層，還是權重結果？</span></div>
+            <div><b>02</b><span>位置：模型如何知道 Token 的先後？</span></div>
+            <div><b>03</b><span>來源：Q、K、V 是否來自同一序列？</span></div>
+            <div><b>04</b><span>運算：QK 比對後，權重作用在哪個 V？</span></div>
+            <div><b>05</b><span>視角：是多頭平行，還是多層堆疊？</span></div>
+            <div><b>06</b><span>可見性：目前位置能否看到未來 Token？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"Transformer 是整體架構；自注意力是其中用來建立序列內關聯的重要子層，架構中還有前饋網路、殘差與正規化等。"},q2:{answer:"C",explain:"Q 與 K 的相容程度形成注意力權重，權重再用來加總對應的 V；Key 與 Value 的工作不可顛倒。"},q3:{answer:"A",explain:"自注意力本身不靠循環帶入順序；位置資訊補上 Token 的相對或絕對位置。"},q4:{answer:"D",explain:"多頭是在同一子層平行使用多組投影；多層則是把前一層輸出送進下一層，兩者不是同義詞。"},q5:{answer:"B",explain:"因果遮罩會阻止目前位置看到未來 Token，避免訓練或生成時洩漏後文答案。"},q6:{answer:"C",explain:"較高權重表示該次運算取用了較多該位置的 Value，但不能單獨證明完整語意、因果或唯一決策理由。"}})'>
+            <fieldset><legend>1. Transformer 與自注意力的關係，哪一項最正確？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 兩者完全同義，沒有其他元件</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> Transformer 是架構，自注意力是其中的重要機制</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 自注意力只負責把文字切成 Token</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> Transformer 只是一種資料格式</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 在縮放點積注意力中，Q、K、V 的主要流程為何？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 先加總 Q，再用 V 刪除 K</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 用 V 與 Q 決定位置，K 不參與</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 用 Q 與 K 形成權重，再加權 V</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> Q、K、V 分別代表訓練、驗證、測試集</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 為什麼 Transformer 需要位置資訊？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 讓模型利用 Token 在序列中的先後與距離</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 把所有 Token 改成同一個值</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 直接保證輸出事實正確</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 取代 Tokenization</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 多頭注意力與多層 Transformer 的差異是什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 兩者都只是增加 Token 數量</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 多頭一定依序執行，多層一定平行執行</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 多頭只用於位置編碼，多層只用於切詞</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 多頭是同層多組注意力；多層是表示逐層堆疊</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 自迴歸文字生成使用因果遮罩的主要目的為何？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 讓每個位置看到所有未來答案</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 阻止目前位置參照未來 Token</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 移除所有位置資訊</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 把多頭改成單頭</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 情境中「週六前」得到較高注意力權重，應如何解讀？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 已證明它是模型決策的唯一原因</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 已證明提醒內容一定符合外部事實</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 該次運算較多取用其 Value，但不能當完整因果解釋</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 表示「週六前」一定被切成一個 Token</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜一句提醒裡，模型到底在看哪裡？</h2>
+          <p>約 8 分鐘自然台灣華語複習：沿用家庭採買提醒，串起位置資訊、Query、Key、Value、多頭注意力、因果遮罩，以及常見考題陷阱。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day26-transformer-self-attention.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day26-transformer-self-attention.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列初級科目一、科目二學習指引為主。[1][2][3]</p>
+          <p>Transformer 的 Q／K／V、遮罩、多頭、位置編碼與層結構，再以原始論文交叉核對。[4]</p>
+          <p>家庭採買情境、注意力數值、關係圖與測驗均為原創教學示意，不代表任何真實模型，也不是官方考題。</p>
+          <pre class="source-ledger">Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃
+[4] https://arxiv.org/abs/1706.03762 — Attention Is All You Need（Vaswani et al., 2017）</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day26" onclick="toggleDone('day26',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-25.html">← Day 25｜LLM、Token 與逐步機率生成</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 27｜GAN、VAE 與擴散模型（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#architecture">整體架構</a><a href="#position">位置資訊</a><a href="#qkv">Q／K／V</a><a href="#scenario">貫穿情境</a><a href="#multihead">多頭注意力</a><a href="#mask">遮罩與可見性</a><a href="#compare">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">六問還原法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
