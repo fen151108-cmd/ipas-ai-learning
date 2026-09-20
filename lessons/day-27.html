@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="GAN、VAE 與擴散模型概念統整：對抗學習、潛在分布、重建與逐步去噪">
+  <title>Day 27｜GAN、VAE 與擴散模型</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab active" href="day-27.html" aria-current="page"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero generative-models-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 05・生成式 AI</span><span>›</span><span>Day 27</span></div>
+      <h1>GAN、VAE 與擴散模型</h1>
+      <p class="memory-line">GAN 用對抗逼近資料，VAE 在潛在分布中編碼再解碼，擴散模型從雜訊逐步還原。</p>
+      <p class="lede">今天不背模型清單，而是抓住三條生成路徑：誰和誰互動、資料經過哪個中間表示、生成時從哪裡開始。</p>
+      <div class="meta"><span>Day 27</span><span>約 40–60 分鐘</span><span>概念統整＋收納標籤情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：同樣會生成，學習路徑與生成起點不同</h2>
+          <div class="concept-path"><span>深度學習</span><b class="arrow">›</b><span>生成式模型</span><b class="arrow">›</b><span>GAN／VAE／擴散</span><b class="arrow">›</b><span>新樣本</span><b class="arrow">›</b><span>工具選擇與風險</span></div>
+          <p>iPAS 科目一把 GAN、VAE 與擴散模型列為常見生成式 AI 模型，並分別說明對抗、潛在空間與逐步加噪／去噪的路徑。[2] 科目二再把這些模型放進生成式 AI 技術演進與工具應用的脈絡。[3]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>神經網路、機率分布、損失函數、生成式 AI</b></div>
+            <div><small>本課核心</small><b>GAN 的對抗、VAE 的潛在分布、擴散模型的逐步去噪</b></div>
+            <div><small>相鄰／後續</small><b>Transformer、多模態生成、工具配對、品質驗證與風險</b></div>
+          </div>
+          <div class="mini-callout"><b>先問生成起點</b><span>GAN 常從隨機雜訊直接經生成器產生樣本；VAE 從潛在變數經解碼器產生；擴散模型從雜訊經多步反向去噪產生。</span></div>
+        </section>
+
+        <section class="block panel" id="overview">
+          <div class="section-kicker">THREE ROUTES · ONE GOAL</div>
+          <h2>二、先看全貌：三種模型都學資料分布，但不是同一條路</h2>
+          <div class="model-route-grid">
+            <div class="gan-route"><small>GAN · 對抗</small><b>雜訊 → 生成器 → 樣本</b><span>鑑別器同時學辨認真實與生成資料，兩個網路彼此競爭。[2][4]</span></div>
+            <div class="vae-route"><small>VAE · 潛在分布</small><b>資料 → 編碼器 → z → 解碼器</b><span>把輸入映射成潛在分布，再取樣並重建或生成。[2][5]</span></div>
+            <div class="diffusion-route"><small>DIFFUSION · 去噪</small><b>雜訊 → 多步去噪 → 樣本</b><span>訓練時學反轉逐步加噪過程；生成時反覆去噪。[2][6]</span></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="compare model-compare">
+              <thead><tr><th>判斷面向</th><th>GAN</th><th>VAE</th><th>擴散模型</th></tr></thead>
+              <tbody>
+                <tr><td><b>核心結構</b></td><td>生成器＋鑑別器</td><td>編碼器＋解碼器</td><td>前向加噪＋反向去噪模型</td></tr>
+                <tr><td><b>學習訊號</b></td><td>真假對抗</td><td>重建品質＋潛在分布規整</td><td>預測雜訊或反向步驟</td></tr>
+                <tr><td><b>生成起點</b></td><td>隨機雜訊</td><td>潛在變數 z</td><td>近似純雜訊</td></tr>
+                <tr><td><b>典型題目字眼</b></td><td>生成器、鑑別器、對抗、模式崩潰</td><td>編碼、解碼、潛在空間、重建</td><td>加噪、反向、逐步去噪</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="gan">
+          <div class="section-kicker">GAN · ADVERSARIAL LEARNING</div>
+          <h2>三、GAN：生成器做樣本，鑑別器判真假</h2>
+          <p>原始 GAN 框架讓生成器學習資料分布、產生候選樣本，鑑別器則估計樣本來自真實資料而非生成器的機率；訓練形成兩方的極小極大對抗。[4]</p>
+          <div class="gan-loop" aria-label="GAN 對抗流程圖">
+            <div><small>RANDOM NOISE</small><b>隨機雜訊 z</b></div><i>→</i>
+            <div class="generator"><small>GENERATOR</small><b>產生候選圖樣</b></div><i>→</i>
+            <div class="candidate"><small>FAKE SAMPLE</small><b>生成樣本</b></div><i>↘</i>
+            <div class="real"><small>REAL DATA</small><b>真實樣本</b></div><i>↗</i>
+            <div class="discriminator"><small>DISCRIMINATOR</small><b>判斷真實或生成</b></div>
+          </div>
+          <div class="split-notes"><div><b>生成器的目標</b><span>讓生成資料更像訓練分布，使鑑別器難以分辨。</span></div><div><b>鑑別器的目標</b><span>提高對真實資料與生成資料的辨識能力。</span></div><div><b>兩者的關係</b><span>不是先把鑑別器訓練完才永遠固定，而是在對抗中交替改善。</span></div></div>
+          <div class="mini-callout"><b>模式崩潰</b><span>若生成器只產生少數相似樣本來騙過鑑別器，輸出多樣性會不足；「看起來真」不等於「覆蓋完整資料分布」。</span></div>
+        </section>
+
+        <section class="block panel" id="vae">
+          <div class="section-kicker">VAE · LATENT DISTRIBUTION</div>
+          <h2>四、VAE：不是把資料壓成一個固定點，而是學潛在分布</h2>
+          <p>VAE 以編碼器近似輸入的潛在變數後驗分布，再透過重參數化取樣，讓梯度可通過隨機節點；解碼器則由潛在變數產生或重建資料。[5]</p>
+          <div class="vae-flow" aria-label="VAE 編碼、取樣與解碼流程">
+            <div><small>INPUT</small><b>收納標籤圖樣</b></div><i>→</i>
+            <div class="encoder"><small>ENCODER</small><b>輸出 μ 與 σ</b><span>描述潛在分布</span></div><i>→</i>
+            <div class="latent"><small>REPARAMETERIZE</small><b>取樣 z</b><span>z = μ + σ × ε</span></div><i>→</i>
+            <div class="decoder"><small>DECODER</small><b>重建／生成圖樣</b></div>
+          </div>
+          <div class="loss-balance"><div><small>RECONSTRUCTION</small><b>重建項</b><span>要求輸出保留輸入的重要內容。</span></div><b>＋</b><div><small>REGULARIZATION</small><b>分布規整項</b><span>讓潛在表示接近指定先驗，便於取樣與連續移動。</span></div></div>
+          <p>VAE 的目標不是只做一般資料壓縮；它同時要能重建，並讓潛在空間具可取樣的分布結構。若只記「編碼器＋解碼器」，容易和一般自編碼器混淆。</p>
+        </section>
+
+        <section class="block panel" id="diffusion">
+          <div class="section-kicker">DIFFUSION · REVERSE THE NOISE</div>
+          <h2>五、擴散模型：訓練時逐步加噪，生成時學著反向去噪</h2>
+          <p>DDPM 將生成建模為一個學習到的反向過程，對應到逐步破壞資料的前向擴散過程；論文展示可用預測雜訊的方式訓練模型。[6]</p>
+          <div class="diffusion-board">
+            <div class="diffusion-row forward"><small>訓練前向過程 · 固定加噪</small><div><b>x₀</b><span>清楚圖樣</span></div><i>→</i><div><b>x₁</b><span>少量雜訊</span></div><i>→</i><div><b>x₂</b><span>更多雜訊</span></div><i>→</i><div><b>xₜ</b><span>近似純雜訊</span></div></div>
+            <div class="diffusion-row reverse"><small>生成反向過程 · 學習去噪</small><div><b>xₜ</b><span>隨機雜訊</span></div><i>→</i><div><b>xₜ₋₁</b><span>逐步估計</span></div><i>→</i><div><b>x₁</b><span>輪廓形成</span></div><i>→</i><div><b>x₀</b><span>生成樣本</span></div></div>
+          </div>
+          <div class="mini-callout"><b>最常見方向陷阱</b><span>加噪是定義前向破壞過程；模型真正要學的是反向還原。生成時從雜訊開始，不是把一張完整圖片故意弄髒。</span></div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：生成一組中性的家庭收納標籤插圖</h2>
+          <p>家庭想依既有的「食品、清潔用品、工具」圖樣，產生一組風格一致的新收納標籤。以下只用來比較機制，不代表某模型必然有較佳品質，也不涉及任何真實家庭資料。</p>
+          <div class="scenario-models">
+            <div><small>GAN</small><b>像一場反覆驗稿</b><p>生成器交出候選標籤；鑑別器比較真實範例與候選，兩者在對抗中改善。要留意是否只會重複少數樣式。</p></div>
+            <div><small>VAE</small><b>先做風格地圖再取樣</b><p>編碼器把範例映射到連續潛在分布；從不同位置取樣，再由解碼器產生或重建標籤。</p></div>
+            <div><small>DIFFUSION</small><b>從雜訊逐步顯影</b><p>生成時從隨機雜訊開始，多次估計並去除雜訊，逐步形成符合條件的標籤圖樣。</p></div>
+          </div>
+          <div class="scenario-result"><small>共同的驗證責任</small><b>生成結果仍須檢查內容正確性、風格一致性、資料授權、偏見與實際用途。</b><span>模型路徑不同，不會自動免除查驗與治理。</span></div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>七、六組容易混淆的差異</h2>
+          <div class="attention-differences">
+            <div><small>生成器 vs. 鑑別器</small><b>產生候選 ≠ 判斷真假</b><p>兩者都是 GAN 的組件；鑑別器不是整個「鑑別式 AI 類別」的同義詞。</p></div>
+            <div><small>VAE vs. 一般自編碼器</small><b>潛在分布 ≠ 固定編碼點</b><p>VAE 對潛在變數做機率建模與取樣，並加入分布規整。</p></div>
+            <div><small>編碼器 vs. 解碼器</small><b>資料到潛在 ≠ 潛在到資料</b><p>編碼器推估潛在分布；解碼器由 z 產生或重建。</p></div>
+            <div><small>前向擴散 vs. 反向生成</small><b>加噪 ≠ 去噪</b><p>前向過程逐步破壞資料；學到的反向過程逐步還原。</p></div>
+            <div><small>模型名稱 vs. 輸出保證</small><b>會生成 ≠ 必然正確</b><p>任何路徑都可能產生錯誤、偏見、不適用或權利不清的內容。</p></div>
+            <div><small>三種模型 vs. Transformer</small><b>並列工具箱 ≠ 互相包含</b><p>它們可在系統中組合，但不能因都屬生成式 AI 就視為同一架構。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>八、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「生成器與鑑別器互相競爭」：</b>指向 GAN。[2][4]</li>
+            <li><b>「模式崩潰、樣本看似合理但多樣性不足」：</b>常是 GAN 的典型風險訊號。[2]</li>
+            <li><b>「編碼器、解碼器、潛在空間、重建」：</b>先想到自編碼器家族；若還有潛在分布與取樣，指向 VAE。[2][5]</li>
+            <li><b>「逐步加入高斯雜訊，再學反向去噪」：</b>指向擴散模型。[2][6]</li>
+            <li><b>「生成時把清楚圖片逐步加噪」：</b>錯；生成通常從雜訊往資料方向走。</li>
+            <li><b>「鑑別器等於鑑別式 AI 模型」：</b>錯；前者是 GAN 內的組件角色，不能只憑名稱跨層級等同。</li>
+            <li><b>「VAE 只是一個壓縮工具」：</b>錯；它同時建立可取樣的潛在生成模型。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、五問辨認法：先還原流程，再選模型名稱</h2>
+          <div class="number-grid generative-method">
+            <div><b>01</b><span>角色：有兩個網路對抗，還是編碼器與解碼器協作？</span></div>
+            <div><b>02</b><span>中間：是否明確建立並取樣潛在分布 z？</span></div>
+            <div><b>03</b><span>方向：題目描述加噪，還是反向逐步去噪？</span></div>
+            <div><b>04</b><span>訊號：靠真假判斷、重建與分布規整，或雜訊預測學習？</span></div>
+            <div><b>05</b><span>陷阱：是否把組件名稱、訓練過程與生成過程混成一件事？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"GAN 的生成器產生候選樣本，鑑別器辨別真實與生成資料；兩者在對抗中共同改善。"},q2:{answer:"C",explain:"VAE 的編碼器輸出潛在分布參數，再透過重參數化取樣 z；解碼器由 z 重建或生成。"},q3:{answer:"A",explain:"擴散模型的前向過程逐步加噪，學到的反向過程則逐步去噪；生成時通常由雜訊開始。"},q4:{answer:"D",explain:"只產生少數相似樣本代表多樣性不足，符合模式崩潰的典型描述。"},q5:{answer:"B",explain:"一般自編碼器可把輸入映射到固定編碼；VAE 對潛在變數建立分布並取樣，同時平衡重建與分布規整。"},q6:{answer:"C",explain:"模型產出仍需依用途檢查品質、授權、偏見與風險，不能只用模型名稱推論一定可靠。"}})'>
+            <fieldset><legend>1. 下列哪一項最正確描述 GAN 的核心結構？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 只有編碼器，負責把資料壓縮</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 生成器產生樣本，鑑別器判斷真實或生成</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 前向與反向過程都只負責加噪</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 用決策樹投票決定新樣本</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. VAE 中從輸入到新樣本的主要順序為何？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 鑑別器 → 生成器 → 分類標籤</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 加噪 → 決策樹 → 投票</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 編碼器 → 潛在分布取樣 z → 解碼器</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> Tokenization → 注意力 → 分類門檻</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 關於擴散模型的方向，哪一項正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 前向逐步加噪；學到的反向過程逐步去噪</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 前向與反向都只會增加雜訊</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 生成時一定從完整圖片開始加噪</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 去噪是 GAN 鑑別器的唯一工作</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. GAN 生成的收納標籤看似合理，但反覆只出現兩三種近似樣式，最可能是什麼問題？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 資料洩漏必然發生</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 注意力遮罩失效</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 分類門檻過高</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 模式崩潰，輸出多樣性不足</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. VAE 與一般自編碼器的重要差異訊號為何？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> VAE 完全沒有解碼器</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> VAE 對潛在變數建模成分布並進行取樣</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> VAE 只能做分類，不能生成</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> VAE 不需要重建目標</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 家庭收納標籤由任一生成模型產生後，最適當的下一步是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 因為是生成模型，所以可直接相信內容</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 只要畫面清楚，就不需確認授權與用途</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 依用途檢查品質、授權、偏見與風險</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只看模型名稱判定一定可靠</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜三條生成路徑，別再混成同一種模型</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用家庭收納標籤情境，串起 GAN 的對抗、VAE 的潛在分布、擴散模型的逐步去噪，以及常見題目陷阱。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day27-gan-vae-diffusion.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day27-gan-vae-diffusion.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL & PRIMARY SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列初級科目一、科目二學習指引為主。[1][2][3]</p>
+          <p>GAN、VAE 與擴散模型的機制，再以三篇原始論文交叉核對。[4][5][6]</p>
+          <p>家庭收納標籤情境、關係圖與測驗均為原創教學示意，不代表任何真實模型，也不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE1_%E4%BA%BA%E5%B7%A5%E6%99%BA%E6%85%A7%E5%9F%BA%E7%A4%8E%E6%A6%82%E8%AB%961141203_20251222172144.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目一（114.12.03 版）
+[3] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃
+[4] https://arxiv.org/abs/1406.2661 — Generative Adversarial Nets（Goodfellow et al., 2014）
+[5] https://arxiv.org/abs/1312.6114 — Auto-Encoding Variational Bayes（Kingma &amp; Welling, 2013）
+[6] https://arxiv.org/abs/2006.11239 — Denoising Diffusion Probabilistic Models（Ho et al., 2020）</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day27" onclick="toggleDone('day27',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-26.html">← Day 26｜Transformer 與自注意力</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 28｜No Code 與 Low Code（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#overview">三種路徑</a><a href="#gan">GAN 對抗</a><a href="#vae">VAE 潛在分布</a><a href="#diffusion">擴散與去噪</a><a href="#scenario">貫穿情境</a><a href="#compare">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">五問辨認法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
