@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="No Code 與 Low Code 概念統整：視覺化開發、少量程式碼、使用者、客製彈性與治理責任">
+  <title>Day 28｜No Code 與 Low Code</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab active" href="day-28.html" aria-current="page"><b>D28</b><span>No Code 與 Low Code</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero nocode-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 06・No／Low Code</span><span>›</span><span>Day 28</span></div>
+      <h1>No Code 與 Low Code</h1>
+      <p class="memory-line">No Code 用視覺化元件完成常見需求，Low Code 以視覺化為主、用少量程式碼處理整合與客製；少寫程式，不等於沒有設計、測試與治理。</p>
+      <p class="lede">今天不以「有沒有程式碼」二分好壞，而是從建構方式、主要使用者、需求複雜度與客製彈性判斷適用情境。</p>
+      <div class="meta"><span>Day 28</span><span>約 35–55 分鐘</span><span>概念統整＋共享用品情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從模型原理走向應用建構</h2>
+          <div class="concept-path"><span>AI／應用需求</span><b class="arrow">›</b><span>開發方式</span><b class="arrow">›</b><span>No Code／Low Code</span><b class="arrow">›</b><span>測試與部署</span><b class="arrow">›</b><span>維護與治理</span></div>
+          <p>iPAS 科目二將「No Code／Low Code 的基本概念」及其優勢與限制列為獨立評鑑內容；官方學習指引先比較兩者的介面、程式碼擴充、適用使用者與應用複雜度，再延伸到平台選擇、整合、安全與風險。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>應用開發方式、需求分析、資料與流程概念</b></div>
+            <div><small>本課核心</small><b>視覺化建構、少量程式碼、使用者與客製彈性</b></div>
+            <div><small>相鄰／後續</small><b>傳統開發、流程自動化、平台限制、供應商鎖定與 Shadow IT</b></div>
+          </div>
+          <div class="mini-callout"><b>分類層級先分開</b><span>No Code／Low Code 是「怎麼建構應用」；AI 是「系統具備什麼能力」。平台可以整合 AI，也可以只做表單、資料處理與工作流程。</span></div>
+        </section>
+
+        <section class="block panel" id="definition">
+          <div class="section-kicker">TWO DEVELOPMENT POSTURES</div>
+          <h2>二、正確定義：共同降低門檻，但保留的程式碼彈性不同</h2>
+          <div class="nocode-split">
+            <div class="no-code-card"><small>NO CODE</small><b>用設定組合常見需求</b><p>以視覺化介面、拖放元件、模板與規則設定為主，讓使用者不必直接撰寫程式碼即可建立應用。[2]</p><em>適合：快速原型、簡單流程、小型內部工具。</em></div>
+            <div class="low-code-card"><small>LOW CODE</small><b>視覺化為主，程式碼補彈性</b><p>沿用視覺化建構，同時允許少量程式碼處理深度整合、特殊介面與複雜邏輯。[2]</p><em>適合：客製需求、既有系統整合、較複雜應用。</em></div>
+          </div>
+          <p>官方學習指引將 No Code 描述為透過視覺化介面與拖放操作完成應用；Low Code 則結合視覺化工具與程式碼擴充，以保留較高的整合與客製彈性。[2]</p>
+          <div class="definition-route" aria-label="No Code 與 Low Code 的共同流程和分歧">
+            <div><small>共同起點</small><b>需求與流程</b><span>先定義要解決什麼問題</span></div><i>→</i>
+            <div><small>共同手段</small><b>視覺化建構</b><span>元件、模板、規則、連接器</span></div><i>→</i>
+            <div class="route-fork"><small>分歧點</small><b>是否需程式碼擴充？</b><span>標準需求偏 No Code；複雜整合偏 Low Code</span></div><i>→</i>
+            <div><small>共同責任</small><b>測試、部署與維護</b><span>快速建構不會消除治理</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY FOUR AXES</div>
+          <h2>三、比較表：不要只看「程式碼多或少」</h2>
+          <div style="overflow-x:auto">
+            <table class="compare nocode-compare">
+              <thead><tr><th>判斷面向</th><th>No Code</th><th>Low Code</th><th>題目判斷重點</th></tr></thead>
+              <tbody>
+                <tr><td><b>建構方式</b></td><td>拖放、模板、規則設定</td><td>視覺化＋少量程式碼</td><td>是否明確需要自訂程式</td></tr>
+                <tr><td><b>主要使用者</b></td><td>非技術背景或業務使用者也可參與</td><td>具技術基礎者或業務與技術混合團隊</td><td>不是用職稱絕對分類</td></tr>
+                <tr><td><b>適合需求</b></td><td>標準、簡單、快速驗證</td><td>複雜邏輯、特殊介接、較高客製</td><td>需求複雜度比工具名稱重要</td></tr>
+                <tr><td><b>速度與門檻</b></td><td>通常較快、入門門檻較低</td><td>仍比全手寫開發減少重複工作</td><td>快不等於不用設計與測試</td></tr>
+                <tr><td><b>彈性與維護</b></td><td>受平台元件與規則限制較多</td><td>彈性較高，但需管理自訂程式碼</td><td>兩者都可能有平台依賴</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="tradeoff-track">
+            <span><b>較偏 No Code</b><small>標準化、速度、低門檻</small></span>
+            <i></i><strong>需求與能力配對</strong><i></i>
+            <span><b>較偏 Low Code</b><small>整合、客製、複雜邏輯</small></span>
+          </div>
+          <p>官方指引把目標使用者與技術需求、功能與擴展性、安全合規、成本效益及技術支援列為平台評估面向；因此選型不能只比較開發速度。[2]</p>
+        </section>
+
+        <section class="block panel" id="building-blocks">
+          <div class="section-kicker">WHAT THE PLATFORM HIDES</div>
+          <h2>四、視覺化不等於沒有系統：仍有五個建構層</h2>
+          <div class="builder-layers">
+            <div><small>01 · UI</small><b>介面元件</b><span>表單、按鈕、清單與畫面配置</span></div>
+            <div><small>02 · DATA</small><b>資料結構</b><span>欄位、資料表、驗證與關聯</span></div>
+            <div><small>03 · LOGIC</small><b>規則流程</b><span>條件、觸發、分支與例外</span></div>
+            <div><small>04 · INTEGRATION</small><b>連接器與 API</b><span>資料來源、外部系統與權限</span></div>
+            <div><small>05 · OPERATE</small><b>部署與維護</b><span>測試、版本、監控與修正</span></div>
+          </div>
+          <p>平台替使用者抽象掉部分底層實作，卻沒有讓需求、資料、流程、權限與維運消失。[2] 考題若把「不寫程式」推論成「不需任何技術判斷」，通常就是把抽象化誤認成責任消失。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：家庭共享用品補充工具</h2>
+          <p>一個家庭想記錄清潔用品、衛生紙與常用物品的剩餘數量，低於門檻時提醒補充。這是原創中性教學情境，不涉及真實家庭或店家資料。</p>
+          <div class="scenario-build">
+            <div class="scenario-core"><small>共同需求</small><b>登記品項與數量，低於門檻便提醒</b><ul><li>輸入：品項、數量、補充門檻</li><li>規則：數量低於門檻</li><li>輸出：補充提醒與待辦清單</li></ul></div>
+            <div class="scenario-paths">
+              <div><small>NO CODE PATH</small><b>標準流程先驗證</b><p>拖入表單與清單元件，設定條件式通知。需求單純，平台既有功能足夠。</p><em>價值：快速建立與試用。</em></div>
+              <div><small>LOW CODE PATH</small><b>複雜需求再擴充</b><p>若要串接不同店家的商品介面、自訂折扣規則或多層權限，保留視覺化流程，再用少量程式碼補上。</p><em>價值：增加整合與客製彈性。</em></div>
+            </div>
+          </div>
+          <div class="scenario-result"><small>選型關鍵</small><b>不是先選平台再硬塞需求，而是先看使用者能力、流程複雜度、整合需求、風險與後續維護。</b><span>若需求持續成長，也要重新評估是否仍適合原本的開發方式。</span></div>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>六、六組容易混淆的差異</h2>
+          <p>官方指引明確提醒，No Code／Low Code 能降低門檻與縮短開發時間，但不能完全消除專業技術需求，也仍須面對整合、安全、隱私與驗證問題。[2]</p>
+          <div class="attention-differences">
+            <div><small>No Code vs. 無需技術判斷</small><b>不寫程式 ≠ 不用懂需求</b><p>欄位、流程、權限、例外與測試仍要設計。</p></div>
+            <div><small>Low Code vs. 傳統全手寫</small><b>少量擴充 ≠ 所有部分自行開發</b><p>Low Code 仍以平台視覺化能力為主要骨架。</p></div>
+            <div><small>No Code vs. AI</small><b>開發方式 ≠ 系統能力</b><p>No Code 可以不含 AI；AI 功能也能以傳統程式開發。</p></div>
+            <div><small>快速原型 vs. 正式上線</small><b>做得出來 ≠ 可安全營運</b><p>正式使用仍要驗證資料、權限、可靠性與維護方式。</p></div>
+            <div><small>低門檻 vs. 無限制</small><b>容易開始 ≠ 可以無限客製</b><p>平台元件、連接器、效能與定價都可能形成邊界。</p></div>
+            <div><small>工具效率 vs. 人員取代</small><b>減少重複開發 ≠ 完全不需專業人員</b><p>複雜整合、安全與治理仍可能需要專業能力。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>七、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「拖放、模板、無需直接撰寫程式碼」：</b>先想到 No Code。[2]</li>
+            <li><b>「視覺化工具＋少量程式碼擴充」：</b>先想到 Low Code。[2]</li>
+            <li><b>「複雜邏輯、既有系統整合、高度客製」：</b>通常較偏 Low Code，而非硬說 No Code 可無限處理。[2]</li>
+            <li><b>「快速原型、簡單工作流程、非技術背景使用者」：</b>通常較偏 No Code。[2]</li>
+            <li><b>「完全取代專業開發者／完全不需技術知識」：</b>絕對化敘述，優先排除。</li>
+            <li><b>「平台內建 AI，所以 No Code 等於 AI」：</b>錯；兩者分屬開發方式與系統能力。</li>
+            <li><b>「開發快，所以不需測試、權限與治理」：</b>錯；實作抽象化不會讓營運責任消失。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、四問辨認法：需求先於平台名稱</h2>
+          <div class="number-grid nocode-method">
+            <div><b>01</b><span>建構：只需拖放與設定，還是明確需要程式碼擴充？</span></div>
+            <div><b>02</b><span>複雜度：標準簡單流程，還是特殊邏輯與深度整合？</span></div>
+            <div><b>03</b><span>層級：題目在談開發方式，還是在談 AI 的能力？</span></div>
+            <div><b>04</b><span>陷阱：是否出現「完全、無限、必然取代、不需測試」等絕對字眼？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"No Code 的核心是以視覺化介面、模板與拖放元件完成常見需求，降低直接撰寫程式碼的門檻。"},q2:{answer:"C",explain:"複雜介接、自訂折扣規則與多層權限需要較高的整合及客製彈性，較符合 Low Code。"},q3:{answer:"D",explain:"不直接寫程式不代表不需理解需求、資料、流程、權限與測試；『完全不需技術判斷』是過度絕對的說法。"},q4:{answer:"A",explain:"No Code／Low Code 描述建構應用的方法；AI 描述系統能力，兩者可以組合但不是同義詞。"},q5:{answer:"C",explain:"平台抽象化底層實作，但正式上線仍須測試規則、權限、資料流與例外情境。"},q6:{answer:"B",explain:"應先釐清需求與使用者能力，再評估複雜度、整合、風險與維護，不能只靠平台標籤選型。"}})'>
+            <fieldset><legend>1. 下列哪一項最符合 No Code 的核心特徵？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 所有功能都必須手寫程式</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 主要透過視覺化介面、模板與拖放元件建構</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 只用於訓練深度學習模型</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 一定比所有傳統開發方式更安全</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 家庭共享用品工具要串接不同店家的商品介面、自訂折扣規則並加入多層權限，較適合哪個方向？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 只因是家庭情境，所以一定使用 No Code</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 任何平台都完全相同，不需比較</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 採 Low Code，保留視覺化流程並以少量程式碼擴充</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 因為有規則，所以一定是生成式 AI</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 關於 No Code，下列哪一項敘述錯誤？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 可降低直接撰寫程式碼的門檻</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 常用於快速原型與簡單流程</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 仍需定義資料欄位與流程規則</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 完全不需要任何技術判斷與測試</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. No Code／Low Code 與 AI 的關係，何者最正確？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 前者是開發方式，後者是系統能力；可以組合但不等同</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 只要拖放元件，就是在訓練 AI 模型</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 所有 AI 都只能用 No Code 建立</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> Low Code 不能整合任何 AI 功能</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. No Code 原型準備正式上線時，最適當的作法是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 因為沒有手寫程式，所以可跳過測試</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只確認畫面好看，不必檢查資料流</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 驗證規則、權限、資料流、例外情境與維護方式</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 一律改成全手寫開發</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 選擇 No Code 或 Low Code 平台時，最合理的起點是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 先選最熱門平台，再改需求配合</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 先釐清需求與使用者能力，再評估複雜度、整合、風險與維護</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 只比較畫面顏色與模板數量</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 預設 No Code 可以無限客製</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜少寫程式，不等於少做判斷</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用家庭共享用品情境，串起視覺化建構、少量程式碼、需求複雜度、客製彈性與常見題目陷阱。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day28-no-code-low-code.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day28-no-code-low-code.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列初級科目二學習指引為主。[1][2]</p>
+          <p>家庭共享用品情境、關係圖、比較表與測驗均為原創教學示意，不代表任何真實平台，也不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day28" onclick="toggleDone('day28',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-27.html">← Day 27｜GAN、VAE 與擴散模型</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 29｜平台限制、鎖定與 Shadow IT（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definition">正確定義</a><a href="#compare">比較表</a><a href="#building-blocks">五個建構層</a><a href="#scenario">貫穿情境</a><a href="#confusions">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">四問辨認法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -40,6 +40,7 @@
 - Day 25：LLM、Token 與逐步機率生成
 - Day 26：Transformer 與自注意力
 - Day 27：GAN、VAE 與擴散模型
+- Day 28：No Code 與 Low Code
 
 首頁與每一課頂端提供已發布課程的常駐選課按鈕；每課另有前後跳頁、概念地圖、比較表、中性生活案例、原創理解測驗與 Podcast。
 
