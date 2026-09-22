@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="平台限制、供應商鎖定與 Shadow IT 概念統整：限制來源、依賴形成、未受治理擴散與控制方法">
+  <title>Day 29｜平台限制、鎖定與 Shadow IT</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab active" href="day-29.html" aria-current="page"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero platform-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 06・No／Low Code</span><span>›</span><span>Day 29</span></div>
+      <h1>平台限制、鎖定與 Shadow IT</h1>
+      <p class="memory-line">平台限制是「做不到或做不順」，供應商鎖定是「想搬卻代價高」，Shadow IT 是「有人在用但治理看不見」；選型時就要同時設計邊界、退場與納管。</p>
+      <p class="lede">今天把三個常被混成「平台風險」的概念拆開：先辨認限制在哪裡，再判斷依賴有多深，最後確認應用是否進入正式治理視野。</p>
+      <div class="meta"><span>Day 29</span><span>約 35–55 分鐘</span><span>概念統整＋共享物品借用情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從快速建構走向可控營運</h2>
+          <div class="concept-path"><span>No／Low Code 選型</span><b class="arrow">›</b><span>平台能力邊界</span><b class="arrow">›</b><span>資料與流程依賴</span><b class="arrow">›</b><span>上線與治理</span><b class="arrow">›</b><span>持續維護／退場</span></div>
+          <p>iPAS 科目二把 No Code／Low Code 的優勢與限制列入評鑑；官方學習指引要求平台評估同時考量系統整合與自訂性、安全與權限、總擁有成本、技術支援及市場案例，而不是只看開發速度。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>No Code／Low Code 選型、需求與流程分析</b></div>
+            <div><small>本課核心</small><b>限制、鎖定、Shadow IT 的差異與關係</b></div>
+            <div><small>相鄰／後續</small><b>資安、資料治理、工具配對、導入與持續監控</b></div>
+          </div>
+          <div class="mini-callout"><b>先分三個問句</b><span>功能能不能做？資料與流程搬不搬得走？治理單位知不知道誰在用？三題分別指向限制、鎖定與 Shadow IT。</span></div>
+        </section>
+
+        <section class="block panel" id="definition">
+          <div class="section-kicker">THREE DIFFERENT RISKS</div>
+          <h2>二、正確定義：邊界、依賴與可見性</h2>
+          <div class="risk-triad">
+            <div><small>PLATFORM LIMITATION</small><b>平台限制</b><p>平台既有元件、連接器、容量、效能、部署方式、權限粒度或計價規則，無法完整符合需求。</p><em>關鍵問句：現在能不能做、能不能穩定做？</em></div>
+            <div class="lock-card"><small>VENDOR LOCK-IN</small><b>供應商鎖定</b><p>資料格式、專屬元件、流程語法、連接器或執行環境形成依賴，使移轉或替換平台的成本與風險升高。</p><em>關鍵問句：未來若要換，能否合理搬走？</em></div>
+            <div class="shadow-card"><small>SHADOW IT</small><b>未受正式治理的資訊應用</b><p>團隊或使用者自行採用、建立或串接工具，但未進入組織既有的盤點、核准、資安、權限與維運流程。</p><em>關鍵問句：誰知道它存在、誰對它負責？</em></div>
+          </div>
+          <p>官方樣題以「未經 IT 部門管理的應用程式擴散」描述 Low Code 的潛在風險；本課用 Shadow IT 作為這類未受正式治理使用的整理名稱。官方指引也提醒，降低開發門檻仍伴隨整合、安全、隱私、驗證與教育規範等挑戰。[2]</p>
+        </section>
+
+        <section class="block panel" id="relationship">
+          <div class="section-kicker">HOW THEY CONNECT</div>
+          <h2>三、關係圖：三者會互相放大，但不是同義詞</h2>
+          <div class="platform-chain" aria-label="平台限制、供應商鎖定與 Shadow IT 的關係">
+            <div><small>01 · 邊界出現</small><b>平台限制</b><span>元件、整合、效能或權限不符需求</span></div><i>可能促使<br>繞道</i>
+            <div><small>02 · 依賴加深</small><b>供應商鎖定</b><span>資料與流程逐漸綁在專屬環境</span></div><i>若缺少<br>納管</i>
+            <div><small>03 · 可見性下降</small><b>Shadow IT</b><span>應用、帳號與資料流不在清冊內</span></div>
+          </div>
+          <div class="relation-notes">
+            <div><b>可以只有限制，沒有鎖定</b><span>平台功能不夠，但資料可完整匯出、流程也容易重建。</span></div>
+            <div><b>可以有鎖定，卻不是 Shadow IT</b><span>正式核准的平台仍可能移轉成本很高，只是風險已被看見並管理。</span></div>
+            <div><b>可以是 Shadow IT，卻沒有明顯鎖定</b><span>使用者自行啟用一個容易替換的工具，仍可能因未盤點而產生資料與權限風險。</span></div>
+          </div>
+          <p>因此，題目若只提到「無法匯出、移轉重建成本高」，主軸是鎖定；若強調「未經核准、未被盤點、繞過治理」，主軸才是 Shadow IT。</p>
+        </section>
+
+        <section class="block panel" id="compare">
+          <div class="section-kicker">COMPARE BY SIGNAL</div>
+          <h2>四、比較表：用觸發點、後果與控制方式分辨</h2>
+          <div style="overflow-x:auto">
+            <table class="compare platform-compare">
+              <thead><tr><th>面向</th><th>平台限制</th><th>供應商鎖定</th><th>Shadow IT</th></tr></thead>
+              <tbody>
+                <tr><td><b>核心問題</b></td><td>能力是否符合需求</td><td>移轉是否困難昂貴</td><td>使用是否進入治理視野</td></tr>
+                <tr><td><b>常見訊號</b></td><td>元件不足、介接受限、配額或效能不足</td><td>專屬格式、難匯出、重建成本高、依賴特定執行環境</td><td>未核准工具、私人帳號、無清冊、責任人不明</td></tr>
+                <tr><td><b>主要後果</b></td><td>需求妥協、流程繞路、擴展受阻</td><td>議價能力下降、切換成本升高、退場困難</td><td>資料外流、權限失控、重複系統、無人維護</td></tr>
+                <tr><td><b>控制重點</b></td><td>需求驗證、壓力與邊界測試</td><td>可攜性驗證、開放介面、退場方案</td><td>盤點、核准、權限、稽核、責任人</td></tr>
+                <tr><td><b>錯誤推論</b></td><td>有任何限制就不能用</td><td>使用單一平台就必然無法離開</td><td>員工自行改善流程就一定不合規</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>官方指引把功能與擴展性、安全與合規、總擁有成本、技術支援列為平台選擇面向；這些面向分別能揭露能力邊界、長期依賴與維運風險。[2]</p>
+        </section>
+
+        <section class="block panel" id="limits">
+          <div class="section-kicker">FIVE LIMIT LAYERS</div>
+          <h2>五、平台限制不是只有功能少：看五個層次</h2>
+          <div class="limit-layers">
+            <div><small>01 · FUNCTION</small><b>功能與邏輯</b><span>缺少所需元件、例外分支或客製規則。</span></div>
+            <div><small>02 · INTEGRATION</small><b>整合與資料</b><span>連接器不足、API 受限、格式難交換。</span></div>
+            <div><small>03 · SCALE</small><b>容量與效能</b><span>使用人數、請求量、儲存或延遲不符情境。</span></div>
+            <div><small>04 · CONTROL</small><b>權限與合規</b><span>權限粒度、日誌、部署區域或保存規則不足。</span></div>
+            <div><small>05 · ECONOMICS</small><b>成本與支援</b><span>訂閱、用量、維護、培訓與技術支援形成長期負擔。</span></div>
+          </div>
+          <p>限制不是「平台不好」的同義詞。若需求落在平台能力範圍內、風險可控且效益合理，限制可以被接受；真正要避免的是沒有先測邊界，就把原型直接當成可長期營運的系統。</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：共同空間的共享物品借用流程</h2>
+          <p>一個團隊用視覺化平台建立共享設備借用工具：使用者填寫物品、借用日期與歸還狀態，系統在到期前提醒。這是原創中性教學情境，不對應任何真實組織或平台。</p>
+          <div class="scenario-evolution">
+            <div><small>STAGE 1 · QUICK WIN</small><b>快速上線</b><p>表單、清單與通知皆由既有元件完成，使用情境單純。</p><em>此時的重點：先驗證流程價值。</em></div><i>→</i>
+            <div><small>STAGE 2 · LIMIT</small><b>平台邊界出現</b><p>需要細緻權限、門禁介接與大量紀錄查詢，現有連接器及效能不足。</p><em>這是平台限制。</em></div><i>→</i>
+            <div><small>STAGE 3 · LOCK-IN</small><b>移轉代價升高</b><p>資料可匯出，但流程規則與通知元件只能在原平台執行，換平台必須重建。</p><em>這是供應商鎖定。</em></div><i>→</i>
+            <div><small>STAGE 4 · SHADOW IT</small><b>副本失去納管</b><p>不同小組各自複製版本，使用私人帳號串接資料，沒有人維護完整清冊。</p><em>這是 Shadow IT。</em></div>
+          </div>
+          <div class="scenario-response">
+            <div><small>控制限制</small><b>先做邊界測試</b><span>驗證功能、容量、權限、整合與成本。</span></div>
+            <div><small>降低鎖定</small><b>準備可攜與退場</b><span>測試資料匯出、文件化流程、確認 API 與替代方案。</span></div>
+            <div><small>治理擴散</small><b>建立清冊與責任</b><span>應用登錄、帳號權限、資料分級、擁有者與定期檢查。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>七、六組容易混淆的差異</h2>
+          <div class="attention-differences">
+            <div><small>限制 vs. 故障</small><b>能力邊界 ≠ 暫時壞掉</b><p>故障是原本應能運作卻異常；限制是設計或方案本來就無法滿足需求。</p></div>
+            <div><small>鎖定 vs. 單一供應商</small><b>只有一家 ≠ 必然搬不走</b><p>關鍵是資料、流程與整合的可攜性，以及實際切換成本。</p></div>
+            <div><small>鎖定 vs. 平台限制</small><b>現在做不到 ≠ 未來搬不走</b><p>前者看當下能力，後者看替換與退出難度。</p></div>
+            <div><small>Shadow IT vs. 所有自主開發</small><b>業務參與 ≠ 一定繞過治理</b><p>若有核准、清冊、權限與責任人，自主建構仍可被正式治理。</p></div>
+            <div><small>快速原型 vs. 正式系統</small><b>驗證成功 ≠ 可直接擴散</b><p>正式上線前仍要檢查容量、資安、資料、維護與退場。</p></div>
+            <div><small>風險轉移 vs. 卸責</small><b>交給平台 ≠ 責任消失</b><p>採用供應商服務後，使用端仍須管理資料、帳號、設定與監督。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>八、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「無法處理高度客製邏輯、連接器不足、擴展受限」：</b>先判斷平台限制。</li>
+            <li><b>「專屬格式、匯出不完整、轉換成本高、替換困難」：</b>先判斷供應商鎖定。</li>
+            <li><b>「未經 IT 管理、未核准、沒有清冊、應用自行擴散」：</b>先判斷 Shadow IT；官方樣題直接把未經 IT 管理的應用擴散列為 Low Code 潛在風險。[2]</li>
+            <li><b>「快速開發所以不需要資安與權限」：</b>錯；官方指引明列資料安全、身分驗證與細緻權限控制。[2]</li>
+            <li><b>「只看月租金」：</b>不足；還要看維護、培訓、整合、移轉等總擁有成本。[2]</li>
+            <li><b>「完全避免單一平台就能消除所有風險」：</b>絕對化陷阱；多平台也可能增加資料流、帳號與治理複雜度。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>九、五問治理法：現在、未來、看見、負責、退出</h2>
+          <div class="number-grid platform-method">
+            <div><b>01</b><span>現在：平台功能、整合、容量與權限是否符合需求？</span></div>
+            <div><b>02</b><span>未來：資料、流程與自訂元件是否能合理移轉？</span></div>
+            <div><b>03</b><span>看見：應用、帳號、資料流與連接器是否已登錄？</span></div>
+            <div><b>04</b><span>負責：誰核准、維護、監控、處理事件與停用？</span></div>
+            <div><b>05</b><span>退出：若成本、政策或需求改變，如何匯出與退場？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"平台現有連接器與權限粒度無法滿足需求，描述的是當下能力邊界，也就是平台限制。"},q2:{answer:"C",explain:"資料雖可匯出，但流程與專屬元件必須重建，使替換成本升高，核心是供應商鎖定。"},q3:{answer:"D",explain:"未登錄、私人帳號、責任人不明，顯示應用未進入正式治理視野，符合 Shadow IT。"},q4:{answer:"A",explain:"資料匯出實測、流程文件與退場方案能直接降低未來移轉的不確定性與成本。"},q5:{answer:"C",explain:"自主開發不必然是 Shadow IT；完成核准、登錄、權限與責任分工後，可以成為受治理的正式應用。"},q6:{answer:"B",explain:"先分辨題幹談的是當下能力、未來移轉，還是治理可見性，才能避免把三種風險混成同一概念。"}})'>
+            <fieldset><legend>1. 共享物品工具需要門禁介接與更細的權限，但平台沒有相應連接器與設定，最直接屬於哪一類問題？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 資料標記錯誤</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 平台限制</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 模型過擬合</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 一定是 Shadow IT</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 團隊可匯出資料，但流程規則與專屬元件無法直接移到其他平台，換平台需大幅重建。這最符合什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 暫時服務中斷</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 資料缺失</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 供應商鎖定</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 非監督式學習</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 多個小組用私人帳號複製借用工具，沒有應用清冊，也不清楚誰負責停用帳號。主要風險是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 模型幻覺</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 平台一定無法擴充</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 供應商一定倒閉</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> Shadow IT</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 下列哪一項最能降低供應商鎖定風險？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 實測資料匯出、文件化流程並準備退場方案</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 只看首頁宣傳的開發速度</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 將所有帳號共用同一組密碼</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 不記錄任何自訂元件</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 關於 Shadow IT，下列哪一項最正確？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 所有業務使用者建立的應用都必然違規</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只要使用雲端服務就一定是 Shadow IT</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 自主建構若完成核准、登錄、權限與責任分工，仍可受正式治理</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> Shadow IT 只會造成介面不好看</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 遇到「平台風險」題目時，最有效的第一步是什麼？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 一律選擇停用平台</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 先判斷題幹在談當下能力、未來移轉，還是治理可見性</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 看到 Low Code 就判定沒有風險</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只比較平台的月租金</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜做得快，也要搬得走、看得見</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用共享物品借用流程，分清平台限制、供應商鎖定與 Shadow IT，並用五問治理法完成選型與退場思考。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day29-platform-lockin-shadow-it.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day29-platform-lockin-shadow-it.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列《AI 應用規劃師（初級）學習指引・科目二：生成式 AI 應用與規劃》114.12.03 版為主；另以本機保存的官方樣題 114.09 版核對「未經 IT 部門管理的應用程式擴散」之命題訊號。[1][2]</p>
+          <p>共享物品借用情境、關係圖、比較表、五問治理法與測驗均為原創教學整理，不代表任何真實平台，也不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day29" onclick="toggleDone('day29',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-28.html">← Day 28｜No Code 與 Low Code</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 30｜生成式 AI 工具與任務配對（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definition">正確定義</a><a href="#relationship">三者關係</a><a href="#compare">比較表</a><a href="#limits">五層限制</a><a href="#scenario">貫穿情境</a><a href="#confusions">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">五問治理法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
