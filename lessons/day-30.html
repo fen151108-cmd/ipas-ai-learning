@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="生成式 AI 工具與任務配對概念統整：任務、輸入輸出模態、限制、驗證與工作流程">
+  <title>Day 30｜生成式 AI 工具與任務配對</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab active" href="day-30.html" aria-current="page"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero toolmatch-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 07・工具與實作</span><span>›</span><span>Day 30</span></div>
+      <h1>生成式 AI 工具與任務配對</h1>
+      <p class="memory-line">先看任務要把什麼輸入轉成什麼輸出，再檢查品質、資料、速度、成本與整合；工具名稱不是選型起點。</p>
+      <p class="lede">今天不背品牌清單，而是建立可遷移的選型骨架：任務目的、輸入輸出模態、限制條件、驗證方式與工作流程。</p>
+      <div class="meta"><span>Day 30</span><span>約 35–55 分鐘</span><span>概念統整＋活動資訊包情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從「模型會什麼」走向「任務怎麼完成」</h2>
+          <div class="concept-path"><span>業務／生活需求</span><b class="arrow">›</b><span>任務與輸入</span><b class="arrow">›</b><span>輸出模態</span><b class="arrow">›</b><span>工具能力配對</span><b class="arrow">›</b><span>驗證與工作流程</span></div>
+          <p>iPAS 科目二把「生成式 AI 應用領域與常見工具」與「如何善用生成式 AI 工具」列為評鑑內容；官方學習指引也把文字、圖像、語音與影片等多模態整合、API／外掛整合、個人化控制及安全隱私列為工具發展與使用面向。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>生成式 AI、LLM、多模態、No／Low Code 與平台限制</b></div>
+            <div><small>本課核心</small><b>任務、輸入、輸出、限制、驗證與工具能力配對</b></div>
+            <div><small>相鄰／後續</small><b>提示設計、幻覺與驗證、多模態工作流程、導入評估</b></div>
+          </div>
+          <div class="mini-callout"><b>選型層級不要顛倒</b><span>先定義要完成的工作與合格輸出，再比較工具；先愛上工具名稱再硬找用途，容易得到華麗但不適用的結果。</span></div>
+        </section>
+
+        <section class="block panel" id="layers">
+          <div class="section-kicker">FOUR DIFFERENT LAYERS</div>
+          <h2>二、正確定義：模態、任務、工具、工作流程不是同一件事</h2>
+          <div class="tool-layers">
+            <div><small>MODALITY</small><b>模態</b><p>資訊呈現的形式，例如文字、圖像、語音、音樂、影片或程式碼。</p><em>問：資料是什麼形式？</em></div>
+            <div><small>TASK</small><b>任務</b><p>要達成的目的，例如摘要、改寫、問答、生成圖片、配音、轉錄或寫程式。</p><em>問：要完成什麼工作？</em></div>
+            <div><small>TOOL</small><b>工具</b><p>提供一種或多種能力的產品或服務；同一工具可能支援多個模態與任務。</p><em>問：能力與限制是否匹配？</em></div>
+            <div><small>WORKFLOW</small><b>工作流程</b><p>把輸入、工具、人員審核與後續系統串成可重複執行的步驟。</p><em>問：結果如何被驗證與使用？</em></div>
+          </div>
+          <p>官方指引描述生成式 AI 工具已由單一模態走向文字、圖像、語音與影片協同生成，也可透過雲端 API、外掛與第三方整合進入既有流程。[2] 因此「工具支援圖片」只是一項能力，不等於它自動符合所有圖片任務。</p>
+        </section>
+
+        <section class="block panel" id="matrix">
+          <div class="section-kicker">INPUT × OUTPUT</div>
+          <h2>三、任務矩陣：先看輸入與輸出的轉換</h2>
+          <div class="io-matrix" aria-label="生成式 AI 任務輸入輸出矩陣">
+            <div class="matrix-head"><span>輸入</span><span>主要處理</span><span>輸出</span><span>常見任務</span></div>
+            <div><b>文字／文件</b><i>→</i><strong>語言生成與轉換</strong><i>→</i><b>文字</b><span>摘要、改寫、翻譯、問答、草稿</span></div>
+            <div><b>文字／參考圖</b><i>→</i><strong>視覺生成</strong><i>→</i><b>圖像</b><span>概念圖、視覺草案、素材變體</span></div>
+            <div><b>文字</b><i>→</i><strong>語音合成</strong><i>→</i><b>語音</b><span>旁白、朗讀、語音介面</span></div>
+            <div><b>語音／影片聲音</b><i>→</i><strong>語音辨識</strong><i>→</i><b>文字</b><span>逐字稿、字幕初稿、可搜尋紀錄</span></div>
+            <div><b>文字／圖像</b><i>→</i><strong>影音生成</strong><i>→</i><b>影片</b><span>短片草案、分鏡、動態視覺</span></div>
+            <div><b>需求／既有程式</b><i>→</i><strong>程式生成與解釋</strong><i>→</i><b>程式碼</b><span>範例、測試、除錯建議、文件</span></div>
+          </div>
+          <p>不要把所有「輸入轉輸出」都直接叫生成式 AI。像語音辨識的核心任務是辨識與轉錄；在實務工具中，它常和生成摘要、翻譯或內容製作組成同一條工作流程。題目若問技術性質，要看核心作用；若問工具配對，要看整體任務鏈。</p>
+        </section>
+
+        <section class="block panel" id="criteria">
+          <div class="section-kicker">MATCH ON SIX AXES</div>
+          <h2>四、比較表：工具能產生，不代表輸出就能用</h2>
+          <div style="overflow-x:auto">
+            <table class="compare tool-compare">
+              <thead><tr><th>評估面向</th><th>要問的問題</th><th>常見陷阱</th><th>可驗證方法</th></tr></thead>
+              <tbody>
+                <tr><td><b>任務與模態</b></td><td>支援目前輸入與必要輸出嗎？</td><td>只因熱門就拿來做所有事</td><td>用代表性樣本做端到端試作</td></tr>
+                <tr><td><b>品質與可控性</b></td><td>準確、完整、風格與格式可控嗎？</td><td>把流暢當正確，把漂亮當符合規格</td><td>先訂驗收規則，再人工與自動檢查</td></tr>
+                <tr><td><b>資料與權利</b></td><td>資料能否輸入？輸出能否合法使用？</td><td>把敏感資料直接送入未核准服務</td><td>查資料政策、授權、保存與刪除機制</td></tr>
+                <tr><td><b>速度與規模</b></td><td>延遲、批次量與穩定性符合情境嗎？</td><td>單次示範成功就推論可大量營運</td><td>測試尖峰、批量與失敗重試</td></tr>
+                <tr><td><b>成本</b></td><td>訂閱、用量、修改與人審成本合理嗎？</td><td>只看單次生成價格</td><td>以完整工作流程計算總成本</td></tr>
+                <tr><td><b>整合與治理</b></td><td>能否串接、控權、留紀錄與退出？</td><td>把個人試用直接當正式流程</td><td>檢查 API、權限、日誌、匯出與替代方案</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>官方指引同時提醒生成式 AI 工具須面對輸出準確性、資料隱私、版權、系統穩定性與硬體資源等限制，並建議以人工審核、壓力測試、邊界檢查及安全機制降低風險。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：共享空間的交換活動資訊包</h2>
+          <p>一個團隊要把活動規則、日期、場地與物品分類，整理成交換活動資訊包。這是原創中性教學情境，不對應任何真實團體、平台或活動。</p>
+          <div class="scenario-toolchain">
+            <div><small>01 · SOURCE</small><b>整理可信資料</b><p>先建立核准版活動資訊：日期、時間、規則、聯絡管道與無障礙說明。</p><em>真實資料是後續共同基準。</em></div><i>→</i>
+            <div><small>02 · TEXT</small><b>文字工具</b><p>把長版規則改寫成網頁公告、簡短貼文與常見問題草稿。</p><em>人工核對事實與語氣。</em></div><i>→</i>
+            <div><small>03 · IMAGE</small><b>圖像工具</b><p>產生無文字的活動主視覺，再由排版工具放入正確日期與規則。</p><em>避免把精確文字交給圖像模型。</em></div><i>→</i>
+            <div><small>04 · AUDIO</small><b>語音工具</b><p>將核准文字轉成旁白，檢查專有詞、停頓、數字與發音。</p><em>保留文字稿供無聲閱讀。</em></div><i>→</i>
+            <div><small>05 · VIDEO</small><b>影音組裝</b><p>將核准文字、主視覺與旁白組成短片，最後檢查字幕與時間軸。</p><em>每個交接點都要驗收。</em></div>
+          </div>
+          <div class="handoff-grid">
+            <div><small>若只要摘要</small><b>文字→文字</b><span>不用為了「多模態」硬加圖片與影片。</span></div>
+            <div><small>若日期必須精準</small><b>生成圖像＋正式排版</b><span>創意層與精確資訊層分開。</span></div>
+            <div><small>若要快速修改</small><b>保留來源與中間檔</b><span>不要只留最後輸出成品。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">DON’T COLLAPSE THE CONCEPTS</div>
+          <h2>六、六組容易混淆的差異</h2>
+          <div class="attention-differences">
+            <div><small>能力 vs. 適用性</small><b>能生成 ≠ 適合正式使用</b><p>仍須檢查品質、資料政策、成本、整合與治理。</p></div>
+            <div><small>模態 vs. 任務</small><b>同樣是文字 ≠ 同樣的工作</b><p>摘要、翻譯、資訊擷取與創意寫作的驗收標準不同。</p></div>
+            <div><small>多模態 vs. 多工具</small><b>多種輸入輸出 ≠ 一定使用多個工具</b><p>單一工具也可能多模態，多工具也可能都只處理文字。</p></div>
+            <div><small>生成 vs. 檢索</small><b>產生內容 ≠ 找到可靠來源</b><p>需要最新或可追溯事實時，還要接入檢索與引用流程。</p></div>
+            <div><small>自動化 vs. 自主決策</small><b>串接步驟 ≠ 取消人工責任</b><p>高影響或高錯誤代價輸出仍要設審核與例外處理。</p></div>
+            <div><small>示範 vs. 營運</small><b>一次成功 ≠ 可穩定擴大</b><p>正式流程還要測試尖峰、權限、日誌、成本與退場。</p></div>
+          </div>
+        </section>
+
+        <section class="block panel" id="signals">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>七、iPAS 題目判斷訊號</h2>
+          <ol class="checklist signal-list">
+            <li><b>「摘要、改寫、問答、翻譯」：</b>先辨認文字到文字任務，再看是否需要來源依據與格式控制。</li>
+            <li><b>「依文字描述產生視覺草案」：</b>文字到圖像較直接；精確日期與長文字宜由後續排版處理。</li>
+            <li><b>「朗讀旁白」與「錄音轉逐字稿」：</b>前者是文字轉語音，後者是語音轉文字，不要因都與聲音有關就混為一談。</li>
+            <li><b>「支援多模態」：</b>表示可處理多種資料形式，不代表所有模態品質、成本與限制都相同。[2]</li>
+            <li><b>「工具輸出流暢，所以可直接發布」：</b>錯；生成內容仍須依用途查核準確性、授權、隱私與安全。[2]</li>
+            <li><b>「最熱門／功能最多一定最佳」：</b>絕對化陷阱；選型必須回到任務、限制與驗收標準。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、六步配對法：目、入、出、限、驗、接</h2>
+          <div class="number-grid tool-method">
+            <div><b>目</b><span>目的：真正要完成哪一項任務，成功標準是什麼？</span></div>
+            <div><b>入</b><span>輸入：文字、圖片、聲音、影片、程式或多模態？</span></div>
+            <div><b>出</b><span>輸出：要哪種形式、格式、品質與可控程度？</span></div>
+            <div><b>限</b><span>限制：資料、權利、速度、規模、成本與環境有哪些邊界？</span></div>
+            <div><b>驗</b><span>驗證：誰檢查事實、格式、風險與例外，如何判定合格？</span></div>
+            <div><b>接</b><span>串接：結果交給誰或哪個系統，是否能記錄、修改與退出？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"工具配對應先定義任務、輸入、輸出與成功標準，再比較工具能力；品牌或熱門程度不是起點。"},q2:{answer:"C",explain:"將核准文字交給語音合成，屬於文字轉語音；錄音轉逐字稿才是語音轉文字。"},q3:{answer:"D",explain:"圖像模型適合產生低文字或無文字主視覺；精確日期與長文字應由可控的排版流程加入並核對。"},q4:{answer:"A",explain:"支援多模態只表示能處理多種資料形式，不保證每種能力都符合特定任務的品質、成本與治理要求。"},q5:{answer:"C",explain:"活動日期來自核准來源，生成內容仍要與來源核對；流暢文字不能取代事實驗證。"},q6:{answer:"B",explain:"『目、入、出、限、驗、接』會把任務、模態、限制、驗證與交接串起來，最能避免只看工具名稱。"}})'>
+            <fieldset><legend>1. 選擇生成式 AI 工具時，最合理的第一步是什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 先選功能最多的平台，再改需求配合</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 先定義任務、輸入、輸出與成功標準</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 只比較品牌知名度</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 一律選擇多模態工具</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 團隊要把核准版活動文字製作成自然旁白，核心輸入輸出配對為何？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 圖像轉文字</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 語音轉文字</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 文字轉語音</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 程式碼轉影片</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 活動主視覺必須包含完全正確的日期與長篇規則，哪個流程最穩健？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 全部交給圖像模型一次完成，不需檢查</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 只要畫面漂亮，日期是否正確不重要</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 重複生成到看起來像正確文字即可</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 生成無文字主視覺，再以排版工具加入並核對正式文字</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 關於「多模態工具」，下列何者正確？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 可處理多種資料形式，但仍須逐項評估品質、成本與限制</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 一定比專門工具準確</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 支援圖片就等於適合所有視覺任務</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 可自動消除資料隱私風險</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 文字工具產生的活動公告語句流暢，但日期與核准版資料不同。應如何處理？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 流暢代表正確，可直接發布</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 刪除核准資料，改以模型輸出為準</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 以核准來源核對並修正，再進入發布流程</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 改用圖像工具即可解決</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 下列哪個方法最能完整配對任務與工具？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 熱門、功能、價格</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 目、入、出、限、驗、接</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 先生成、再猜用途</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只看輸出是否好看</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜不要先問哪個工具最強</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用交換活動資訊包，分清模態、任務、工具與工作流程，再用「目、入、出、限、驗、接」完成配對。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day30-generative-ai-tool-matching.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day30-generative-ai-tool-matching.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列《AI 應用規劃師（初級）學習指引・科目二：生成式 AI 應用與規劃》114.12.03 版為主。[1][2]</p>
+          <p>活動資訊包情境、輸入輸出矩陣、六步配對法與測驗均為原創教學整理；工具類型採能力分類，不代表推薦任何品牌，也不是官方考題。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二・生成式 AI 應用與規劃（114.12.03 版）
+          </pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day30" onclick="toggleDone('day30',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-29.html">← Day 29｜平台限制、鎖定與 Shadow IT</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 31｜提示、幻覺、查證與溫度（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#layers">四個層級</a><a href="#matrix">任務矩陣</a><a href="#criteria">六面向比較</a><a href="#scenario">貫穿情境</a><a href="#confusions">容易混淆</a><a href="#signals">題目訊號</a><a href="#method">六步配對法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
