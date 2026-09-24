@@ -1,0 +1,244 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="提示、幻覺、查證與溫度概念統整：提示結構、生成變異、幻覺辨識與外部驗證">
+  <title>Day 31｜提示、幻覺、查證與溫度</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab" href="day-30.html"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+      <a class="day-tab active" href="day-31.html" aria-current="page"><b>D31</b><span>提示、幻覺、查證與溫度</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero prompt-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 07・工具與實作</span><span>›</span><span>Day 31</span></div>
+      <h1>提示、幻覺、查證與溫度</h1>
+      <p class="memory-line">提示決定怎麼回答，溫度調整回答變化；兩者都不能保證真實，重要事實仍要回到可追溯來源查證。</p>
+      <p class="lede">今天把四個常被綁在一起、卻不能互相取代的概念拆開：提示是輸入規格，溫度是解碼控制，幻覺是輸出風險，查證是外部驗證程序。</p>
+      <div class="meta"><span>Day 31</span><span>約 35–55 分鐘</span><span>概念統整＋活動公告情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從「選對工具」進入「控制生成與驗證」</h2>
+          <div class="concept-path"><span>任務與工具配對</span><b class="arrow">›</b><span>提示輸入</span><b class="arrow">›</b><span>模型＋解碼設定</span><b class="arrow">›</b><span>生成輸出</span><b class="arrow">›</b><span>查證與採用</span></div>
+          <p>iPAS 科目二把「如何善用生成式 AI 工具」列入評鑑內容；官方學習指引指出，生成式 AI 可透過提示詞進行可控生成，但實務上仍面臨輸出準確性與 AI 幻覺等挑戰。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>LLM 逐步機率生成、解碼策略、工具與任務配對</b></div>
+            <div><small>本課核心</small><b>提示結構、溫度、幻覺、證據與查證</b></div>
+            <div><small>相鄰／後續</small><b>多模態輸入輸出、RAG、人工審核與導入治理</b></div>
+          </div>
+          <div class="mini-callout"><b>四者分工</b><span>提示改善任務表達；溫度改變候選選擇的保守或多樣；幻覺描述輸出與事實不符或缺乏依據；查證則用外部證據判斷能不能採用。</span></div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">FOUR ROLES</div>
+          <h2>二、正確定義：控制、風險與驗證分屬不同層</h2>
+          <div class="prompt-four">
+            <div><small>INPUT SPEC</small><b>提示 Prompt</b><p>提供給模型的指令與上下文，可包含任務、資料、限制、範例及輸出格式。</p><em>改善「要模型做什麼」。</em></div>
+            <div><small>DECODING</small><b>溫度 Temperature</b><p>調整生成時機率分布的平坦程度；較低通常較集中穩定，較高通常較多樣發散。</p><em>改變「怎麼選下一步」。</em></div>
+            <div><small>OUTPUT RISK</small><b>幻覺 Hallucination</b><p>輸出看似合理，卻含虛構、錯誤、互相矛盾或無法由提供證據支持的內容。</p><em>描述「輸出出了什麼問題」。</em></div>
+            <div><small>EXTERNAL CHECK</small><b>查證 Verification</b><p>把輸出中的可核實主張，與可靠、最新、可追溯的外部來源逐項比對。</p><em>決定「內容能否採用」。</em></div>
+          </div>
+          <p>官方指引把溫度列在推理機制中，說明低溫度較保守、高溫度較具創意；同一段也把輸出準確性與幻覺列為實際應用挑戰。[2] 這正表示「調設定」與「驗真偽」不是同一件事。</p>
+        </section>
+
+        <section class="block panel" id="prompt">
+          <div class="section-kicker">PROMPT AS A SPEC</div>
+          <h2>三、提示不是咒語：用「任、資、限、格、驗」寫成可檢查規格</h2>
+          <div class="prompt-anatomy">
+            <div><span>任</span><b>任務</b><p>要摘要、分類、改寫、比較，還是提出草案？對象與目的為何？</p></div>
+            <div><span>資</span><b>資料</b><p>提供哪些核准內容、背景與範例？哪些內容不得自行補寫？</p></div>
+            <div><span>限</span><b>限制</b><p>字數、語氣、範圍、禁止事項與不確定時的處理方式。</p></div>
+            <div><span>格</span><b>格式</b><p>指定標題、表格欄位、條列順序或機器可讀結構。</p></div>
+            <div><span>驗</span><b>驗收</b><p>要求標示依據、列出待確認項目，並用檢核表自查格式。</p></div>
+          </div>
+          <div class="prompt-before-after">
+            <div><small>模糊提示</small><b>「幫忙寫活動公告。」</b><p>缺少資料範圍、讀者、格式與不可虛構規則，輸出很難穩定驗收。</p></div>
+            <i>→</i>
+            <div><small>結構化提示</small><b>「只依下方核准資料，寫 180 字內公告。」</b><p>指定讀者、三段格式與必要欄位；資料沒有的日期請標「待確認」，不要推測。</p></div>
+          </div>
+          <p>提示工程能提升輸出與需求的貼合度，官方指引也把提示工程列為提升模型適應性、精準度與可控性的方式。[2] 但「更符合格式」不等於「事實已被證明」。</p>
+        </section>
+
+        <section class="block panel" id="temperature">
+          <div class="section-kicker">TEMPERATURE ≠ TRUTH</div>
+          <h2>四、溫度控制的是變異，不是真實開關</h2>
+          <div class="temperature-board">
+            <div class="temp low"><small>LOWER</small><b>較低溫度</b><span>機率較集中</span><p>輸出通常較穩定、保守、可重複，適合格式固定、用語一致的草稿。</p><em>仍可能穩定地重複錯誤。</em></div>
+            <div class="temp mid"><small>MIDDLE</small><b>中等溫度</b><span>一致與多樣之間</span><p>適合一般改寫、替代說法與有限度探索，仍需依任務驗收。</p><em>不是通用最佳值。</em></div>
+            <div class="temp high"><small>HIGHER</small><b>較高溫度</b><span>候選較多樣</span><p>輸出通常較發散、有變化，適合腦力激盪與多版本創意草案。</p><em>不代表一定錯，也不代表更有知識。</em></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="compare temperature-compare">
+              <thead><tr><th>目標</th><th>較合適的方向</th><th>理由</th><th>仍須做的事</th></tr></thead>
+              <tbody>
+                <tr><td><b>固定格式公告</b></td><td>偏低</td><td>減少措辭與結構變動</td><td>核對日期、地點、資格與版本</td></tr>
+                <tr><td><b>想 10 個活動標題</b></td><td>可偏高</td><td>增加候選多樣性</td><td>人工篩選適切性與風險</td></tr>
+                <tr><td><b>查詢現行規定</b></td><td>溫度不是主解</td><td>問題在來源與時效，不在措辭多樣</td><td>查官方原文、版本與日期</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：活動公告中多出一個截止日</h2>
+          <p>團隊要把共享空間交換活動的核准資料改寫成公告。核准資料只寫活動日期、地點、可交換物品與注意事項，沒有報名截止日。這是原創中性教學情境，不對應任何真實團體。</p>
+          <div class="verification-flow">
+            <div><small>01 · SOURCE</small><b>鎖定核准資料</b><p>先標出可直接引用的日期、地點、物品範圍與注意事項。</p></div><i>→</i>
+            <div><small>02 · PROMPT</small><b>寫清邊界</b><p>要求只依提供資料生成；缺少資訊標為待確認，不得自行補寫。</p></div><i>→</i>
+            <div><small>03 · OUTPUT</small><b>發現新增主張</b><p>模型寫出「報名截止日為週五」，語氣自然，但來源從未提供。</p></div><i>→</i>
+            <div><small>04 · VERIFY</small><b>逐項對照</b><p>把人物、時間、地點、數字、資格、規定與連結列成查核清單。</p></div><i>→</i>
+            <div><small>05 · DECIDE</small><b>修正或退回</b><p>找不到依據就刪除或標待確認；不能因句子流暢而保留。</p></div>
+          </div>
+          <div class="claim-check">
+            <div><small>主張</small><b>「報名截止日為週五」</b></div>
+            <div><small>證據狀態</small><b>核准資料未提及</b></div>
+            <div><small>處理</small><b>刪除／向負責單位確認</b></div>
+          </div>
+          <p>若把溫度調低後，模型每次都產生同一個不存在的截止日，輸出只是「更一致」，仍然不是真實。最有效的處理是回到來源，而不是只重跑生成。</p>
+        </section>
+
+        <section class="block panel" id="verification">
+          <div class="section-kicker">CLAIM → SOURCE → DECISION</div>
+          <h2>六、查證流程：先拆主張，再看來源能不能承擔</h2>
+          <div class="verification-grid">
+            <div><span>1</span><b>圈出可核實主張</b><p>人名、組織、日期、數字、引文、規則、網址與因果說法。</p></div>
+            <div><span>2</span><b>找第一手來源</b><p>優先找官方公告、原始文件、法規原文、資料集或當事單位。</p></div>
+            <div><span>3</span><b>核對版本與時間</b><p>確認來源發布時間、適用範圍、是否修訂與目前是否仍有效。</p></div>
+            <div><span>4</span><b>逐項比對語意</b><p>來源是否真的支持該句，而不是只出現相似關鍵字。</p></div>
+            <div><span>5</span><b>標示決策</b><p>可採用、需改寫、待確認或刪除，並保留來源連結與查核紀錄。</p></div>
+          </div>
+          <p>官方指引提醒生成內容需要驗證機制，並建議結合自動化檢測與人工審核，以維持準確性與一致性。[2] 高影響內容不能只靠模型自我檢查，因為同一模型可能延續原本的錯誤假設。</p>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>七、容易混淆處與 iPAS 題目判斷訊號</h2>
+          <div class="attention-differences">
+            <div><small>提示品質 vs. 事實真實</small><b>寫得清楚 ≠ 每句都真</b><p>好提示能減少歧義與格式錯誤，不能把模型變成權威來源。</p></div>
+            <div><small>低溫度 vs. 高準確</small><b>更穩定 ≠ 已查證</b><p>低溫度降低變化，可能讓錯誤更一致。</p></div>
+            <div><small>幻覺 vs. 創意</small><b>新穎內容 ≠ 一律幻覺</b><p>創意任務可允許虛構；若把虛構當成真實主張，才是風險。</p></div>
+            <div><small>模型自評 vs. 外部驗證</small><b>自稱有信心 ≠ 有證據</b><p>要看來源能否直接支持主張，而不是看語氣多確定。</p></div>
+            <div><small>引用格式 vs. 真實來源</small><b>有連結外觀 ≠ 來源存在</b><p>引用名稱、作者、網址與內容都要開啟核對。</p></div>
+            <div><small>重跑生成 vs. 修正原因</small><b>多問幾次 ≠ 完成查證</b><p>輸出一致只能證明生成穩定，不能證明與現實一致。</p></div>
+          </div>
+          <ol class="checklist signal-list">
+            <li><b>「邏輯清楚、準確、一致」：</b>溫度可偏低以降低變異；但事實仍須查證。官方指引把低溫度描述為較保守，高溫度描述為較具創意。[2]</li>
+            <li><b>「語句通順、法規或機構卻不存在」：</b>優先辨認幻覺，不要把流暢度當可靠度。</li>
+            <li><b>「提升提示品質」：</b>加入任務、資料、限制、格式、範例與驗收條件；不是只把句子拉長。</li>
+            <li><b>「現行、最新、官方」：</b>重點是外部檢索、來源版本與日期，不是只調溫度。</li>
+            <li><b>「創意發想」：</b>可提高多樣性；但正式採用前仍要檢查權利、偏見、安全與情境適切性。</li>
+            <li><b>「模型說自己百分之百確定」：</b>信心語氣不是證據，應回到可追溯來源。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、五步判斷法：任、據、變、核、用</h2>
+          <div class="number-grid prompt-method">
+            <div><b>任</b><span>任務：現在要的是精準轉寫、固定格式，還是多樣創意？</span></div>
+            <div><b>據</b><span>依據：模型能用哪些資料？缺資料時應拒答、標示或詢問？</span></div>
+            <div><b>變</b><span>變異：需要穩定一致或多樣探索？再決定溫度方向。</span></div>
+            <div><b>核</b><span>查核：哪些主張須以第一手、最新、可追溯來源逐項驗證？</span></div>
+            <div><b>用</b><span>採用：確認用途與風險後，決定發布、修正、待確認或刪除。</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"提示是任務輸入規格；它能改善貼合度與可控性，但不能單獨保證事實真實。"},q2:{answer:"B",explain:"較低溫度通常讓輸出較集中穩定，仍可能穩定重複錯誤，因此不能取代查證。"},q3:{answer:"D",explain:"核准資料沒有截止日，模型新增的具體日期缺乏依據，應刪除或向負責單位確認。"},q4:{answer:"A",explain:"查證要把可核實主張與第一手、最新、可追溯來源逐項比對，不能只問模型是否有信心。"},q5:{answer:"C",explain:"創意發想需要候選多樣性時可提高溫度；正式採用前仍須人工篩選。"},q6:{answer:"B",explain:"固定格式可用清楚提示與偏低溫度降低變異；事實正確性仍由核准來源與查核程序負責。"}})'>
+            <fieldset><legend>1. 關於提示工程，下列何者最正確？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 提示越長，答案就必然越真</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 只要指定專家角色，就不會幻覺</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 提示可規範任務、資料、限制與格式，但不能取代事實查證</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 提示只影響字數，不影響輸出結構</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 把溫度調低後，模型每次都產生同一個錯誤日期。最合理的判斷為何？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 輸出一致，所以日期已證實</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 低溫度提高穩定性，但錯誤仍須用來源修正</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 只要再降低溫度，日期自然會變正確</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 低溫度一定會增加創意</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 核准活動資料沒有報名截止日，模型卻補上「週五截止」。應如何處理？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 文字流暢，可直接發布</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 把溫度調高，取得更多日期</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 要求模型更有信心</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 刪除或標待確認，並向負責單位查證</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 哪一項最接近完整的事實查證？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 拆出主張，對照第一手來源、版本與日期</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 看回答語氣是否肯定</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 同一題問三次，多數回答即為真</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 只檢查錯字與排版</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 團隊要為活動發想十個風格差異較大的標題，哪個方向較合理？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 一律把溫度設為最低，且直接採用第一個結果</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 不提供任務與讀者資訊</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 清楚給定邊界，可提高多樣性後再人工篩選</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 要求模型證明所有標題都最受歡迎</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 要產生格式固定且事實正確的公告，最穩健的組合為何？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 模糊提示＋高溫度＋不查來源</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 結構化提示＋偏低溫度＋逐項對照核准來源</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 只要求模型保證正確</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只增加生成次數</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜穩定回答不等於真實答案</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用活動公告情境，拆開提示、溫度、幻覺與查證，再用「任、據、變、核、用」完成判斷。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day31-prompt-hallucination-verification-temperature.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day31-prompt-hallucination-verification-temperature.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列《AI 應用規劃師（初級）學習指引・科目二：生成式 AI 應用與規劃》114.12.03 版為主；並以本機保存的官方初級樣題 114.09 版核對提示、幻覺與溫度的命題語意。[1][2]</p>
+          <p>活動公告情境、提示五要素、五步判斷法與六題測驗均為原創教學整理，不是官方考題；溫度實際範圍與效果仍依工具實作而異。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二（114.12.03 版）</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day31" onclick="toggleDone('day31',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-30.html">← Day 30｜生成式 AI 工具與任務配對</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 32｜多模態輸入與輸出（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definitions">四個定義</a><a href="#prompt">提示規格</a><a href="#temperature">溫度與變異</a><a href="#scenario">貫穿情境</a><a href="#verification">查證流程</a><a href="#confusions">混淆與題目訊號</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
