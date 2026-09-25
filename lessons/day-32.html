@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="多模態輸入與輸出概念統整：模態、轉換方向、融合、生成與逐模態驗收">
+  <title>Day 32｜多模態輸入與輸出</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab" href="day-30.html"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+      <a class="day-tab" href="day-31.html"><b>D31</b><span>提示、幻覺、查證與溫度</span></a>
+      <a class="day-tab active" href="day-32.html" aria-current="page"><b>D32</b><span>多模態輸入與輸出</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero multimodal-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 07・工具與實作</span><span>›</span><span>Day 32</span></div>
+      <h1>多模態輸入與輸出</h1>
+      <p class="memory-line">模態看資料形式，任務看轉換方向；多模態能連接文字、圖像、語音與影片，但每一路輸入輸出都要分開驗收。</p>
+      <p class="lede">今天不背工具名稱，而是用「輸入模態 → 理解／融合 → 輸出模態 → 驗收」讀懂跨模態任務，避開把檔案格式、介面功能與真正的多模態能力混在一起。</p>
+      <div class="meta"><span>Day 32</span><span>約 35–55 分鐘</span><span>概念統整＋遺失物登記情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：從單一生成任務走向跨模態工作流</h2>
+          <div class="concept-path"><span>任務與工具配對</span><b class="arrow">›</b><span>提示與輸入</span><b class="arrow">›</b><span>多模態理解／融合</span><b class="arrow">›</b><span>多模態輸出</span><b class="arrow">›</b><span>逐模態驗收</span></div>
+          <p>iPAS 科目二把「生成式 AI 應用領域與常見工具」及「如何善用生成式 AI 工具」列入評鑑內容；官方學習指引進一步把多模態處理列為生成式 AI 的重要能力與發展方向。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>生成式 AI、工具任務配對、提示與查證</b></div>
+            <div><small>本課核心</small><b>模態、轉換方向、融合、輸出與驗收</b></div>
+            <div><small>相鄰／後續</small><b>企業需求、資料與資安、POC、部署監控</b></div>
+          </div>
+          <div class="mini-callout"><b>考題讀法</b><span>先圈出輸入是文字、圖像、語音或影片，再圈出輸出；箭頭方向通常比工具名稱更能決定任務分類。</span></div>
+        </section>
+
+        <section class="block panel" id="definitions">
+          <div class="section-kicker">MODALITY IS A DATA FORM</div>
+          <h2>二、正確定義：模態是資訊呈現形式，不是副檔名</h2>
+          <div class="modality-grid">
+            <div><small>TEXT</small><b>文字</b><p>句子、文件、字幕、表格文字與程式碼等符號序列。</p><em>例：物品名稱與描述。</em></div>
+            <div><small>IMAGE</small><b>圖像</b><p>照片、掃描頁、插圖、圖表與畫面截圖等視覺資料。</p><em>例：遺失物照片。</em></div>
+            <div><small>AUDIO</small><b>語音／音訊</b><p>口語、環境聲、音效與音樂等隨時間變化的聲音訊號。</p><em>例：使用者語音補充。</em></div>
+            <div><small>VIDEO</small><b>影片</b><p>連續影格加上時間資訊，通常還可能包含音軌與字幕。</p><em>例：物品出現位置片段。</em></div>
+          </div>
+          <p><b>單模態</b>任務只處理一種模態；<b>多模態</b>系統能接收、對齊、結合或產生兩種以上模態。官方指引以文字、圖像、音訊等模態的結合，以及文字、圖像、語音、影片的協同生成，說明多模態發展方向。[2]</p>
+          <div class="format-trap"><span><b>JPEG → PNG</b><small>仍是圖像模態；只是格式轉換</small></span><i>≠</i><span><b>圖像 → 文字</b><small>模態改變；是跨模態任務</small></span></div>
+        </section>
+
+        <section class="block panel" id="directions">
+          <div class="section-kicker">INPUT → OUTPUT</div>
+          <h2>三、先看箭頭：同一批模態，方向不同就是不同任務</h2>
+          <div class="modality-routes">
+            <div><span>文字</span><i>→</i><span>文字</span><b>摘要、改寫、問答</b><small>同模態轉換</small></div>
+            <div><span>文字</span><i>→</i><span>圖像</span><b>依描述生成畫面</b><small>跨模態生成</small></div>
+            <div><span>圖像</span><i>→</i><span>文字</span><b>圖像描述、OCR、視覺問答</b><small>理解／辨識後輸出文字</small></div>
+            <div><span>語音</span><i>→</i><span>文字</span><b>語音辨識、逐字稿</b><small>STT／ASR</small></div>
+            <div><span>文字</span><i>→</i><span>語音</span><b>語音合成、朗讀</b><small>TTS</small></div>
+            <div><span>影片</span><i>→</i><span>文字</span><b>片段摘要、事件描述</b><small>需處理時間脈絡</small></div>
+          </div>
+          <p>官方指引舉出文字轉圖像、語音與文字轉換，以及 AI 影音剪輯與影片生成等多模態整合例子。[2] 判斷時不能只看到「語音」就選語音生成，也不能只看到「圖片」就選圖像分類；要完整讀取輸入與輸出。</p>
+        </section>
+
+        <section class="block panel" id="fusion">
+          <div class="section-kicker">ALIGN → FUSE → RESPOND</div>
+          <h2>四、多模態不只「收很多檔案」：重點是對齊與融合</h2>
+          <div class="fusion-flow">
+            <div><small>01 · ENCODE</small><b>各自表徵</b><p>把文字、圖像或語音轉成模型可處理的表示。</p></div><i>→</i>
+            <div><small>02 · ALIGN</small><b>跨模態對齊</b><p>判斷哪些詞、聲音片段或畫面區域彼此相關。</p></div><i>→</i>
+            <div><small>03 · FUSE</small><b>融合訊息</b><p>把互補線索結合，處理衝突、缺漏與時間順序。</p></div><i>→</i>
+            <div><small>04 · GENERATE</small><b>依任務輸出</b><p>產生文字、圖像、語音、影片或結構化資料。</p></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="compare multimodal-compare">
+              <thead><tr><th>系統表面</th><th>實際能力</th><th>是否足以稱多模態</th><th>判斷理由</th></tr></thead>
+              <tbody>
+                <tr><td><b>網頁可附圖片</b></td><td>圖片只被儲存，模型完全不讀取</td><td>不足</td><td>介面支援上傳，不等於模型理解圖像</td></tr>
+                <tr><td><b>語音先轉逐字稿，再交給文字模型</b></td><td>語音辨識＋文字處理的管線</td><td>多模態工作流</td><td>跨模態，但可能由多個單模態元件串接</td></tr>
+                <tr><td><b>照片＋問題一起判讀</b></td><td>對齊視覺區域與文字問題後回答</td><td>是</td><td>模型同時利用兩種模態完成任務</td></tr>
+                <tr><td><b>同時輸出 PDF 與 TXT</b></td><td>內容仍只有文字</td><td>不一定</td><td>多檔案格式不等於多種資訊模態</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>五、貫穿情境：遺失物登記不是「丟照片給模型」就結束</h2>
+          <p>公共空間團隊要建立中性的遺失物登記流程。使用者可上傳物品照片，再用語音補充「在閱覽區靠窗座位附近找到」；系統要產生可搜尋的文字紀錄與語音確認。這是原創教學情境，不對應任何真實組織。</p>
+          <div class="scenario-modal-flow">
+            <div><small>INPUT A · IMAGE</small><b>物品照片</b><p>可見顏色、形狀與圖案；不保證畫面外資訊。</p></div>
+            <div><small>INPUT B · SPEECH</small><b>語音補充</b><p>提供發現位置與時間線索；先辨識成文字。</p></div>
+            <i>→</i>
+            <div><small>FUSION</small><b>對齊與去衝突</b><p>確認語音描述是否對應照片；衝突時標待確認。</p></div>
+            <i>→</i>
+            <div><small>OUTPUT A · TEXT</small><b>結構化紀錄</b><p>物品類型、可見特徵、地點與證據來源。</p></div>
+            <div><small>OUTPUT B · SPEECH</small><b>語音確認</b><p>朗讀紀錄，讓使用者確認後才送出。</p></div>
+          </div>
+          <div class="evidence-boundary">
+            <div><small>照片支持</small><b>「深色水壺，瓶身有白色圖案」</b></div>
+            <div><small>語音支持</small><b>「在閱覽區靠窗座位附近找到」</b></div>
+            <div><small>兩者都不支持</small><b>「物品屬於某位固定使用者」</b></div>
+          </div>
+          <p>模型若由照片直接猜測所有者、材質或品牌，就是把可見線索延伸成未經支持的主張。多模態線索增加，不代表所有不確定性都消失。</p>
+        </section>
+
+        <section class="block panel" id="validation">
+          <div class="section-kicker">VALIDATE EACH LANE</div>
+          <h2>六、驗收不是一次打勾：每個模態有不同失敗型態</h2>
+          <div class="validation-grid">
+            <div><span>文字</span><b>語意與事實</b><p>核對名稱、數字、時間、來源、遺漏與幻覺。</p></div>
+            <div><span>圖像</span><b>內容與畫質</b><p>檢查構圖、細節、文字失真、偏見、解析度與權利。</p></div>
+            <div><span>語音</span><b>辨識與聽感</b><p>核對專有詞、數字、斷句、語速、雜音與可理解性。</p></div>
+            <div><span>影片</span><b>跨時間一致</b><p>檢查前後畫面、動作連續、音畫同步、字幕與片長。</p></div>
+          </div>
+          <div class="end-to-end-check">
+            <b>端到端再檢查</b><span>輸入品質 → 模態對齊 → 融合判斷 → 輸出品質 → 人工確認 → 保存與發布</span>
+          </div>
+          <p>官方指引在圖像生成情境提醒解析度、版權合法性與推論時間都需考量，也把隱私、安全、版權管理與內容過濾列為工具使用的重要面向。[2] 因此「能生成」只是能力存在，「能採用」還需要依用途驗收。</p>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>七、容易混淆處與 iPAS 題目判斷訊號</h2>
+          <div class="attention-differences">
+            <div><small>模態 vs. 格式</small><b>JPEG、PNG 都是圖像</b><p>格式改變不一定跨模態；圖像轉文字才改變資訊形式。</p></div>
+            <div><small>輸入 vs. 輸出</small><b>語音 → 圖像 ≠ 圖像 → 語音</b><p>相同兩種模態，只要箭頭反向，任務就不同。</p></div>
+            <div><small>多模態 vs. 多功能</small><b>功能多 ≠ 模態多</b><p>同時做摘要、翻譯、分類，若都只處理文字，仍可能是單模態。</p></div>
+            <div><small>多模態 vs. 多檔案</small><b>檔案多 ≠ 模態多</b><p>十份 PDF 若只抽取文字，核心處理仍可能只有文字。</p></div>
+            <div><small>理解 vs. 生成</small><b>看圖回答不等於生成圖像</b><p>前者主要理解視覺並輸出文字；後者產生新的視覺內容。</p></div>
+            <div><small>更多線索 vs. 一定正確</small><b>多模態 ≠ 零幻覺</b><p>輸入仍可能模糊、衝突或被錯誤對齊，必須保留證據邊界。</p></div>
+          </div>
+          <ol class="checklist signal-list">
+            <li><b>「接收語音，依內容產生圖片」：</b>輸入語音、輸出圖像，判為語音生成圖片。</li>
+            <li><b>「理解文字訊息，調用相關圖片與影片回覆」：</b>同時跨文字與視覺媒體，優先想到多模態模型或多模態工作流。</li>
+            <li><b>「會上傳圖片」：</b>還要確認模型是否真的讀取視覺內容；上傳元件本身不是證據。</li>
+            <li><b>「逐字稿」：</b>通常是語音轉文字；「朗讀」通常是文字轉語音。</li>
+            <li><b>「影片」：</b>除了影像內容，還要注意時間順序、音軌、字幕與同步。</li>
+            <li><b>「品質」：</b>先分模態設指標，再做端到端驗收，不要只看一個總分。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、五步判斷法：入、向、融、出、驗</h2>
+          <div class="number-grid multimodal-method">
+            <div><b>入</b><span>輸入：題目提供哪些模態？是原始語音、圖片，還是已轉好的文字？</span></div>
+            <div><b>向</b><span>方向：從哪一種模態轉到哪一種？先把箭頭寫出來。</span></div>
+            <div><b>融</b><span>融合：是否真的對齊並共同使用多種模態，還是只有介面可上傳？</span></div>
+            <div><b>出</b><span>輸出：產生新內容、辨識既有內容，還是調用既有媒體？</span></div>
+            <div><b>驗</b><span>驗收：各模態與端到端流程要檢查什麼品質、權利與風險？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"B",explain:"模態是資訊形式；JPEG 與 PNG 都屬圖像，只有檔案格式不同。"},q2:{answer:"D",explain:"輸入是語音，輸出是依語意生成的圖像，因此箭頭是語音到圖像。"},q3:{answer:"C",explain:"介面能收圖片不代表模型讀懂圖片；必須確認視覺內容是否參與模型判斷。"},q4:{answer:"A",explain:"語音逐字稿是語音轉文字；文字朗讀才是文字轉語音。"},q5:{answer:"D",explain:"照片與語音都沒有提供所有者，不能因為線索變多就猜測身分。"},q6:{answer:"B",explain:"多模態要分別驗收文字、圖像、語音或影片，再檢查對齊、同步與整體工作流。"}})'>
+            <fieldset><legend>1. 把同一張照片由 JPEG 轉成 PNG，最合理的判斷為何？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 已從圖像轉成文字</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 仍是圖像模態，只改變檔案格式</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 一定是多模態融合</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 已完成語音辨識</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 系統接收一句語音描述，依描述產生一張新圖片。任務方向是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 圖像 → 語音</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 文字 → 語音</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 圖像 → 文字</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 語音 → 圖像</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 網頁允許上傳照片，但後端只保存檔案，模型完全不讀取照片內容。下列何者最正確？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 一定是端到端多模態模型</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 一定已完成圖文對齊</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 上傳介面不等於模型具備視覺理解</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 圖片越多，模型一定越準</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 把使用者的語音留言製成逐字稿，屬於哪一種方向？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 語音 → 文字</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 文字 → 語音</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 圖像 → 文字</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 影片 → 圖像</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 遺失物照片顯示水壺外觀，語音補充發現位置。系統還能直接斷定什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 外觀可見特徵</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 語音提到的發現位置</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 兩個輸入是否互相衝突</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 物品必然屬於某位固定使用者</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 多模態輸出的完整驗收方式，何者最穩健？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 只確認文字沒有錯字</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 分模態檢查，再驗收對齊、同步與端到端結果</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 只要模型支援的模態越多就越可靠</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 只檢查檔案是否能下載</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先畫箭頭，再談多模態</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用遺失物登記情境，分清模態與格式、輸入與輸出、對齊與融合，再用「入、向、融、出、驗」完成判斷。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day32-multimodal-input-output.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day32-multimodal-input-output.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列《AI 應用規劃師（初級）學習指引・科目二：生成式 AI 應用與規劃》114.12.03 版為主。[1][2]</p>
+          <p>遺失物登記情境、比較圖、五步判斷法與六題測驗均為原創教學整理，不是官方考題；實際工具支援的模態、檔案限制與驗收方式仍依產品版本及用途而異。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day32" onclick="toggleDone('day32',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-31.html">← Day 31｜提示、幻覺、查證與溫度</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 33｜需求、目標、KPI 與可行性（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#definitions">模態定義</a><a href="#directions">轉換方向</a><a href="#fusion">對齊與融合</a><a href="#scenario">貫穿情境</a><a href="#validation">逐模態驗收</a><a href="#confusions">混淆與題目訊號</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
