@@ -1,0 +1,254 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="需求、目標、KPI 與可行性概念統整：從痛點定義到指標與導入優先順序">
+  <title>Day 33｜需求、目標、KPI 與可行性</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="../index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav>
+  </div>
+  <div class="coursebar">
+    <div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>隱私、安全、權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab" href="day-30.html"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+      <a class="day-tab" href="day-31.html"><b>D31</b><span>提示、幻覺、查證與溫度</span></a>
+      <a class="day-tab" href="day-32.html"><b>D32</b><span>多模態輸入與輸出</span></a>
+      <a class="day-tab active" href="day-33.html" aria-current="page"><b>D33</b><span>需求、目標、KPI 與可行性</span></a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lesson-hero adoption-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 08・企業導入</span><span>›</span><span>Day 33</span></div>
+      <h1>需求、目標、KPI 與可行性</h1>
+      <p class="memory-line">先問要改善哪個業務結果，再用 KPI 定義成功；有價值不等於可行，還要同時檢查資料、技術、資源、流程與風險。</p>
+      <p class="lede">今天把「想用 AI」改寫成可判斷的導入問題：從現況與痛點出發，形成目標與 KPI，再用價值—可行性排序，而不是先買工具再替它找用途。</p>
+      <div class="meta"><span>Day 33</span><span>約 35–55 分鐘</span><span>概念統整＋活動諮詢情境＋6 題測驗＋Podcast</span></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap lesson-layout">
+      <article class="article">
+        <section class="block panel" id="map">
+          <div class="section-kicker">KNOWLEDGE MAP</div>
+          <h2>一、先定位：工具能力之後，才是企業導入決策</h2>
+          <div class="concept-path"><span>工具與任務配對</span><b class="arrow">›</b><span>需求／痛點</span><b class="arrow">›</b><span>目標與 KPI</span><b class="arrow">›</b><span>價值 × 可行性</span><b class="arrow">›</b><span>POC 驗證</span></div>
+          <p>iPAS 科目二把「生成式 AI 導入評估、導入規劃與風險管理」列為評鑑內容；官方指引要求先明確需求與業務痛點，再評估技術對接性、資料、基礎設施、人才、成本與風險。[1][2]</p>
+          <div class="adjacent">
+            <div><small>上位／前置</small><b>企業策略、業務流程、生成式 AI 能力與限制</b></div>
+            <div><small>本課核心</small><b>需求、目標、KPI、價值、可行性與優先順序</b></div>
+            <div><small>相鄰／後續</small><b>POC、資源與資料檢查、部署監控、價值擴散</b></div>
+          </div>
+          <div class="mini-callout"><b>考題讀法</b><span>題目若問「導入第一步」，先找現況、痛點與可量化目標；買軟體、訓練模型或全面部署都不是第一步。</span></div>
+        </section>
+
+        <section class="block panel" id="chain">
+          <div class="section-kicker">PROBLEM → OUTCOME → EVIDENCE</div>
+          <h2>二、四個詞不要混：需求、目標、KPI、方案</h2>
+          <div class="adoption-chain">
+            <div><small>01 · NEED</small><b>需求／痛點</b><p>現況與期望之間的落差；先說誰在何種流程遇到什麼問題。</p><em>不是「想要一個聊天機器人」。</em></div><i>→</i>
+            <div><small>02 · OBJECTIVE</small><b>目標</b><p>要改善的業務結果與方向，需能連到價值及使用者結果。</p><em>不是「導入大型語言模型」。</em></div><i>→</i>
+            <div><small>03 · KPI</small><b>關鍵績效指標</b><p>用少數關鍵量測證明目標是否前進，包含定義、基準、目標與期間。</p><em>不是把所有可量的數字都列上去。</em></div><i>→</i>
+            <div><small>04 · SOLUTION</small><b>候選方案</b><p>達成目標的可能手段；可以是 AI、流程改善，或兩者組合。</p><em>不能把手段偽裝成目標。</em></div>
+          </div>
+          <div style="overflow-x:auto">
+            <table class="compare adoption-compare">
+              <thead><tr><th>敘述</th><th>真正角色</th><th>判斷</th></tr></thead>
+              <tbody>
+                <tr><td><b>重複詢問讓回覆草稿累積，尖峰時段延遲</b></td><td>需求／痛點</td><td>描述可觀察的流程落差</td></tr>
+                <tr><td><b>縮短常見問題的草稿週期，同時維持政策正確性</b></td><td>目標</td><td>說明要改善的結果與品質邊界</td></tr>
+                <tr><td><b>草稿處理時間、人工改寫率、錯誤政策引用數</b></td><td>KPI／護欄指標</td><td>提供量測證據</td></tr>
+                <tr><td><b>以檢索加生成產生可審核的回覆草稿</b></td><td>候選方案</td><td>只是手段，仍須驗證</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="block panel" id="kpi">
+          <div class="section-kicker">A KPI NEEDS A MEASUREMENT CONTRACT</div>
+          <h2>三、KPI 不是口號：至少寫清楚五件事</h2>
+          <div class="kpi-grid">
+            <div><span>01</span><b>指標名稱</b><p>量什麼結果，例如「每件草稿處理時間」。</p></div>
+            <div><span>02</span><b>操作定義</b><p>起點、終點、分母與排除條件要一致。</p></div>
+            <div><span>03</span><b>基準值</b><p>導入前實際狀態；沒有基準就無法判斷改善幅度。</p></div>
+            <div><span>04</span><b>目標與期間</b><p>在何時達到何種程度；先量基準再設定合理門檻。</p></div>
+            <div><span>05</span><b>資料與責任</b><p>從哪裡取得、多久量一次、由誰確認結果。</p></div>
+          </div>
+          <div class="kpi-lanes">
+            <div><small>OUTCOME KPI</small><b>結果指標</b><span>處理週期、完成率、採用率、滿意度或成本等，直接連到目標。</span></div>
+            <div><small>QUALITY GUARDRAIL</small><b>品質／風險護欄</b><span>政策錯誤、敏感資料外洩、不當內容或人工退回等，防止只追求速度。</span></div>
+            <div><small>SYSTEM METRIC</small><b>系統運作指標</b><span>延遲、可用率、失敗率或資源用量；重要，但不必然等於業務成功。</span></div>
+          </div>
+          <p>官方指引要求在設計階段設立清晰且可量化的績效指標，並在 POC 中評估模型效能、效率、流程融合度、成本與產出；因此 KPI 要同時服務「是否值得做」與「是否能安全採用」的判斷。[2]</p>
+        </section>
+
+        <section class="block panel" id="feasibility">
+          <div class="section-kicker">VALUE IS NOT FEASIBILITY</div>
+          <h2>四、可行性是多面檢查，不是問「模型做不做得到」</h2>
+          <div class="feasibility-grid">
+            <div><small>BUSINESS</small><b>業務價值</b><p>痛點是否重要？成功能改善時間、品質、成本或服務嗎？</p></div>
+            <div><small>DATA</small><b>資料準備</b><p>所需資料是否存在、正確、更新、可存取且可合法使用？</p></div>
+            <div><small>TECH</small><b>技術適配</b><p>任務與模態是否適合？整合、延遲、穩定性與可擴展性是否足夠？</p></div>
+            <div><small>PEOPLE & PROCESS</small><b>人員與流程</b><p>誰審核、誰接手例外、流程是否願意改、團隊是否有能力維護？</p></div>
+            <div><small>COST & TIME</small><b>成本與時程</b><p>開發、授權、運算、整合、訓練、維護與退出成本是否可承擔？</p></div>
+            <div><small>RISK</small><b>風險與合規</b><p>隱私、資安、偏見、版權、責任與錯誤後果是否可控？</p></div>
+          </div>
+          <div class="mini-callout"><b>關鍵關係</b><span>高價值但低可行的題目不一定立刻做；技術容易但價值很低的題目，也不該因為「很快能做」就排第一。</span></div>
+        </section>
+
+        <section class="block panel" id="priority">
+          <div class="section-kicker">PRIORITIZE BEFORE YOU BUILD</div>
+          <h2>五、價值—可行性矩陣：決定先做、補條件或停止</h2>
+          <div class="priority-matrix" role="img" aria-label="價值與可行性四象限">
+            <div class="axis-y">業務價值 ↑</div>
+            <div class="quadrant explore"><small>高價值 × 低可行</small><b>先補條件</b><span>縮小範圍、補資料、降風險或等待能力成熟。</span></div>
+            <div class="quadrant start"><small>高價值 × 高可行</small><b>優先進 POC</b><span>定義範圍、基準、成功門檻與停止條件。</span></div>
+            <div class="quadrant stop"><small>低價值 × 低可行</small><b>暫不投入</b><span>避免為了追新技術消耗資源。</span></div>
+            <div class="quadrant quick"><small>低價值 × 高可行</small><b>謹慎看待快贏</b><span>可作小練習，但不要擠壓高價值工作。</span></div>
+            <div class="axis-x">可行性 →</div>
+          </div>
+          <p>官方指引建議依業務價值、技術可行性、成熟度、資源與長期策略排序，並從低成本、風險可控的小範圍試點開始，而不是直接全面導入。[2]</p>
+        </section>
+
+        <section class="block panel" id="scenario">
+          <div class="section-kicker">ONE SCENARIO THROUGHOUT</div>
+          <h2>六、貫穿情境：活動諮詢回覆草稿</h2>
+          <p>一般服務團隊經常收到活動時間、報名方式、取消規則與無障礙資訊等重複問題。團隊考慮用生成式 AI 產生回覆草稿，再由人員確認後送出。這是原創教學情境，不對應任何真實組織。</p>
+          <div class="scenario-adoption-flow">
+            <div><small>CURRENT STATE</small><b>現況與痛點</b><p>資訊散在多份文件；重複查找與改寫造成等待，也可能引用舊版規則。</p></div><i>→</i>
+            <div><small>OBJECTIVE</small><b>目標</b><p>加快常見問題草稿，同時維持政策正確、來源可追溯與人工發布責任。</p></div><i>→</i>
+            <div><small>MEASURE</small><b>KPI 與護欄</b><p>比較導入前後的草稿處理時間、人工改寫率、過期引用與未經確認發布事件。</p></div><i>→</i>
+            <div><small>FEASIBILITY</small><b>可行性</b><p>檢查文件版本、權限、檢索整合、審核人力、例外轉接與成本。</p></div><i>→</i>
+            <div><small>DECISION</small><b>下一步</b><p>若價值與可行性成立，才用限定問題範圍進入 POC。</p></div>
+          </div>
+          <div class="scenario-kpi-table">
+            <div class="head"><b>量測項目</b><b>基準怎麼來</b><b>目標方向</b></div>
+            <div><span>每件草稿處理時間</span><span>先量測固定期間的人工流程</span><span>低於基準，且品質護欄不惡化</span></div>
+            <div><span>政策引用正確率</span><span>用經核定的測試問句人工複核</span><span>達到 POC 預先設定的採用門檻</span></div>
+            <div><span>人工改寫率</span><span>記錄草稿送出前的實質修改</span><span>下降，但不得以放寬審核換速度</span></div>
+            <div><span>例外正確轉接率</span><span>建立超出範圍與衝突案例集</span><span>遇到不確定時能停止並交給人員</span></div>
+          </div>
+          <p>表中的門檻必須在 POC 前依風險、基準與業務容忍度明確設定；「看起來方便」不能取代事前成功標準。</p>
+        </section>
+
+        <section class="block panel" id="confusions">
+          <div class="section-kicker">EXAM TRAPS</div>
+          <h2>七、容易混淆處與 iPAS 題目判斷訊號</h2>
+          <div class="attention-differences">
+            <div><small>痛點 vs. 方案</small><b>問題不是「還沒有 AI」</b><p>痛點要描述流程落差；AI 只是可能的解法。</p></div>
+            <div><small>目標 vs. 產出</small><b>做出聊天介面不等於改善結果</b><p>功能交付是輸出，目標要回到時間、品質、成本或服務。</p></div>
+            <div><small>KPI vs. 所有指標</small><b>可量不等於關鍵</b><p>登入次數、Token 用量可能有用，但未必證明業務目標達成。</p></div>
+            <div><small>速度 vs. 品質</small><b>單一 KPI 會產生盲點</b><p>追求更快時，要搭配正確性、安全或人工退回等護欄。</p></div>
+            <div><small>價值 vs. 可行性</small><b>想像價值高不代表現在能做</b><p>還要檢查資料、技術、整合、人員、成本與風險。</p></div>
+            <div><small>POC vs. 全面上線</small><b>驗證不是承諾部署</b><p>POC 是小範圍檢驗關鍵假設；是否擴大要看預設門檻。</p></div>
+          </div>
+          <ol class="checklist signal-list">
+            <li><b>「第一步」：</b>優先選現況、痛點、使用情境與可量化目標，不是先採購或全面訓練。</li>
+            <li><b>「KPI」：</b>找能連到目標且定義清楚的少數指標，注意基準、期間與資料來源。</li>
+            <li><b>「導入優先順序」：</b>同時比較業務價值與可行性，不只比技術新穎度。</li>
+            <li><b>「可行性」：</b>不只模型效能，還包含資料、系統、人員、流程、成本與風險。</li>
+            <li><b>「提升效率」：</b>若沒有量測對象與品質護欄，仍是模糊口號。</li>
+            <li><b>「試點／POC」：</b>看到小範圍、真實情境、成功門檻與停止條件，才是可驗證計畫。</li>
+          </ol>
+        </section>
+
+        <section class="block panel" id="method">
+          <div class="section-kicker">EXAM METHOD</div>
+          <h2>八、五步判斷法：痛、果、尺、行、序</h2>
+          <div class="number-grid adoption-method">
+            <div><b>痛</b><span>痛點：誰在什麼流程遇到什麼可觀察的落差？</span></div>
+            <div><b>果</b><span>結果：真正要改善的是時間、品質、成本、服務還是風險？</span></div>
+            <div><b>尺</b><span>尺度：用哪些 KPI 與護欄量測？基準、目標、期間與資料來源是什麼？</span></div>
+            <div><b>行</b><span>可行：資料、技術、資源、人員、流程、成本與風險是否能支撐？</span></div>
+            <div><b>序</b><span>排序：和其他候選題目相比，應進 POC、補條件還是暫停？</span></div>
+          </div>
+        </section>
+
+        <section class="block panel quiz" id="quiz">
+          <div class="section-kicker">RETRIEVAL PRACTICE</div>
+          <h2>理解測驗</h2>
+          <p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p>
+          <form onsubmit='event.preventDefault();gradeQuiz({q1:{answer:"C",explain:"導入評估要先釐清現況、痛點與可量化目標；採購與部署都應在需求確認之後。"},q2:{answer:"B",explain:"目標描述要改善的業務結果；導入模型或建立介面只是可能的方案與產出。"},q3:{answer:"D",explain:"只追求回覆速度可能犧牲正確性；搭配政策引用正確率等護欄，才能避免局部最佳化。"},q4:{answer:"A",explain:"高價值但低可行時，應先縮小範圍或補齊資料、資源與風險控制，不宜直接全面部署。"},q5:{answer:"C",explain:"可行性是多面檢查，除了模型能力，也要看資料、整合、人員、流程、成本與風險。"},q6:{answer:"B",explain:"POC 是在限定範圍內用預設門檻驗證關鍵假設；成功後仍須再決定是否擴大。"}})'>
+            <fieldset><legend>1. 團隊提出「想導入生成式 AI」。下一步最合理的是什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 直接購買功能最多的平台</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 先全面部署再觀察用途</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 盤點現況、痛點、使用情境與可量化目標</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 先決定模型參數量</span></label><div id="f-q1" class="feedback"></div></fieldset>
+            <fieldset><legend>2. 下列何者最接近「目標」，而不是「方案」？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 導入大型語言模型</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 縮短常見問題草稿週期，同時維持政策正確性</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 建立聊天介面</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 購買雲端授權</span></label><div id="f-q2" class="feedback"></div></fieldset>
+            <fieldset><legend>3. 若 KPI 只有「平均回覆速度」，最重要的補強是什麼？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 增加模型名稱欄位</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 把 KPI 改成登入次數</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 刪除基準值</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 加入政策正確性或錯誤率等品質護欄</span></label><div id="f-q3" class="feedback"></div></fieldset>
+            <fieldset><legend>4. 一個題目業務價值很高，但資料不完整、權限不明且沒有審核人力。最合理的決策是？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 先縮小範圍或補齊條件，再決定是否進 POC</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 因價值高而直接全面上線</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 只提高溫度參數</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 忽略權限，先取得更多輸出</span></label><div id="f-q4" class="feedback"></div></fieldset>
+            <fieldset><legend>5. 下列何者對「技術可行」的理解最完整？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 模型能產生流暢句子就可行</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 有熱門工具就可行</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 還要檢查資料、整合、穩定性、人員、流程、成本與風險</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 只要測試一次成功就可行</span></label><div id="f-q5" class="feedback"></div></fieldset>
+            <fieldset><legend>6. 關於 POC，下列何者最正確？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> POC 成功等於必須全面部署</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> POC 用限定範圍與預設門檻驗證關鍵假設</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> POC 不需要基準與停止條件</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> POC 只用來展示介面美觀</span></label><div id="f-q6" class="feedback"></div></fieldset>
+            <button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div>
+          </form>
+        </section>
+
+        <section class="block panel" id="podcast">
+          <div class="section-kicker">LISTEN & REVIEW</div>
+          <h2>Podcast｜先定義成功，再談導入</h2>
+          <p>約 7 分鐘自然台灣華語複習：沿用活動諮詢情境，分清需求、目標、KPI 與方案，再用「痛、果、尺、行、序」判斷導入優先順序。</p>
+          <div class="audio-box"><audio controls preload="metadata" src="../assets/day33-needs-kpi-feasibility.mp3">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day33-needs-kpi-feasibility.mp3" download>下載 MP3</a></div>
+        </section>
+
+        <section class="block panel" id="sources">
+          <div class="section-kicker">OFFICIAL SOURCES</div>
+          <h2>官方來源與版本</h2>
+          <p>課程範圍以 iPAS 官方學習資源頁及其所列《AI 應用規劃師（初級）學習指引・科目二：生成式 AI 應用與規劃》114.12.03 版為主。[1][2]</p>
+          <p>活動諮詢情境、比較表、五步判斷法與六題測驗均為原創教學整理，不是官方考題；KPI 門檻應依實際基準、風險與業務容忍度設定。</p>
+          <pre class="source-ledger">
+Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二（114.12.03 版）
+</pre>
+        </section>
+
+        <button class="btn complete" type="button" data-complete="day33" onclick="toggleDone('day33',this)">標記這課已完成</button>
+        <nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-32.html">← Day 32｜多模態輸入與輸出</a><a href="../index.html#lessons" aria-disabled="true" onclick="event.preventDefault()">Day 34｜POC、資源、資料與資安（下一課） →</a></nav>
+      </article>
+
+      <aside class="toc panel" aria-label="本課目錄">
+        <strong>本課目錄</strong>
+        <a href="#map">概念定位</a><a href="#chain">四個核心詞</a><a href="#kpi">KPI 結構</a><a href="#feasibility">可行性</a><a href="#priority">價值—可行性</a><a href="#scenario">貫穿情境</a><a href="#confusions">混淆與題目訊號</a><a href="#method">五步判斷法</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a>
+      </aside>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer>
+<script src="../assets/app.js"></script>
+</body>
+</html>
