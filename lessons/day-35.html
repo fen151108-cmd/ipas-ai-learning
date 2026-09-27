@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="部署、監控、治理與價值擴散概念統整"><title>Day 35｜部署、監控、治理與價值擴散</title><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/style.css?v=20260927-quizfix"></head>
+<body><header class="topbar"><div class="wrap topin"><a class="brand" href="../index.html">iPAS 概念統整</a><nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav></div><div class="coursebar"><div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、 標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化 如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>資料隱私、安全、 權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、 參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab" href="day-30.html"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+      <a class="day-tab" href="day-31.html"><b>D31</b><span>提示、幻覺、查證與溫度</span></a>
+      <a class="day-tab" href="day-32.html"><b>D32</b><span>多模態輸入與輸出</span></a>
+      <a class="day-tab" href="day-33.html"><b>D33</b><span>需求、目標、KPI 與可行性</span></a>
+      <a class="day-tab" href="day-34.html"><b>D34</b><span>POC、資源、資料與資安</span></a>
+      <a class="day-tab active" href="day-35.html" aria-current="page"><b>D35</b><span>部署、監控、治理與價值擴散</span></a>
+    </div></div></header>
+<main><section class="lesson-hero adoption-hero"><div class="wrap"><div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 08・企業導入</span><span>›</span><span>Day 35</span></div><h1>部署、監控、治理與價值擴散</h1><p class="memory-line">POC 通過只是證明值得繼續；正式部署要把模型接進流程、責任與控制，持續監控品質、風險與價值，才能安全擴大。</p><p class="lede">從 POC 通過走到長期營運：把 AI 接進流程、監控變化、處理事件，並用可重複的方法逐步擴大價值。</p><div class="meta"><span>Day 35</span><span>約 40–60 分鐘</span><span>概念統整＋中性情境＋6 題測驗＋Podcast</span></div></div></section>
+<section class="section"><div class="wrap lesson-layout"><article class="article"><section class="block panel" id="section-1">
+<span class="section-kicker">核心記憶句</span>
+<h2>POC 通過只是證明值得繼續，不是專案結束</h2>
+<div class="mini-callout"><b>重點</b><span>正式部署要把模型接進流程、責任與控制；持續監控系統、品質、風險與業務價值，才能安全改善並逐步擴散。</span></div>
+<div aria-label="完整導入生命週期" class="adoption-chain compact">
+<div><span>1</span><b>需求</b><small>痛點</small></div><i>→</i><div><span>2</span><b>KPI</b><small>門檻</small></div><i>→</i><div><span>3</span><b>POC</b><small>驗證</small></div><i>→</i><div class="focus-step"><span>4</span><b>部署</b><small>整合</small></div><i>→</i><div class="focus-step"><span>5</span><b>監控</b><small>改善</small></div><i>→</i><div><span>6</span><b>擴散</b><small>價值</small></div>
+</div>
+</section><section class="block panel" id="section-2">
+<span class="section-kicker">01｜從 POC 到正式營運</span>
+<h2>部署是把 AI 變成「可長期運作的工作系統」</h2>
+<div class="table-wrap" style="overflow-x:auto"><table class="compare adoption-compare"><thead><tr><th>工作流</th><th>上線前要完成</th><th>若缺少會發生</th></tr></thead><tbody>
+<tr><td><strong>系統整合</strong></td><td>輸入輸出、API、身分驗證、容量、延遲與備援</td><td>模型能跑，但接不進工作流程</td></tr>
+<tr><td><strong>資料管理</strong></td><td>資料來源、版本、品質檢查、保存與刪除規則</td><td>輸入悄悄變差，結果無法追溯</td></tr>
+<tr><td><strong>人員與流程</strong></td><td>角色責任、教育訓練、人工覆核、例外與申訴</td><td>員工不知道何時採用或拒絕 AI 建議</td></tr>
+<tr><td><strong>資安與治理</strong></td><td>權限、日誌、弱點檢查、供應商條款、事件通報</td><td>出了問題找不到原因與責任人</td></tr>
+<tr><td><strong>維運與退場</strong></td><td>版本管理、變更審查、回復舊版、人工備援與停止條件</td><td>新版本失效時無法安全回退</td></tr>
+</tbody></table></div>
+</section><section class="block panel" id="section-3">
+<span class="section-kicker">02｜四層監控</span>
+<h2>服務沒有當機，不代表 AI 仍然有用</h2>
+<div class="kpi-grid">
+<div><span>系</span><b>系統健康</b><p>可用率、延遲、錯誤率、吞吐量、運算與 API 成本。</p></div>
+<div><span>質</span><b>模型／內容品質</b><p>準確度、召回率、錯誤率、事實性、相關性與人工修正率。</p></div>
+<div><span>風</span><b>風險與合規</b><p>敏感資料外洩、有害輸出、偏見、越權、異常查詢與申訴。</p></div>
+<div><span>值</span><b>業務價值</b><p>時間、成本、轉換、滿意度等原始 KPI，並持續看品質護欄。</p></div>
+</div>
+<div class="attention"><strong>考試判斷</strong><p>只看伺服器可用率是「系統正常」；只有業務 KPI 改善且品質與風險仍在門檻內，才叫「持續創造價值」。</p></div>
+</section><section class="block panel" id="section-4">
+<span class="section-kicker">03｜漂移與改版</span>
+<h2>環境會變，模型表現也會變</h2>
+<div class="kpi-lanes">
+<div><b>資料漂移</b><p>輸入資料的分布、格式或用語改變。例如新的問題類型增加，舊資料不再代表現況。</p></div>
+<div><b>概念漂移</b><p>輸入與正確結果的關係改變。例如政策、流程或市場條件改變，舊規則不再成立。</p></div>
+<div><b>模型／供應商變更</b><p>新版本、提示、知識庫或 API 更新都可能改變輸出；應重新測試，而不是假設只會變好。</p></div>
+</div>
+<div class="scenario-adoption-flow">
+<div><small>發現</small><b>指標越過門檻</b><p>告警、抽樣審核、申訴或使用者回饋顯示異常。</p></div><i>→</i>
+<div><small>處置</small><b>先控制影響</b><p>降級、停用自動動作、切回人工、保留紀錄並通知責任人。</p></div><i>→</i>
+<div><small>改善</small><b>找根因再更新</b><p>查資料、模型、提示、流程或權限；測試後分階段重新發布。</p></div>
+</div>
+</section><section class="block panel" id="section-5">
+<span class="section-kicker">04｜情境演練</span>
+<h2>活動問答助手上線後，為何答案開始變差？</h2>
+<p>系統可用率仍是 99.9%，但活動規則更新後，人工修正率由 8% 升到 24%，申訴也增加。</p>
+<div class="attention-differences">
+<div><strong>錯誤判斷</strong><p>伺服器沒有當機，所以系統正常；先擴大使用，累積更多資料再說。</p></div>
+<div><strong>正確判斷</strong><p>系統健康不等於內容有效。先檢查知識來源與輸入分布，啟動人工覆核或降級，修正後以同一門檻重新測試。</p></div>
+</div>
+<div class="mini-callout"><b>重點</b><span>監控不是為了蒐集漂亮儀表板，而是讓團隊知道何時要繼續、修正、回退或停止。
+</span></div></section><section class="block panel" id="section-6">
+<span class="section-kicker">05｜治理與責任</span>
+<h2>每個重要動作都要有人負責</h2>
+<div class="number-grid">
+<div><span>1</span><b>業務負責人</b><p>確認問題、KPI、流程與可接受風險，決定是否繼續使用。</p></div>
+<div><span>2</span><b>系統／模型負責人</b><p>維護版本、效能、整合、測試、監控與回退程序。</p></div>
+<div><span>3</span><b>資料與資安角色</b><p>管理資料來源、權限、保存、稽核、事件通報與第三方風險。</p></div>
+<div><span>4</span><b>使用者與審查者</b><p>知道 AI 的限制、覆核方法、回報管道，以及何時必須人工接手。</p></div>
+</div>
+<div class="attention"><strong>有效人工監督</strong><p>不是畫面上放一個「確認」按鈕；人員必須看得懂資訊、具有時間與權限，且真的能改判、停止或升級處理。</p></div>
+</section><section class="block panel" id="section-7">
+<span class="section-kicker">06｜價值擴散</span>
+<h2>複製能力與控制，不是把同一工具硬套到所有單位</h2>
+<div class="attention-differences">
+<div><b>可以重用</b><ul><li>需求與 KPI 模板</li><li>資料與風險檢查表</li><li>測試案例與監控框架</li><li>角色責任與事件流程</li></ul></div>
+<div><b>必須重新確認</b><ul><li>新單位的流程與資料是否相似</li><li>風險等級與法規是否不同</li><li>成功門檻與人工覆核是否適用</li><li>成本、容量與支援是否足夠</li></ul></div>
+</div>
+<div class="mini-callout"><b>重點</b><span>擴散順序：<strong>證明價值 → 標準化做法 → 選擇相似場景 → 小步試點 → 監控後擴大</strong>。
+</span></div></section><section class="block panel" id="section-8">
+<span class="section-kicker">07｜35 課總收束</span>
+<h2>用一條線串起整套概念</h2>
+<div aria-label="完整學習總結" class="adoption-chain">
+<div><span>1</span><b>定義問題</b><small>不是先買工具</small></div><i>→</i><div><span>2</span><b>設定 KPI</b><small>含品質護欄</small></div><i>→</i><div><span>3</span><b>準備資料</b><small>合法且具代表性</small></div><i>→</i><div><span>4</span><b>選方案</b><small>價值×可行性</small></div><i>→</i><div><span>5</span><b>POC／試點</b><small>用門檻驗證</small></div><i>→</i><div><span>6</span><b>部署監控</b><small>責任與回退</small></div><i>→</i><div><span>7</span><b>改善擴散</b><small>長期價值</small></div>
+</div>
+<div class="mini-callout"><b>重點</b><span>考場口訣：<strong>接、守、看、改、擴</strong>——接進流程、守住風險、看四層指標、依證據改善、再逐步擴散。
+<div class="attention"><strong>下一階段</strong><p>35 課概念統整完成。接下來進入題庫：先做題、再把錯題分成「觀念不清、情境判斷、關鍵字混淆、粗心」四類，回查對應課程。</p></div>
+</span></div></section><section class="block panel quiz" id="quiz"><div class="section-kicker">RETRIEVAL PRACTICE</div><h2>理解測驗</h2><p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p><form onsubmit='event.preventDefault();gradeQuiz({"q1":{"answer":"B","explain":"POC 證明關鍵假設值得繼續；下一步通常是受控試點，驗證真實流程、使用者、治理與維運，而非直接全面擴散。"},"q2":{"answer":"C","explain":"監控必須分層。可用率只反映系統健康；品質、風險或業務指標惡化時仍須調查、降級、回退或修正。"},"q3":{"answer":"A","explain":"概念漂移是輸入與目標結果之間的關係改變；若只是輸入分布或格式改變，較接近資料漂移。"},"q4":{"answer":"D","explain":"事件發生時應先降低與控制影響，再保存證據、通報責任人、找根因並經測試後恢復。"},"q5":{"answer":"C","explain":"可重用的是方法、檢查表與監控框架；每個新情境仍要重新確認需求、資料、風險、容量與成功標準。"},"q6":{"answer":"B","explain":"回退與人工備援是韌性與事件處置的一部分，可在模型、資料、整合或供應商異常時維持必要服務並降低損害。"}})'><fieldset><legend>1. POC 已達成功門檻後，最合理的下一步是什麼？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 立即全面部署並移除人工覆核</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 在受控範圍進行試點，補齊整合、責任、監控與回退</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 停止記錄，避免增加維運成本</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 只向所有人展示模型分數</span></label><div id="f-q1" class="feedback"></div></fieldset><fieldset><legend>2. AI 服務可用率維持 99.9%，但人工修正率與申訴同時上升。應如何判讀？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 系統未當機，所以不需處理</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 代表只要增加伺服器即可</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 系統健康正常，但品質或業務效果可能退化，應調查並啟動控制措施</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 代表 POC 的原始結論永遠錯誤</span></label><div id="f-q2" class="feedback"></div></fieldset><fieldset><legend>3. 新政策改變了「輸入條件與正確結果」之間的關係，舊模型開始失準。這最接近什麼現象？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 概念漂移</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 資料加密</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 供應商鎖定</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 特徵縮放</span></label><div id="f-q3" class="feedback"></div></fieldset><fieldset><legend>4. 監控發現模型開始輸出可能傷害使用者的內容，第一優先應做什麼？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 等待下次季度會議</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 先擴大使用，以取得更多樣本</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 刪除所有歷史紀錄</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 先控制影響，例如停用自動動作、切回人工並保留事件紀錄</span></label><div id="f-q4" class="feedback"></div></fieldset><fieldset><legend>5. 下列哪一項最符合 AI 價值擴散的穩健作法？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 將同一模型設定直接複製到所有部門</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 只挑選使用人數最多的單位全面推行</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 重用流程與控制框架，但針對新場景重新確認資料、KPI、風險與門檻</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 擴散後停止計算成本，避免影響採用率</span></label><div id="f-q5" class="feedback"></div></fieldset><fieldset><legend>6. 為什麼正式部署前需要定義回退與人工備援？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 讓模型訓練速度變快</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 在新版本失效或發生事件時，能安全恢復服務並控制影響</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 取代所有監控指標</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 證明供應商永遠不會中斷</span></label><div id="f-q6" class="feedback"></div></fieldset><button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div></form></section>
+<section class="block panel" id="podcast"><div class="section-kicker">LISTEN & REVIEW</div><h2>Podcast｜接、守、看、改、擴</h2><p>約 5 分鐘台灣華語複習：從正式部署、四層監控與事件處置，一路收束到價值擴散與題庫階段。</p><div class="audio-box"><audio controls preload="metadata" src="../assets/day35-deployment-monitoring-value.mp3?v=20260927-full">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day35-deployment-monitoring-value.mp3?v=20260927-full" download>下載 MP3</a></div></section>
+<section class="block panel" id="sources"><div class="section-kicker">OFFICIAL SOURCES</div><h2>官方來源與版本</h2><p>本課依 iPAS 官方學習資源與初級科目二學習指引整理，並將實務內容轉寫成原創理解題；不是官方考題，也不保證涵蓋所有考題。</p><pre class="source-ledger">Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二（114.12.03 版）
+[3] https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf — NIST AI Risk Management Framework 1.0</pre></section>
+<button class="btn complete" type="button" data-complete="day35" onclick="toggleDone('day35',this)">標記這課已完成</button><nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-34.html">← Day 34｜POC、資源、資料與資安</a><a href="https://arnold-leyan.github.io/ipas-ai-study/exam-index.html">進入 STEP 3 題庫 →</a></nav></article>
+<aside class="toc panel" aria-label="本課目錄"><strong>本課目錄</strong><a href="#section-1">POC 通過只是證明值得繼續，不是專案結束</a><a href="#section-2">部署是把 AI 變成「可長期運作的工作系統」</a><a href="#section-3">服務沒有當機，不代表 AI 仍然有用</a><a href="#section-4">環境會變，模型表現也會變</a><a href="#section-5">活動問答助手上線後，為何答案開始變差？</a><a href="#section-6">每個重要動作都要有人負責</a><a href="#section-7">複製能力與控制，不是把同一工具硬套到所有單位</a><a href="#section-8">用一條線串起整套概念</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a></aside></div></section></main>
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer><script src="../assets/app.js?v=20260927-quizfix"></script></body></html>

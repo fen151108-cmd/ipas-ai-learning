@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="POC、資源、資料與資安概念統整"><title>Day 34｜POC、資源、資料與資安</title><link rel="icon" href="../assets/favicon.svg" type="image/svg+xml"><link rel="stylesheet" href="../assets/style.css?v=20260927-quizfix"></head>
+<body><header class="topbar"><div class="wrap topin"><a class="brand" href="../index.html">iPAS 概念統整</a><nav class="nav"><a href="../index.html#map">知識地圖</a><a href="../index.html#lessons">全部課程</a></nav></div><div class="coursebar"><div class="wrap day-tabs" aria-label="課程快速選擇">
+      <a class="day-tab" href="day-01.html"><b>D1</b><span>AI 的定義、範圍與邊界</span></a>
+      <a class="day-tab" href="day-02.html"><b>D2</b><span>分析型、預測型、生成型 AI</span></a>
+      <a class="day-tab" href="day-03.html"><b>D3</b><span>AI 治理為什麼從設計開始</span></a>
+      <a class="day-tab" href="day-04.html"><b>D4</b><span>風險分級、透明與人工問責</span></a>
+      <a class="day-tab" href="day-05.html"><b>D5</b><span>資料、紀錄、樣本與來源</span></a>
+      <a class="day-tab" href="day-06.html"><b>D6</b><span>結構化、半結構化、非結構化</span></a>
+      <a class="day-tab" href="day-07.html"><b>D7</b><span>資料品質：缺失、錯誤、重複、離群</span></a>
+      <a class="day-tab" href="day-08.html"><b>D8</b><span>ETL：擷取、轉換、載入</span></a>
+      <a class="day-tab" href="day-09.html"><b>D9</b><span>平均數、中位數、 標準差與分布</span></a>
+      <a class="day-tab" href="day-10.html"><b>D10</b><span>資料視覺化 如何選圖</span></a>
+      <a class="day-tab" href="day-11.html"><b>D11</b><span>資料隱私、安全、 權限與去識別</span></a>
+      <a class="day-tab" href="day-12.html"><b>D12</b><span>特徵、標籤、 參數與輸出</span></a>
+      <a class="day-tab" href="day-13.html"><b>D13</b><span>監督式學習</span></a>
+      <a class="day-tab" href="day-14.html"><b>D14</b><span>分類與迴歸</span></a>
+      <a class="day-tab" href="day-15.html"><b>D15</b><span>非監督式學習</span></a>
+      <a class="day-tab" href="day-16.html"><b>D16</b><span>K-means 與 PCA</span></a>
+      <a class="day-tab" href="day-17.html"><b>D17</b><span>強化學習與半監督式學習</span></a>
+      <a class="day-tab" href="day-18.html"><b>D18</b><span>訓練、驗證、測試流程</span></a>
+      <a class="day-tab" href="day-19.html"><b>D19</b><span>過擬合、正則化與交叉驗證</span></a>
+      <a class="day-tab" href="day-20.html"><b>D20</b><span>Accuracy、Precision、Recall、F1</span></a>
+      <a class="day-tab" href="day-21.html"><b>D21</b><span>線性迴歸與邏輯迴歸</span></a>
+      <a class="day-tab" href="day-22.html"><b>D22</b><span>決策樹、隨機森林與 SVM</span></a>
+      <a class="day-tab" href="day-23.html"><b>D23</b><span>神經網路與深度學習</span></a>
+      <a class="day-tab" href="day-24.html"><b>D24</b><span>鑑別式與生成式 AI</span></a>
+      <a class="day-tab" href="day-25.html"><b>D25</b><span>LLM、Token 與逐步機率生成</span></a>
+      <a class="day-tab" href="day-26.html"><b>D26</b><span>Transformer 與自注意力</span></a>
+      <a class="day-tab" href="day-27.html"><b>D27</b><span>GAN、VAE 與擴散模型</span></a>
+      <a class="day-tab" href="day-28.html"><b>D28</b><span>No Code 與 Low Code</span></a>
+      <a class="day-tab" href="day-29.html"><b>D29</b><span>平台限制、鎖定與 Shadow IT</span></a>
+      <a class="day-tab" href="day-30.html"><b>D30</b><span>生成式 AI 工具與任務配對</span></a>
+      <a class="day-tab" href="day-31.html"><b>D31</b><span>提示、幻覺、查證與溫度</span></a>
+      <a class="day-tab" href="day-32.html"><b>D32</b><span>多模態輸入與輸出</span></a>
+      <a class="day-tab" href="day-33.html"><b>D33</b><span>需求、目標、KPI 與可行性</span></a>
+      <a class="day-tab active" href="day-34.html" aria-current="page"><b>D34</b><span>POC、資源、資料與資安</span></a>
+      <a class="day-tab" href="day-35.html"><b>D35</b><span>部署、監控、治理與價值擴散</span></a>
+    </div></div></header>
+<main><section class="lesson-hero adoption-hero"><div class="wrap"><div class="crumbs"><a href="../index.html">首頁</a><span>›</span><span>模組 08・企業導入</span><span>›</span><span>Day 34</span></div><h1>POC、資源、資料與資安</h1><p class="memory-line">POC 是用有限範圍、代表性資料與事前門檻驗證關鍵假設；模型可用還不夠，資料、整合、人力、成本與資安都要同時過關。</p><p class="lede">把高價值候選方案縮成可驗證的實驗：先定假設與門檻，再用代表性資料檢查技術、流程、成本與風險。</p><div class="meta"><span>Day 34</span><span>約 40–60 分鐘</span><span>概念統整＋中性情境＋6 題測驗＋Podcast</span></div></div></section>
+<section class="section"><div class="wrap lesson-layout"><article class="article"><section class="block panel" id="section-1">
+<span class="section-kicker">核心記憶句</span>
+<h2>POC 是小範圍驗證，不是縮小版正式上線</h2>
+<div class="mini-callout"><b>重點</b><span>用有限範圍、代表性資料與事前門檻驗證關鍵假設；模型可用還不夠，資料、整合、人力、成本與資安都要同時過關。</span></div>
+<div aria-label="導入流程" class="adoption-chain compact">
+<div><span>1</span><b>需求</b><small>問題是什麼</small></div><i>→</i><div><span>2</span><b>KPI</b><small>怎樣算改善</small></div><i>→</i><div class="focus-step"><span>3</span><b>POC</b><small>驗證關鍵假設</small></div><i>→</i><div><span>4</span><b>決策</b><small>通過／修正／停止</small></div><i>→</i><div><span>5</span><b>試點</b><small>受控流程運行</small></div>
+</div>
+</section><section class="block panel" id="section-2">
+<span class="section-kicker">01｜先分清楚</span>
+<h2>Prototype、POC、Pilot、Production 不一樣</h2>
+<div class="table-wrap" style="overflow-x:auto"><table class="compare adoption-compare"><thead><tr><th>階段</th><th>主要問題</th><th>典型範圍</th><th>完成不代表</th></tr></thead><tbody>
+<tr><td><strong>Prototype 原型</strong></td><td>介面與流程概念是否可理解？</td><td>示意畫面、假資料、局部功能</td><td>技術與業務已可行</td></tr>
+<tr><td><strong>POC 概念驗證</strong></td><td>關鍵技術或業務假設是否成立？</td><td>有限資料、有限情境、事前門檻</td><td>可直接全面上線</td></tr>
+<tr><td><strong>Pilot 試點</strong></td><td>在受控真實流程中能否穩定運作？</td><td>代表性單位、真實使用者、人工覆核</td><td>所有單位都適用</td></tr>
+<tr><td><strong>Production 正式營運</strong></td><td>能否長期、安全、可維護地創造價值？</td><td>正式整合、權限、監控、事件處置</td><td>可以停止監控</td></tr>
+</tbody></table></div>
+<div class="attention"><strong>判斷重點</strong><p>題目若只完成模型測試，通常仍在 POC；若已讓真實使用者在受控流程中使用，較接近 Pilot；正式上線還要有責任、監控與維運。</p></div>
+</section><section class="block panel" id="section-3">
+<span class="section-kicker">02｜POC 六件事</span>
+<h2>開始前先寫清楚，避免「做完才決定怎樣算成功」</h2>
+<div class="kpi-grid">
+<div><span>假</span><b>關鍵假設</b><p>要驗證的是準確度、節省時間、流程融合，還是使用意願？一次先抓最關鍵假設。</p></div>
+<div><span>界</span><b>範圍與排除</b><p>限定任務、單位、資料期間與例外情境，並明確寫出這次不處理什麼。</p></div>
+<div><span>基</span><b>現況基準</b><p>先量現在的時間、錯誤率、成本或滿意度，否則無法證明 AI 帶來多少改善。</p></div>
+<div><span>料</span><b>資料與樣本</b><p>確認來源合法、品質足夠、具代表性，並隔離不必要的個資與機密。</p></div>
+<div><span>尺</span><b>成功門檻</b><p>同時設定效果 KPI 與品質、風險護欄；門檻應在測試前決定。</p></div>
+<div><span>時</span><b>時限與決策點</b><p>設定期限、負責人與結束後的通過、修正或停止條件，防止 POC 無限延長。</p></div>
+</div>
+</section><section class="block panel" id="section-4">
+<span class="section-kicker">03｜可行性盤點</span>
+<h2>六個面向都要看，不要只看模型分數</h2>
+<div class="feasibility-grid">
+<div><b>資料</b><p>取得權、完整性、正確性、代表性、更新頻率、標註成本。</p></div>
+<div><b>技術</b><p>模型能力、延遲、穩定度、API／既有系統整合、擴充與退場能力。</p></div>
+<div><b>人力與流程</b><p>需求負責人、領域審查者、技術與資安人員，以及例外處理與人工接手。</p></div>
+<div><b>成本</b><p>不只訂閱費；還包含建置、整合、清理資料、訓練、維運與供應商移轉成本。</p></div>
+<div><b>資安與合規</b><p>資料是否可上傳、儲存位置、加密、權限、稽核紀錄、授權與法規限制。</p></div>
+<div><b>業務價值</b><p>是否改善先前定義的 KPI，且沒有用更快的速度製造更多錯誤。</p></div>
+</div>
+</section><section class="block panel" id="section-5">
+<span class="section-kicker">04｜情境演練</span>
+<h2>活動問答草稿：怎麼設計一個合格 POC？</h2>
+<div class="scenario-adoption-flow">
+<div><small>問題</small><b>回覆時間過長</b><p>目前平均 18 分鐘，且人工重複整理常見活動資訊。</p></div><i>→</i>
+<div><small>POC</small><b>只做四類常見問題</b><p>用已核准、去除不必要識別資訊的歷史問答，產生回覆草稿，仍由人員送出。</p></div><i>→</i>
+<div><small>門檻</small><b>效率＋品質雙軌</b><p>平均處理時間降至 10 分鐘內；重大錯誤率不得高於原流程；所有輸出保留人工覆核。</p></div>
+</div>
+<div class="attention-differences">
+<div><strong>合理做法</strong><p>先建立現況基準、限定範圍、準備代表性樣本，再用同一套規則比較前後差異。</p></div>
+<div><strong>不合理做法</strong><p>直接接上全部訊息、讓模型自動發送，做完後才挑一個看起來漂亮的指標。</p></div>
+</div>
+</section><section class="block panel" id="section-6">
+<span class="section-kicker">05｜資料與資安閘門</span>
+<h2>能測，不代表什麼資料都能丟進工具</h2>
+<div class="number-grid">
+<div><span>1</span><b>必要最小化</b><p>只使用完成驗證所需的欄位與樣本，不因方便而整批上傳。</p></div>
+<div><span>2</span><b>合法與授權</b><p>確認資料來源、使用目的、保存期間與第三方模型條款。</p></div>
+<div><span>3</span><b>權限與隔離</b><p>採最小權限、測試環境隔離、加密傳輸與必要的稽核紀錄。</p></div>
+<div><span>4</span><b>高風險人工覆核</b><p>涉及權益、健康、財務或對外發布時，保留可真正改判與停止的人工控制。</p></div>
+</div>
+<div class="attention"><strong>常見陷阱</strong><p>匿名化、加密、權限與人工覆核是不同控制措施，彼此不能互相取代；「供應商很知名」也不等於資料可任意上傳。</p></div>
+</section><section class="block panel" id="section-7">
+<span class="section-kicker">06｜POC 結案</span>
+<h2>結果只有三種：通過、修正後再驗證、停止</h2>
+<div class="kpi-lanes">
+<div><b>通過</b><p>效果與護欄皆達門檻，前提條件可維持，才進入受控試點；不是直接全面部署。</p></div>
+<div><b>修正</b><p>部分假設成立，但資料、流程或工具仍需改良。先改變一個關鍵變數，再重測。</p></div>
+<div><b>停止</b><p>價值不足、風險不可接受、成本失控或資料不合法時，停止也是成功的決策資訊。</p></div>
+</div>
+<div class="mini-callout"><b>重點</b><span>考場口訣：<strong>假、界、基、料、尺、時</strong>——先定假設與範圍，量基準、備資料、設尺、限時間。
+</span></div></section><section class="block panel quiz" id="quiz"><div class="section-kicker">RETRIEVAL PRACTICE</div><h2>理解測驗</h2><p>先作答再看解析。題目是本站原創理解題，不冒充官方試題。</p><form onsubmit='event.preventDefault();gradeQuiz({"q1":{"answer":"C","explain":"POC 的核心是低成本、有限範圍地驗證關鍵假設，提供通過、修正或停止的決策依據；不等於正式上線。"},"q2":{"answer":"B","explain":"若缺少現況基準，即使得到 8 分鐘，也無法知道是否真的改善或改善幅度多大。"},"q3":{"answer":"D","explain":"代表性不等於資料越多越好，而是能反映預期使用情境，並兼顧常見與關鍵例外；同時遵守合法、必要最小化與安全控制。"},"q4":{"answer":"A","explain":"技術分數不是唯一條件。資料處理位置、條款、權限與合規不符時，應先停止、降低資料敏感度或改用可核准方案。"},"q5":{"answer":"C","explain":"POC 通過後通常進入受控 Pilot，驗證實際流程、角色、整合與穩定性；不代表可直接全面部署。"},"q6":{"answer":"B","explain":"POC 若持續擴張範圍，成本與時間會失控，也難以辨認結果是由哪個變數造成；應回到事前定義的假設與邊界。"}})'><fieldset><legend>1. 企業進行 POC 最主要的目的為何？</legend><label class="choice"><input type="radio" name="q1" value="A"><span><b>A.</b> 證明所有部門都能立即使用</span></label><label class="choice"><input type="radio" name="q1" value="B"><span><b>B.</b> 完成正式上線所需的全部功能</span></label><label class="choice"><input type="radio" name="q1" value="C"><span><b>C.</b> 以有限範圍驗證關鍵技術或業務假設</span></label><label class="choice"><input type="radio" name="q1" value="D"><span><b>D.</b> 取代需求分析與風險評估</span></label><div id="f-q1" class="feedback"></div></fieldset><fieldset><legend>2. 某 POC 顯示處理時間平均為 8 分鐘，但團隊沒有量測導入前的時間。最主要的問題是什麼？</legend><label class="choice"><input type="radio" name="q2" value="A"><span><b>A.</b> 無法知道使用的是哪個模型</span></label><label class="choice"><input type="radio" name="q2" value="B"><span><b>B.</b> 無法判斷相較現況改善多少</span></label><label class="choice"><input type="radio" name="q2" value="C"><span><b>C.</b> 代表資料一定不具代表性</span></label><label class="choice"><input type="radio" name="q2" value="D"><span><b>D.</b> 代表資安控制一定不足</span></label><div id="f-q2" class="feedback"></div></fieldset><fieldset><legend>3. 下列哪一項最符合代表性 POC 資料的作法？</legend><label class="choice"><input type="radio" name="q3" value="A"><span><b>A.</b> 只挑模型最容易答對的樣本</span></label><label class="choice"><input type="radio" name="q3" value="B"><span><b>B.</b> 將所有敏感資料整批上傳公共工具</span></label><label class="choice"><input type="radio" name="q3" value="C"><span><b>C.</b> 只用十年前資料，因為已整理完成</span></label><label class="choice"><input type="radio" name="q3" value="D"><span><b>D.</b> 在合法與必要最小化前提下，涵蓋常見及重要例外情境</span></label><div id="f-q3" class="feedback"></div></fieldset><fieldset><legend>4. 某工具測試分數最高，但規定會把輸入內容保留於未核准地區，且 POC 需要處理機密資料。應如何判斷？</legend><label class="choice"><input type="radio" name="q4" value="A"><span><b>A.</b> 先停止或改用合規方案，資安條件也是可行性閘門</span></label><label class="choice"><input type="radio" name="q4" value="B"><span><b>B.</b> 因分數最高，所以可忽略資料條款</span></label><label class="choice"><input type="radio" name="q4" value="C"><span><b>C.</b> 只要刪除姓名就必然安全</span></label><label class="choice"><input type="radio" name="q4" value="D"><span><b>D.</b> 先全面上線，再補做資安審查</span></label><div id="f-q4" class="feedback"></div></fieldset><fieldset><legend>5. POC 同時達到效率 KPI 與品質護欄後，最合理的下一步是什麼？</legend><label class="choice"><input type="radio" name="q5" value="A"><span><b>A.</b> 移除所有人工覆核</span></label><label class="choice"><input type="radio" name="q5" value="B"><span><b>B.</b> 立即擴散到所有單位</span></label><label class="choice"><input type="radio" name="q5" value="C"><span><b>C.</b> 進入受控試點，繼續驗證真實流程與使用者</span></label><label class="choice"><input type="radio" name="q5" value="D"><span><b>D.</b> 宣告後續不再需要監控</span></label><div id="f-q5" class="feedback"></div></fieldset><fieldset><legend>6. POC 期間不斷增加新部門、新功能與新資料來源，最可能造成什麼問題？</legend><label class="choice"><input type="radio" name="q6" value="A"><span><b>A.</b> 成功門檻更客觀</span></label><label class="choice"><input type="radio" name="q6" value="B"><span><b>B.</b> 範圍失控，難以知道哪個假設被驗證</span></label><label class="choice"><input type="radio" name="q6" value="C"><span><b>C.</b> 自動提升資料品質</span></label><label class="choice"><input type="radio" name="q6" value="D"><span><b>D.</b> 自然消除供應商鎖定</span></label><div id="f-q6" class="feedback"></div></fieldset><button class="btn" type="submit">交卷並看逐題解析</button><div id="score" class="score" aria-live="polite"></div></form></section>
+<section class="block panel" id="podcast"><div class="section-kicker">LISTEN & REVIEW</div><h2>Podcast｜POC 不是縮小版正式上線</h2><p>約 5 分鐘台灣華語複習：分清原型、POC、試點與正式營運，記住「假、界、基、料、尺、時」。</p><div class="audio-box"><audio controls preload="metadata" src="../assets/day34-poc-resources-security.mp3?v=20260927-full">瀏覽器不支援音訊播放。</audio><a class="btn secondary" href="../assets/day34-poc-resources-security.mp3?v=20260927-full" download>下載 MP3</a></div></section>
+<section class="block panel" id="sources"><div class="section-kicker">OFFICIAL SOURCES</div><h2>官方來源與版本</h2><p>本課依 iPAS 官方學習資源與初級科目二學習指引整理，並將實務內容轉寫成原創理解題；不是官方考題，也不保證涵蓋所有考題。</p><pre class="source-ledger">Sources:
+[1] https://ipd.nat.gov.tw/ipas/certification/AIAP/learning-resources — 經濟部產業發展署 iPAS｜AI 應用規劃師學習資源
+[2] https://www.ipas.org.tw/api/proxy/uploads/certification_resource/bf93f438f7be48d295c1b40a34d79f3d/AI%E6%87%89%E7%94%A8%E8%A6%8F%E5%8A%83%E5%B8%AB%28%E5%88%9D%E7%B4%9A%29-%E5%AD%B8%E7%BF%92%E6%8C%87%E5%BC%95-%E7%A7%91%E7%9B%AE2_%E7%94%9F%E6%88%90%E5%BC%8FAI%E6%87%89%E7%94%A8%E8%88%87%E8%A6%8F%E5%8A%83114123_20251222172159.pdf — iPAS AI 應用規劃師（初級）學習指引｜科目二（114.12.03 版）</pre></section>
+<button class="btn complete" type="button" data-complete="day34" onclick="toggleDone('day34',this)">標記這課已完成</button><nav class="bottom-nav" aria-label="課程前後導覽"><a href="day-33.html">← Day 33｜需求、目標、KPI 與可行性</a><a href="day-35.html">Day 35｜部署、監控、治理與價值擴散 →</a></nav></article>
+<aside class="toc panel" aria-label="本課目錄"><strong>本課目錄</strong><a href="#section-1">POC 是小範圍驗證，不是縮小版正式上線</a><a href="#section-2">Prototype、POC、Pilot、Production 不一樣</a><a href="#section-3">開始前先寫清楚，避免「做完才決定怎樣算成功」</a><a href="#section-4">六個面向都要看，不要只看模型分數</a><a href="#section-5">活動問答草稿：怎麼設計一個合格 POC？</a><a href="#section-6">能測，不代表什麼資料都能丟進工具</a><a href="#section-7">結果只有三種：通過、修正後再驗證、停止</a><a href="#quiz">理解測驗</a><a href="#podcast">Podcast</a><a href="#sources">官方來源</a></aside></div></section></main>
+<footer><div class="wrap">iPAS AI 應用規劃師初級・概念統整學習站｜進度僅保存在目前瀏覽器。</div></footer><script src="../assets/app.js?v=20260927-quizfix"></script></body></html>
