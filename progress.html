@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="iPAS AI 應用規劃師初級學習進度、測驗與弱點整理">
+  <title>學習紀錄｜iPAS AI 概念統整</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css?v=20261001-progress">
+</head>
+<body>
+<header class="topbar">
+  <div class="wrap topin">
+    <a class="brand" href="index.html">iPAS 概念統整</a>
+    <nav class="nav"><a href="index.html#map">知識地圖</a><a href="index.html#lessons">全部課程</a><a href="progress.html" aria-current="page" data-progress-nav>學習紀錄</a></nav>
+  </div>
+</header>
+<main data-progress-page>
+  <section class="lesson-hero progress-hero">
+    <div class="wrap">
+      <div class="crumbs"><a href="index.html">首頁</a><span>›</span><span>學習紀錄</span></div>
+      <h1>把「讀過」變成<br>看得見的學習進度。</h1>
+      <p class="memory-line">網站記錄完成課程、最近測驗、弱點名詞與一句記憶；大量題目仍集中到既有考古題庫練習。</p>
+      <p class="lede">本頁的資料先保存在目前瀏覽器。跨裝置的正式長期紀錄另存於私人 Notion，不在公開網站放入權杖、私人連結或個人資料。</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="progress-stats" aria-label="學習統計">
+        <div><small>已完成課程</small><strong data-stat-done>0／40</strong><span>依「標記完成」與紀錄表計算</span></div>
+        <div><small>最近一次測驗</small><strong data-stat-score>尚無</strong><span>作答後自動保留於本機</span></div>
+        <div><small>需優先補強</small><strong data-stat-review>0</strong><span>信心為紅色或橘色的紀錄</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="record">
+    <div class="wrap record-layout">
+      <article class="panel progress-form-card">
+        <span class="section-kicker">TODAY'S LEARNING LOG</span>
+        <h2>記錄今天學了什麼</h2>
+        <p>完成一課後，只要留下分數、弱點名詞、一句記憶與下一步。不要抄整篇課文。</p>
+        <form id="studyLogForm" class="study-log-form">
+          <label><span>課程</span><select id="lessonSelect" name="lesson" required></select></label>
+          <div class="form-two">
+            <label><span>日期</span><input id="logDate" name="date" type="date" required></label>
+            <label><span>狀態</span><select name="status"><option>學習中</option><option selected>已完成</option><option>需複習</option></select></label>
+          </div>
+          <label><span>目前信心</span><select name="confidence"><option>🔴 完全不懂</option><option selected>🟠 聽過但分不清</option><option>🟡 能提示作答</option><option>🟢 能解釋判斷</option></select></label>
+          <div class="form-two">
+            <label><span>測驗答對</span><input id="logScore" name="score" type="number" min="0" step="1" placeholder="例如 4"></label>
+            <label><span>總題數</span><input id="logTotal" name="total" type="number" min="1" step="1" placeholder="例如 6"></label>
+          </div>
+          <label><span>弱點名詞</span><textarea name="weakness" rows="3" placeholder="例如：標準化、正則化、L1／L2 容易混淆"></textarea></label>
+          <label><span>今天的一句記憶</span><textarea name="memory" rows="3" placeholder="例如：標準化改資料尺度，正則化控制模型複雜度。"></textarea></label>
+          <label><span>下一步</span><textarea name="next" rows="2" placeholder="例如：明天重看易混淆表，再做 5 題。"></textarea></label>
+          <button class="btn" type="submit">儲存這次學習紀錄</button>
+        </form>
+      </article>
+
+      <aside class="panel record-guide">
+        <span class="section-kicker">HOW IT WORKS</span>
+        <h2>同一網站，兩層紀錄</h2>
+        <ol>
+          <li><b>網站本機紀錄</b><span>完成課程、測驗分數與反思，適合立即查看。</span></li>
+          <li><b>私人正式紀錄</b><span>把日期、分數、信心、弱點與下一步整理到私人 Notion，供手機與 NB 長期查看。</span></li>
+          <li><b>大量題目集中練</b><span>本站建立概念與判斷脈絡；考古題庫負責正式刷題與模擬。</span></li>
+        </ol>
+        <a class="btn secondary full" href="https://arnold-leyan.github.io/ipas-ai-study/exam-index.html">進入 STEP 3 考古題庫</a>
+        <div class="privacy-note"><b>隱私說明</b><p>公開網站不會直接連接私人 Notion，也不含任何 Notion 權杖。網站資料不會自動跨裝置同步。</p></div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section" id="summary">
+    <div class="wrap panel summary-panel">
+      <div>
+        <span class="section-kicker">PRIVATE RECORD HANDOFF</span>
+        <h2>產生精簡學習摘要</h2>
+        <p>按下後會產生一段短摘要，可用於更新私人正式紀錄；不用複製整篇課文或逐題解析。</p>
+      </div>
+      <div class="summary-actions">
+        <button class="btn" type="button" id="copySummary">產生並複製摘要</button>
+        <textarea id="summaryOutput" hidden readonly rows="8" aria-label="學習摘要"></textarea>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><h2>最近的學習反思</h2><p class="section-note">相同日期與相同課程再次儲存時，會更新原紀錄，不會重複堆疊。</p></div></div>
+      <div id="localLogList" class="local-log-list"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="section-head"><div><h2>40 課進度總覽</h2><p class="section-note">點選任一課可直接回到課程內容。</p></div></div>
+      <div id="progressLessonList" class="progress-course-list"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap panel backup-panel">
+      <div><span class="section-kicker">LOCAL BACKUP</span><h2>本機紀錄備份</h2><p>換瀏覽器或裝置時不會自動帶過去。可以下載 JSON 備份，再於另一台裝置匯入；這是手動移轉，不是即時同步。</p></div>
+      <div class="backup-actions"><button class="btn secondary" type="button" id="exportProgress">下載進度備份</button><label class="btn secondary file-btn">匯入進度備份<input id="importProgress" type="file" accept="application/json,.json"></label></div>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">iPAS AI 應用規劃師初級・學習紀錄｜網站本機紀錄與私人跨裝置紀錄分開管理。</div></footer>
+<script src="assets/app.js?v=20261001-progress"></script>
+</body>
+</html>
