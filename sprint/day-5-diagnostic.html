@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Day 5 理解診斷：50 題自我檢查，分開呈現核心與延伸結果，所有作答紀錄只存於本機。">
+  <title>Day 5 理解診斷｜iPAS 七天衝刺</title>
+  <link rel="stylesheet" href="day-1-diagnostic.css?v=20261024">
+  <link rel="icon" href="../assets/favicon.svg">
+  <script src="day-5-diagnostic-data.js?v=20261024-all1"></script>
+  <script src="lesson-diagnostic.js?v=20261024-all1" defer></script>
+<link rel="stylesheet" href="diagnostic-nav.css?v=20261024-all1"></head>
+<body data-diagnostic-day="5">
+  <a class="skip-link" href="#diagnostic-main">跳到主要內容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html">iPAS · 七天重建框架</a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="day-5.html">Day 5 課程</a>
+        <a href="framework.html">大框架</a>
+        <a href="index.html">七天總覽</a><a href="diagnostics.html">各課50題</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="diagnostic-main" class="shell" tabindex="-1">
+<nav class="diagnostic-chooser" aria-label="七課50題診斷選擇"><a href="day-1-diagnostic.html">Day 1<small>AI 全貌與學習方式</small></a><a href="day-2-diagnostic.html">Day 2<small>資料處理、統計與圖表</small></a><a href="day-3-diagnostic.html">Day 3<small>特徵、模型與評估</small></a><a href="day-4-diagnostic.html">Day 4<small>生成式 AI、提示與評測</small></a><a href="day-5-diagnostic.html" aria-current="page">Day 5<small>RAG、代理與工具整合</small></a><a href="day-6-diagnostic.html">Day 6<small>隱私、安全與治理</small></a><a href="day-7-diagnostic.html">Day 7<small>導入、測試、監控與價值</small></a></nav>
+    <section class="intro-hero" aria-labelledby="page-title">
+      <div class="eyebrow">DAY 5 · 理解診斷</div>
+      <h1 id="page-title">第五課，真的理解了嗎？<br>用 50 題找出會用與易混淆的地方。</h1>
+      <p class="hero-lede" id="diagnostic-title">50 題理解診斷</p>
+      <div class="hero-links" aria-label="學習導覽">
+        <a class="button ghost" href="day-5.html">回 Day 5 課程</a>
+        <a class="button ghost" href="framework.html">回到大框架</a>
+        <a class="button ghost" href="index.html">七天總覽</a>
+      </div>
+    </section>
+
+    <noscript>
+      <section class="notice danger"><strong>需要啟用 JavaScript</strong><p>本頁必須在瀏覽器啟用 JavaScript 才能保存答案與計分。</p></section>
+    </noscript>
+    <section id="app-error" class="notice danger" role="alert" hidden></section>
+    <section id="storage-warning" class="notice warning" role="status" hidden>
+      <strong>瀏覽器目前無法使用本機儲存。</strong>
+      <p>這一頁仍可在目前分頁作答與匯出備份，但關閉分頁後可能遺失。請先匯出 JSON 備份。</p>
+    </section>
+    <p id="live-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+
+    <section id="intro-panel" class="intro-grid" aria-labelledby="before-title">
+      <article class="paper intro-main">
+        <div class="section-kicker">開始前先知道</div>
+        <h2 id="before-title">一份診斷，兩種深度</h2>
+        <div class="count-grid" aria-label="題目組成">
+          <div><strong>40</strong><span>核心題</span><small>先檢查 Day 5 必要理解</small></div>
+          <div><strong>10</strong><span>延伸題</span><small>補充與邊界挑戰，另外記分</small></div>
+        </div>
+        <ul class="plain-list">
+          <li><b>共 50 題，分成 5 組，每組 10 題。</b>建議自定步調完成約 50–65 分鐘；可開啟經過時間顯示，但不會強制交卷。</li>
+          <li><b>44 題原創、6 題改編。</b>改編標記與來源會在交卷後顯示，避免作答前產生提示。</li>
+          <li><b>這不是官方模擬考，也不預測是否通過。</b>分數只描述本次、這組題目的作答證據。</li>
+          <li><b>答案與信心都只存在這個瀏覽器。</b>不會自動跨裝置同步，也不必交給老師；需要搬移時可手動匯出／匯入。</li>
+          <li><b>答對但不確定，仍列入待複習。</b>診斷重點是理解證據，不只是分數。</li>
+        </ul>
+        <label class="timer-choice" for="timer-enabled">
+          <input id="timer-enabled" type="checkbox">
+          <span><b>顯示經過時間</b><small>只作自我觀察，包含中途離開頁面的時間，不設倒數與截止。</small></span>
+        </label>
+        <div class="start-row">
+          <button id="start-button" class="button primary" type="button">開始 50 題診斷</button>
+          <button id="resume-button" class="button secondary" type="button" hidden>繼續上次進度</button>
+        </div>
+        <p id="history-intro" class="microcopy"></p>
+      </article>
+
+      <aside class="paper side-card" aria-labelledby="device-title">
+        <div class="section-kicker">本機紀錄</div>
+        <h2 id="device-title">先備份，再換裝置</h2>
+        <p>本頁使用獨立、含資料版本的儲存空間，不會讀寫舊四十課或七天衝刺紀錄。</p>
+        <div class="stack-actions">
+          <button class="button secondary" type="button" data-export-json>匯出 JSON 完整備份</button>
+          <label class="button secondary file-button">匯入 JSON 備份<input id="import-file" type="file" data-import-file accept="application/json,.json"></label>
+          <button class="button secondary" type="button" data-export-summary>匯出純文字學習摘要</button>
+        </div>
+        <p class="microcopy">純文字摘要可自行留存；若想和老師討論再主動分享即可，正常計分不需要上傳。</p>
+      </aside>
+    </section>
+
+    <section id="quiz-panel" hidden aria-labelledby="quiz-heading">
+      <div class="quiz-toolbar paper">
+        <div>
+          <span class="section-kicker">作答中</span>
+          <h2 id="quiz-heading">第 <span id="current-block-label">1</span> 組／共 5 組</h2>
+          <p id="progress-copy" class="microcopy">已回答 0／50</p>
+        </div>
+        <div class="toolbar-meta">
+          <div id="elapsed-wrap" class="elapsed" hidden><span>經過時間</span><b id="elapsed-time">00:00</b></div>
+          <button class="button quiet" type="button" data-export-json>備份草稿</button>
+          <label class="button quiet file-button">匯入備份<input type="file" data-import-file accept="application/json,.json"></label>
+          <button id="restart-button" class="button quiet" type="button">完整重新作答</button>
+        </div>
+      </div>
+
+      <nav id="block-nav" class="block-nav" aria-label="題組導覽"></nav>
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+
+      <form id="quiz-form" novalidate>
+        <div id="question-list"></div>
+        <div class="quiz-footer paper">
+          <button id="previous-block" class="button secondary" type="button">上一組</button>
+          <div class="footer-center">
+            <p id="missing-copy" aria-live="polite">尚有 50 題未回答</p>
+            <button id="jump-missing" class="text-button" type="button">跳到第一題未作答</button>
+          </div>
+          <button id="next-block" class="button primary" type="button">下一組</button>
+          <button id="submit-button" class="button primary submit" type="submit" hidden disabled>完成並查看結果</button>
+        </div>
+      </form>
+    </section>
+
+    <section id="results-panel" hidden aria-labelledby="results-title">
+      <div id="score-announcement" class="score-hero" tabindex="-1">
+        <div>
+          <span id="attempt-kind" class="result-badge">首次作答</span>
+          <h2 id="results-title">本次理解證據</h2>
+          <p id="submitted-at" class="microcopy"></p>
+        </div>
+        <div class="score-pair" aria-label="分項答對題數">
+          <div><strong id="core-score">0／40</strong><span>核心題</span></div>
+          <div><strong id="extension-score">0／10</strong><span>延伸題</span></div>
+        </div>
+      </div>
+
+      <section class="evidence-grid" aria-label="信心與正確性摘要">
+        <article class="evidence-card good"><strong id="confident-correct">0</strong><span>有把握且答對</span><small>目前較穩定的證據</small></article>
+        <article class="evidence-card caution"><strong id="uncertain-correct">0</strong><span>答對但不確定／猜測</span><small>仍列入待複習</small></article>
+        <article class="evidence-card risk"><strong id="confident-wrong">0</strong><span>有把握但答錯</span><small>優先檢查誤解</small></article>
+      </section>
+
+      <section class="paper interpretation" aria-labelledby="interpret-title">
+        <div class="section-kicker">怎麼讀結果</div>
+        <h2 id="interpret-title">這是弱點線索，不是能力定論</h2>
+        <p>概念統計來自本次 50 題；題數有限，不能當成心理計量上的精確能力值，也沒有官方通過門檻或自動就緒判定。重做後是熟悉題表現，請和首次作答分開看。</p>
+        <div id="attempt-comparison" class="attempt-comparison"></div>
+      </section>
+
+      <section class="paper" aria-labelledby="priorities-title">
+        <div class="section-heading">
+          <div><span class="section-kicker">優先順序</span><h2 id="priorities-title">下一步補強</h2></div>
+          <a class="button secondary" href="day-5.html">回 Day 5 課程</a>
+        </div>
+        <div id="priority-list" class="priority-list"></div>
+      </section>
+
+      <section class="paper" aria-labelledby="teachback-title">
+        <div class="section-kicker">選完答案，再檢查能不能說清楚</div>
+        <h2 id="teachback-title">最後，用自己的話教回三件事</h2>
+        <p>選擇題能找出混淆，卻不能單獨證明完整理解。看完解析後先離開頁面，隔一段時間再口述；不必輸入，這一段不自動評分。</p>
+        <ol class="plain-list"><li>選一個需要最新知識的案例，說出 RAG 的檢索與生成分工，並指出來源、權限和引用要在哪裡檢查。</li><li>用陌生產業說明 API、MCP、A2A 和代理規劃各自的角色，為何能呼叫工具不代表已完成授權？</li><li>知識過期、檢索找錯、語氣不一致與語音轉錄錯誤，應先檢查哪一層？說明為何不是全部用微調解決。</li></ol>
+        <p class="microcopy">能用新例子講出理由、說清楚相近方法何時不適用，再搭配另一組未見題，比單次高分更能支持「真的理解」。</p>
+      </section>
+
+      <section class="review-section" aria-labelledby="review-title">
+        <div class="section-heading review-heading">
+          <div><span class="section-kicker">逐題解析</span><h2 id="review-title">答案、選項理由與來源</h2></div>
+          <div class="segmented" role="group" aria-label="解析篩選">
+            <button type="button" data-review-filter="all" aria-pressed="true">全部</button>
+            <button type="button" data-review-filter="weak" aria-pressed="false">只看待複習</button>
+          </div>
+        </div>
+        <nav id="result-block-nav" class="block-nav result-nav" aria-label="解析題組導覽"></nav>
+        <div id="review-list"></div>
+        <p id="empty-review" class="paper empty-state" hidden>這一組沒有符合篩選條件的題目。</p>
+      </section>
+
+      <section class="paper result-actions" aria-labelledby="record-title">
+        <div><span class="section-kicker">保存紀錄</span><h2 id="record-title">結果留在這個瀏覽器</h2><p>可匯出完整歷史與目前草稿，或只匯出不含題目全文的學習摘要。</p></div>
+        <div class="stack-actions horizontal">
+          <button class="button secondary" type="button" data-export-json>匯出 JSON 完整備份</button>
+          <label class="button secondary file-button">匯入 JSON 備份<input type="file" data-import-file accept="application/json,.json"></label>
+          <button class="button secondary" type="button" data-export-summary>匯出純文字學習摘要</button>
+          <button id="new-attempt-button" class="button primary" type="button">保留歷史，再做一次</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="source-footer" aria-labelledby="source-title">
+      <h2 id="source-title">範圍與來源說明</h2>
+      <p>學習範圍請以 <a href="https://www.ipas.org.tw/certification/AIAP/learning-resources" target="_blank" rel="noopener noreferrer">iPAS AI 應用規劃師官方學習資源</a> 為準。本站題目中的改編內容會在交卷後逐題標示來源與改編說明；本站為自主學習工具，未受官方背書，也不代表官方命題或通過預測。</p>
+    </section>
+  </main>
+
+  <dialog id="result-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-inner">
+      <span class="result-badge">已完成</span>
+      <h2 id="dialog-title">本次結果已鎖定</h2>
+      <p id="dialog-score"></p>
+      <p>答題與分數不再修改；可關閉視窗查看逐題解析。再次作答會另存為熟悉題重做紀錄。</p>
+      <button id="close-dialog" class="button primary" type="button">查看完整結果</button>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="shell"><p>本頁不傳送答案。跨裝置請自行匯出、匯入；公開連結不等於進度同步。</p></div>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,97 @@
+{
+  "schema": 1,
+  "totalQuestions": 350,
+  "days": [
+    {
+      "day": 1,
+      "title": "Day 1｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-v1",
+      "page": "day-1-diagnostic.html",
+      "data": "day-1-diagnostic-data.js",
+      "sha256": "f346cdeb2bddd680edd7ce6add40c1cbc995dd4ff732c3b65e424c83a9b5a20a"
+    },
+    {
+      "day": 2,
+      "title": "Day 2｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day2-v1",
+      "page": "day-2-diagnostic.html",
+      "data": "day-2-diagnostic-data.js",
+      "sha256": "10c9645cacf78c708bf67995eaef157261472d93436e1d261ab55ac4731b672d"
+    },
+    {
+      "day": 3,
+      "title": "Day 3｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day3-v1",
+      "page": "day-3-diagnostic.html",
+      "data": "day-3-diagnostic-data.js",
+      "sha256": "687074b7a21be4bebf510ea2a86227ca202b442de4a7ac1e59e4734d0cceb111"
+    },
+    {
+      "day": 4,
+      "title": "Day 4｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day4-v1",
+      "page": "day-4-diagnostic.html",
+      "data": "day-4-diagnostic-data.js",
+      "sha256": "241bce6efdca7ab5c255b19c30d4c7f53accc86f653e341a56f5927636d315aa"
+    },
+    {
+      "day": 5,
+      "title": "Day 5｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day5-v1",
+      "page": "day-5-diagnostic.html",
+      "data": "day-5-diagnostic-data.js",
+      "sha256": "c43acc68c1b71ba5dbdba8198fe965db9a74dcc8f1848abc53ae07460c2859e8"
+    },
+    {
+      "day": 6,
+      "title": "Day 6｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day6-v1",
+      "page": "day-6-diagnostic.html",
+      "data": "day-6-diagnostic-data.js",
+      "sha256": "a8cf408f3ca29b34012a44f5310dbffd0c1574674c57b24f5462edf09c797280"
+    },
+    {
+      "day": 7,
+      "title": "Day 7｜50 題理解診斷",
+      "questionCount": 50,
+      "core": 40,
+      "extension": 10,
+      "original": 44,
+      "adapted": 6,
+      "version": "20261024-day7-v1",
+      "page": "day-7-diagnostic.html",
+      "data": "day-7-diagnostic-data.js",
+      "sha256": "782f1723d6911f83163ce83623c40d9b4abd09f03bb61c49b55150d4b2c7da57"
+    }
+  ]
+}
