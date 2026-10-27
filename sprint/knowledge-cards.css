@@ -1,0 +1,29 @@
+.review-switcher{margin:24px 0;padding:22px;border:1px solid #d9cfbe;border-radius:24px;background:linear-gradient(135deg,#fffdf7,#f3eee5)}
+.review-switcher h2{margin:0 0 8px;font-size:clamp(1.35rem,3vw,2rem)}
+.review-switcher p{margin:0 0 16px;color:#5e584f}
+.review-modes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.review-mode{min-height:74px;padding:12px 14px;border:1px solid #c9bcaa;border-radius:16px;background:#fff;color:#24211d;text-align:left;cursor:pointer}
+.review-mode b,.review-mode span{display:block}.review-mode span{margin-top:4px;font-size:.84rem;color:#6d655b}
+.review-mode[aria-pressed="true"]{border-color:#9d582f;background:#9d582f;color:#fff;box-shadow:0 8px 22px rgba(95,53,29,.2)}
+.review-mode[aria-pressed="true"] span{color:#fff7ef}
+.card-library{scroll-margin-top:24px}
+.card-library-head{display:flex;align-items:end;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.card-count{font-size:.9rem;color:#6d655b}
+.knowledge-card-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:18px}
+.knowledge-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid #ddd2c2;border-radius:18px;background:#fff;box-shadow:0 10px 28px rgba(48,39,29,.08)}
+.knowledge-card[hidden]{display:none}
+.knowledge-card button{display:block;padding:0;border:0;background:#eee7dc;cursor:zoom-in}
+.knowledge-card img{display:block;width:100%;aspect-ratio:941/1672;object-fit:cover;object-position:top}
+.knowledge-card-body{display:flex;flex:1;flex-direction:column;padding:14px}
+.knowledge-card-body h3{margin:0;font-size:1rem;line-height:1.45}
+.knowledge-card-body p{margin:7px 0 12px;font-size:.87rem;color:#665e55}
+.knowledge-card-links{margin-top:auto;display:flex;gap:8px;flex-wrap:wrap}
+.knowledge-card-links a{font-size:.82rem;font-weight:700}
+.card-badge{display:inline-block;margin-bottom:8px;padding:4px 8px;border-radius:999px;background:#f0e5d7;color:#7a472a;font-size:.72rem;font-weight:800}
+.card-dialog{max-width:min(92vw,720px);max-height:94vh;padding:0;border:0;border-radius:20px;background:#171513;box-shadow:0 30px 80px rgba(0,0,0,.42)}
+.card-dialog::backdrop{background:rgba(21,18,15,.76)}
+.card-dialog img{display:block;max-width:100%;max-height:88vh;object-fit:contain}
+.card-dialog button{position:absolute;top:10px;right:10px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.92);font-size:1.4rem;cursor:pointer}
+@media (max-width:900px){.knowledge-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:620px){.review-modes,.knowledge-card-grid{grid-template-columns:1fr}.review-switcher{padding:17px;border-radius:18px}.knowledge-card{display:grid;grid-template-columns:112px 1fr}.knowledge-card button{height:100%}.knowledge-card img{height:100%;aspect-ratio:auto}.knowledge-card-body{padding:12px}.knowledge-card-body p{font-size:.82rem}}
+
