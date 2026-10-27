@@ -92,7 +92,10 @@
     grid.querySelectorAll('.knowledge-card').forEach(card => { card.hidden = !visibleTiers.includes(card.dataset.tier); });
     switcher.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
     const visible = grid.querySelectorAll('.knowledge-card:not([hidden])').length;
-    count.textContent = `目前顯示 ${visible}／${catalog[day].length} 張`;
+    const hidden = catalog[day].length - visible;
+    count.textContent = hidden > 0
+      ? `目前顯示 ${visible}／共 ${catalog[day].length} 張；其餘 ${hidden} 張請切換「10 分鐘案例」或「完整複習」`
+      : `已顯示全部 ${catalog[day].length} 張`;
     try { localStorage.setItem(`ipas-review-mode-day-${day}`, mode); } catch (_) {}
   };
   switcher.addEventListener('click', event => {
@@ -105,4 +108,3 @@
   try { saved = localStorage.getItem(`ipas-review-mode-day-${day}`) || 'quick'; } catch (_) {}
   setMode(['quick','core','full'].includes(saved) ? saved : 'quick');
 })();
-
