@@ -96,7 +96,7 @@
     count.textContent = hidden > 0
       ? `目前顯示 ${visible}／共 ${catalog[day].length} 張；其餘 ${hidden} 張請切換「10 分鐘案例」或「完整複習」`
       : `已顯示全部 ${catalog[day].length} 張`;
-    try { localStorage.setItem(`ipas-review-mode-day-${day}`, mode); } catch (_) {}
+    try { localStorage.setItem(day === 1 ? 'ipas-review-mode-day-1-v2' : `ipas-review-mode-day-${day}`, mode); } catch (_) {}
   };
   switcher.addEventListener('click', event => {
     const button = event.target.closest('[data-mode]');
@@ -104,7 +104,8 @@
     setMode(button.dataset.mode);
     library.scrollIntoView({behavior:'smooth',block:'start'});
   });
-  let saved = 'quick';
-  try { saved = localStorage.getItem(`ipas-review-mode-day-${day}`) || 'quick'; } catch (_) {}
-  setMode(['quick','core','full'].includes(saved) ? saved : 'quick');
+  const defaultMode = day === 1 ? 'full' : 'quick';
+  let saved = defaultMode;
+  try { saved = localStorage.getItem(day === 1 ? 'ipas-review-mode-day-1-v2' : `ipas-review-mode-day-${day}`) || defaultMode; } catch (_) {}
+  setMode(['quick','core','full'].includes(saved) ? saved : defaultMode);
 })();
