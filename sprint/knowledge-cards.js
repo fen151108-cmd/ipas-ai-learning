@@ -31,6 +31,11 @@
       ['ipas-random-forest-clear-example.png','隨機森林清楚案例','多棵樹看不同線索，再一起投票。','s3','core'],
       ['ipas-rnn-lstm-gru-resnet-memory-card.png','序列記憶與深層捷徑','RNN、LSTM、GRU、ResNet 選讀。','s7','elective'],
       ['ipas-vanishing-exploding-gradient-card.png','梯度消失 vs 梯度爆炸','深度模型訓練問題選讀。','s7','elective']
+    ],
+    6: [
+      ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
+      ['security-card-02-access-control.png','RBAC、MFA 與最小權限','以角色、第二道驗證與必要權限形成三道存取防線。','s2','quick'],
+      ['security-card-03-compliance-defense.png','合規與持續防護','用法規、監控、稽核與異常偵測建立持續治理。','s6','core']
     ]
   };
 
