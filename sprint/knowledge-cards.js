@@ -41,23 +41,10 @@
   const quiz = document.querySelector('#quiz');
   if (!layout || !article) return;
 
-  const switcher = document.createElement('section');
-  switcher.className = 'review-switcher';
-  switcher.setAttribute('aria-labelledby', 'review-mode-title');
-  switcher.innerHTML = `
-    <h2 id="review-mode-title">今天想用多少時間複習？</h2>
-    <p>模式只調整圖卡顯示數量；完整課文與測驗仍保留在下方。</p>
-    <div class="review-modes">
-      <button class="review-mode" data-mode="quick" aria-pressed="true"><b>3 分鐘速讀</b><span>只看三張核心圖卡</span></button>
-      <button class="review-mode" data-mode="core" aria-pressed="false"><b>10 分鐘案例</b><span>核心圖卡＋案例與易混淆</span></button>
-      <button class="review-mode" data-mode="full" aria-pressed="false"><b>完整複習</b><span>全部圖卡＋課文＋測驗</span></button>
-    </div>`;
-  layout.before(switcher);
-
   const library = document.createElement('section');
   library.className = 'paper card-library';
   library.id = 'knowledge-cards';
-  library.innerHTML = `<div class="card-library-head"><div><h2>本日知識圖卡</h2><p>點圖片可放大；每張都能回到對應課文。</p></div><div class="card-count" aria-live="polite"></div></div><div class="knowledge-card-grid"></div>`;
+  library.innerHTML = `<div class="card-library-head"><div><h2>本日知識圖卡</h2><p>已全部展開；點圖片可放大，每張都能回到對應課文。</p></div><div class="card-count" aria-live="polite">共 ${catalog[day].length} 張</div></div><div class="knowledge-card-grid"></div>`;
   (quiz || article.lastElementChild).before(library);
 
   const grid = library.querySelector('.knowledge-card-grid');
@@ -86,26 +73,4 @@
     dialog.showModal();
   });
 
-  const count = library.querySelector('.card-count');
-  const setMode = mode => {
-    const visibleTiers = mode === 'quick' ? ['quick'] : mode === 'core' ? ['quick','core'] : ['quick','core','elective'];
-    grid.querySelectorAll('.knowledge-card').forEach(card => { card.hidden = !visibleTiers.includes(card.dataset.tier); });
-    switcher.querySelectorAll('[data-mode]').forEach(button => button.setAttribute('aria-pressed', String(button.dataset.mode === mode)));
-    const visible = grid.querySelectorAll('.knowledge-card:not([hidden])').length;
-    const hidden = catalog[day].length - visible;
-    count.textContent = hidden > 0
-      ? `目前顯示 ${visible}／共 ${catalog[day].length} 張；其餘 ${hidden} 張請切換「10 分鐘案例」或「完整複習」`
-      : `已顯示全部 ${catalog[day].length} 張`;
-    try { localStorage.setItem(day === 1 ? 'ipas-review-mode-day-1-v2' : `ipas-review-mode-day-${day}`, mode); } catch (_) {}
-  };
-  switcher.addEventListener('click', event => {
-    const button = event.target.closest('[data-mode]');
-    if (!button) return;
-    setMode(button.dataset.mode);
-    library.scrollIntoView({behavior:'smooth',block:'start'});
-  });
-  const defaultMode = day === 1 ? 'full' : 'quick';
-  let saved = defaultMode;
-  try { saved = localStorage.getItem(day === 1 ? 'ipas-review-mode-day-1-v2' : `ipas-review-mode-day-${day}`) || defaultMode; } catch (_) {}
-  setMode(['quick','core','full'].includes(saved) ? saved : defaultMode);
 })();
