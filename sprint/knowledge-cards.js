@@ -23,6 +23,7 @@
       ['ipas-day3-preprocessing-four-methods-card.png','四種前處理速記','先看改的是類別、尺度、欄位還是座標。','s1','core'],
       ['ipas-day3-loss-vs-regularization-card.png','損失函數 vs 正則化','MSE、MAE、交叉熵負責衡量錯誤；L1、L2 負責限制模型複雜度。','s2','core'],
       ['ipas-day3-loss-regularization-cases-card.png','損失函數與正則化案例','用房價預測與設備故障，走完整選擇流程。','s2','core'],
+      ['ipas-day3-precision-recall-f1-card.png','Precision、Recall 與 F1','從誤報、漏報與類別不平衡，判斷該看哪個分類指標。','s5','quick'],
       ['ipas-dataset-keywords-wrong-questions-card.png','資料切分錯題關鍵字','用題幹辨認訓練、驗證、測試與過擬合。','traps','core'],
       ['ipas-common-models-cases-1.png','常見模型與用途（一）','從任務與核心機制辨認模型。','s3','core'],
       ['ipas-common-models-cases-2.png','常見模型與用途（二）','KNN、K-means、SVM 等案例。','s3','core'],
