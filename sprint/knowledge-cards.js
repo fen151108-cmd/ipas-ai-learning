@@ -1,8 +1,11 @@
 (() => {
+  if (document.documentElement.dataset.knowledgeCardsMounted === 'true') return;
+  document.documentElement.dataset.knowledgeCardsMounted = 'true';
   const day = Number(document.body.dataset.day || 0);
   const catalog = {
     1: [
       ['ipas-day1-ai-ml-dl-card.png','AI、機器學習、深度學習','先辨認上下位關係，再談模型。','s0','quick'],
+      ['ipas-day1-discriminative-vs-generative.png','鑑別式 AI vs 生成式 AI','看輸出是既有標籤／數值，還是產生全新內容。','s1','quick'],
       ['ipas-four-learning-types-card.png','四種學習方式','看訓練答案來自標籤、未標記資料或環境獎勵。','s2','quick'],
       ['ipas-day1-four-ai-tasks-card.png','四種常見 AI 任務','用輸出型態判斷分類、迴歸、分群與生成。','s3','quick'],
       ['ipas-ml-three-learning-types-memory-card.png','三種學習方式速記','較短的考前回想版本。','s2','core'],
@@ -14,6 +17,8 @@
       ['ipas-day2-data-quality-card.png','五種資料品質問題','缺失、重複、異常、不一致與不正確。','s2','quick'],
       ['ipas-day2-four-analytics-card.png','四層資料分析','從發生什麼一路走到應該怎麼做。','s3','quick'],
       ['ipas-day2-mean-median-charts-card.png','平均數、中位數與圖表','偏態與離群值會改變代表性。','s4','core']
+      ,['ipas-day2-random-vs-time-split.png','隨機切分 vs 時間切分','預測未來時要保留時間順序，避免偷看到未來。','s5','quick']
+      ,['ipas-day2-chart-selection.png','問題決定圖表','比較、趨勢、分布與關係，各有適合的圖表。','s6','quick']
     ],
     3: [
       ['ipas-day3-four-roles-equipment-case-card.png','機器學習四個角色','特徵、標籤、參數、超參數放進同一設備案例。','s0','quick'],
@@ -40,6 +45,15 @@
       ['ipas-rnn-lstm-gru-resnet-memory-card.png','序列記憶與深層捷徑','RNN、LSTM、GRU、ResNet 選讀。','s7','elective'],
       ['ipas-vanishing-exploding-gradient-card.png','梯度消失 vs 梯度爆炸','深度模型訓練問題選讀。','s7','elective']
     ],
+    4: [
+      ['01-token-generation.png','Token、向量與自迴歸生成','Token 是處理單位；模型依脈絡逐步預測下一個 Token。','s1','quick'],
+      ['02-position-attention.png','位置順序與注意力參照','位置資訊保留順序，注意力依情境分配參照權重。','s1','quick'],
+      ['06-text-tasks.png','四種文字任務','續寫、MLM、Seq2Seq 與分類要看輸出目標。','s2','quick'],
+      ['07-gan.png','GAN 對抗訓練','生成器與鑑別器互相對抗，也要防模式崩潰。','s3','quick'],
+      ['03-temperature-context.png','溫度、上下文與正確性','低溫較穩定、長上下文放得多，都不等於答案正確。','s4','quick'],
+      ['04-prompt-examples.png','Zero-shot、Few-shot 與逐步分析','有沒有示例，和要不要列步驟，是兩條不同判斷軸。','s4','quick'],
+      ['05-ape-evaluation.png','APE 候選與評估','同一資料、同一指標比較提示，定案後再獨立驗收。','s4','core']
+    ],
     5: [
       ['ipas-day5-rag-structured-output-finetuning-cases.png','RAG、結構化輸出與微調','從最新知識、固定格式與長期行為，選對最適合的做法。','s1','quick'],
       ['ipas-day5-api-planner-cases.png','API 與 Planner','Planner 先拆解和排序，API 再依規格執行動作。','s2','quick'],
@@ -49,24 +63,39 @@
       ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
       ['security-card-02-access-control.png','RBAC、MFA 與最小權限','以角色、第二道驗證與必要權限形成三道存取防線。','s2','quick'],
       ['security-card-03-compliance-defense.png','合規與持續防護','用法規、監控、稽核與異常偵測建立持續治理。','s6','core']
+      ,['ipas-day6-governance-lifecycle.png','治理嵌入生命週期','資料、開發、部署與營運，每一關都要有控制點。','s0','quick']
+      ,['ipas-day6-fairness-explainability.png','公平性與可解釋性','公平看群體差異；解釋看單次判斷依據。','s4','quick']
+    ],
+    7: [
+      ['ipas-day7-poc-mvp-pilot-deployment.png','POC、MVP、試點與部署','從證明可行、驗證價值，到真實場域與穩定營運。','s1','quick'],
+      ['ipas-day7-drift-monitoring.png','資料漂移、概念漂移與系統效能','輸入變、關係變或系統變慢，要分層判斷。','s3','quick'],
+      ['ipas-day7-incident-response.png','AI 事件處置','先止血，再查因、修復與復盤；責任仍由組織承擔。','s4','quick'],
+      ['ipas-day7-roi-tco-feasibility.png','ROI、TCO 與可行性','值得做、做得到與全生命週期成本要一起評估。','s7','quick']
     ]
   };
 
   if (!catalog[day]) return;
 
-  const layout = document.querySelector('.layout');
   const article = document.querySelector('article.content');
-  const quiz = document.querySelector('#quiz');
-  if (!layout || !article) return;
+  if (!article) return;
 
-  const library = document.createElement('section');
-  library.className = 'paper card-library';
-  library.id = 'knowledge-cards';
-  library.innerHTML = `<div class="card-library-head"><div><h2>本日知識圖卡</h2><p>已全部展開；點圖片可放大，每張都能回到對應課文。</p></div><div class="card-count" aria-live="polite">共 ${catalog[day].length} 張</div></div><div class="knowledge-card-grid"></div>`;
-  (quiz || article.lastElementChild).before(library);
+  if (day === 4) document.querySelector('#knowledge-cards')?.remove();
+  const groups = new Map();
+  catalog[day].forEach(item => {
+    const anchor = item[3];
+    if (!groups.has(anchor)) groups.set(anchor, []);
+    groups.get(anchor).push(item);
+  });
 
-  const grid = library.querySelector('.knowledge-card-grid');
-  catalog[day].forEach(([file,title,desc,anchor,tier]) => {
+  groups.forEach((items, anchor) => {
+    const source = article.querySelector(`#${anchor}`);
+    if (!source) return;
+    const library = document.createElement('section');
+    library.className = 'paper card-library inline-card-library';
+    library.dataset.forSection = anchor;
+    library.innerHTML = `<div class="card-library-head"><div><h2>這一段的知識圖卡</h2><p>讀完重點立刻看圖複習；點圖片可放大。</p></div><div class="card-count" aria-live="polite">${items.length} 張</div></div><div class="knowledge-card-grid"></div>`;
+    const grid = library.querySelector('.knowledge-card-grid');
+    items.forEach(([file,title,desc,anchor,tier]) => {
     const card = document.createElement('article');
     card.className = 'knowledge-card';
     card.dataset.tier = tier;
@@ -75,6 +104,8 @@
       <button type="button" aria-label="放大查看：${title}" data-card-open="assets/cards/day-${day}/${file}"><img src="assets/cards/day-${day}/${file}" alt="${title}知識圖卡" loading="lazy"></button>
       <div class="knowledge-card-body"><div><span class="card-badge">${label}</span><h3>${title}</h3><p>${desc}</p></div><div class="knowledge-card-links"><a href="#${anchor}">回到對應課文</a><a href="#quiz">前往小測驗</a></div></div>`;
     grid.append(card);
+    });
+    source.after(library);
   });
 
   const dialog = document.createElement('dialog');
@@ -83,7 +114,7 @@
   document.body.append(dialog);
   dialog.querySelector('button').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-  grid.addEventListener('click', event => {
+  article.addEventListener('click', event => {
     const button = event.target.closest('[data-card-open]');
     if (!button) return;
     dialog.querySelector('img').src = button.dataset.cardOpen;
