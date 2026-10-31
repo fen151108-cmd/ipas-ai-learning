@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Day 4 已討論概念的七張複習圖卡：Token、注意力、提示、APE、文字任務與 GAN。">
+  <title>Day 4 已討論概念圖卡｜iPAS 七天衝刺</title>
+  <link rel="stylesheet" href="sprint.css?v=20261023">
+  <link rel="stylesheet" href="day4-cards.css?v=20261031">
+  <link rel="icon" href="../assets/favicon.svg">
+</head>
+<body class="day4-cards-page">
+  <header class="top">
+    <div class="wrap">
+      <a class="brand" href="index.html">iPAS · 七天重建框架</a>
+      <nav aria-label="主要導覽">
+        <a href="day-4.html">Day 4 原課</a>
+        <a href="framework.html">為什麼學</a>
+        <a href="review.html">弱點複習</a>
+        <a href="../index.html#lessons">原四十課</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap" id="main-content">
+    <section class="hero cards-hero" aria-labelledby="page-title">
+      <div class="eyebrow">DAY 4 · 已討論概念歸檔</div>
+      <h1 id="page-title">生成式 AI 核心｜7 張複習圖卡</h1>
+      <p class="lede">從 Token、位置與注意力，整理到提示、APE、文字任務與 GAN。每張圖卡都附純文字摘要、案例補充及原課錨點。</p>
+      <p class="scope-alert"><strong>範圍說明：</strong>這是已討論概念的複習圖卡，不代表第四天全部範圍已完成。</p>
+      <div class="scope-grid" aria-label="本組圖卡的內容邊界">
+        <p><strong>GAN</strong><span>圖解對抗訓練與模式崩潰；仍需搭配情境練習確認理解。</span></p>
+        <p><strong>本組未涵蓋</strong><span>VAE、擴散模型及基準評測請回原課查閱，本組圖卡不取代完整教材。</span></p>
+      </div>
+      <div class="actions">
+        <a class="btn" href="#card-01">開始看圖卡</a>
+        <a class="btn secondary" href="day-4.html">返回 Day 4 原課</a>
+        <a class="btn secondary" href="day-4.html#quiz">前往原課練習</a>
+      </div>
+      <p class="asset-note" data-asset-summary aria-live="polite">共 7 張圖卡，可直接閱讀、放大與下載；另附文字摘要與原課連結。</p>
+    </section>
+
+    <section class="cards-intro" id="knowledge-cards" aria-labelledby="cards-heading">
+      <div>
+        <div class="eyebrow">KNOWLEDGE CARDS</div>
+        <h2 id="cards-heading">七張已討論概念圖卡</h2>
+      </div>
+      <p>點圖片可放大；「下載原圖」保留完整直式圖，不裁切內容。</p>
+    </section>
+
+    <div class="day4-card-list">
+      <article class="day4-card" id="card-01" data-card-id="01" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/01-token-generation.png" data-card-title="Token、向量與自迴歸生成" aria-label="放大查看：Token、向量與自迴歸生成">
+            <img src="assets/cards/day-4/01-token-generation.png" alt="Token、向量與自迴歸生成知識圖卡" loading="eager">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">01</span><div><p class="card-kicker">文字生成原理</p><h2>Token、向量與自迴歸生成</h2></div></div>
+          <section aria-labelledby="summary-01"><h3 id="summary-01">純文字摘要</h3><p>Token 是模型處理文字的單位，不一定等於一個字或一個單字；Token 會轉成可運算的向量表示。自迴歸模型依提示與先前 Token 預測下一個 Token，再把結果接回脈絡繼續生成。能生成順暢內容不等於已查證內容。</p></section>
+          <aside><h3>案例補充</h3><p>系統續寫出看似完整的合約日期，只代表下一段文字在機率上合理；日期仍須回原始合約或可信來源核對。</p></aside>
+          <div class="card-links"><a href="day-4.html#s1">回原課：Token 與條件語言模型</a><a href="assets/cards/day-4/01-token-generation.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-02" data-card-id="02" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/02-position-attention.png" data-card-title="位置順序與注意力參照" aria-label="放大查看：位置順序與注意力參照">
+            <img src="assets/cards/day-4/02-position-attention.png" alt="位置順序與注意力參照知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">02</span><div><p class="card-kicker">Transformer 脈絡</p><h2>位置順序與注意力參照</h2></div></div>
+          <section aria-labelledby="summary-02"><h3 id="summary-02">純文字摘要</h3><p>位置資訊用來保留先後順序；注意力讓每個位置依目前任務參照其他位置。順序改變可能改變語意，例如「主管通知同事」與「同事通知主管」角色相反。注意力權重是計算中的參照，不等於唯一因果解釋。</p></section>
+          <aside><h3>案例補充</h3><p>讀到「未核准不要寄」時，模型必須同時連結「未核准」與「不要」才能保留限制；若只抓到「寄」，就可能把禁止條件讀反。</p></aside>
+          <div class="card-links"><a href="day-4.html#s1">回原課：位置與自注意力</a><a href="assets/cards/day-4/02-position-attention.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-03" data-card-id="03" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/03-temperature-context.png" data-card-title="溫度、長上下文與正確性" aria-label="放大查看：溫度、長上下文與正確性">
+            <img src="assets/cards/day-4/03-temperature-context.png" alt="溫度、長上下文與正確性知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">03</span><div><p class="card-kicker">解碼與脈絡邊界</p><h2>低溫穩定，不等於答案正確</h2></div></div>
+          <section aria-labelledby="summary-03"><h3 id="summary-03">純文字摘要</h3><p>低溫度通常讓輸出較集中、較穩定，但同一個錯誤也可能穩定重複；正確性仍需來源或可驗算步驟。長上下文只是單次推論可放入更多內容，不是永久記憶，也不是微調，更不保證模型不會漏讀或誤讀。</p></section>
+          <aside><h3>案例補充</h3><p>把整份制度放進長上下文後，模型仍可能忽略附件中的例外條款；應要求引用段落並逐項核對，而不是把「放得下」當成「一定讀對」。</p></aside>
+          <div class="card-links"><a href="day-4.html#s4">回原課：提示、溫度與長上下文</a><a href="assets/cards/day-4/03-temperature-context.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-04" data-card-id="04" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/04-prompt-examples.png" data-card-title="Zero-shot、Few-shot 與逐步分析" aria-label="放大查看：Zero-shot、Few-shot 與逐步分析">
+            <img src="assets/cards/day-4/04-prompt-examples.png" alt="Zero-shot、Few-shot 與逐步分析知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">04</span><div><p class="card-kicker">提示方法兩條軸</p><h2>有沒有示例，和要不要列步驟</h2></div></div>
+          <section aria-labelledby="summary-04"><h3 id="summary-04">純文字摘要</h3><p>Zero-shot 沒有輸入輸出示例；Few-shot 在提示中提供少量示例。逐步分析描述作答步驟，是另一條判斷軸，因此可與 Zero-shot 或 Few-shot 共存。提示只改變推論時提供的條件，不會因此更新模型參數。</p></section>
+          <aside><h3>案例補充</h3><p>「請列出判斷步驟」但沒有範例，是 Zero-shot 加逐步分析；若再放入兩組輸入輸出示例，才同時具備 Few-shot 與逐步分析。</p></aside>
+          <div class="card-links"><a href="day-4.html#s4">回原課：Zero-shot、Few-shot 與逐步分析</a><a href="assets/cards/day-4/04-prompt-examples.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-05" data-card-id="05" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/05-ape-evaluation.png" data-card-title="APE 的候選、評估與獨立驗收" aria-label="放大查看：APE 的候選、評估與獨立驗收">
+            <img src="assets/cards/day-4/05-ape-evaluation.png" alt="APE 的候選、評估與獨立驗收知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">05</span><div><p class="card-kicker">提示自動優化</p><h2>APE 要固定評估，再獨立驗收</h2></div></div>
+          <section aria-labelledby="summary-05"><h3 id="summary-05">純文字摘要</h3><p>APE 可先產生多個提示候選，用相同資料與相同指標公平評估，再選擇、修訂並重測。為避免只挑中剛好適合評估資料的提示，最後應另保留未參與選擇的獨立驗收資料。</p></section>
+          <aside><h3>案例補充</h3><p>比較客服分類提示時，不能讓甲提示測簡單題、乙提示測困難題；應在同一批資料上用同一指標比較，定案後再用保留案例驗收。</p></aside>
+          <div class="card-links"><a href="day-4.html#s4">回原課：APE 流程</a><a href="assets/cards/day-4/05-ape-evaluation.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-06" data-card-id="06" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/06-text-tasks.png" data-card-title="四種文字任務與機制" aria-label="放大查看：四種文字任務與機制">
+            <img src="assets/cards/day-4/06-text-tasks.png" alt="四種文字任務與機制知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">06</span><div><p class="card-kicker">看輸出辨任務</p><h2>續寫、MLM、Seq2Seq 與分類</h2></div></div>
+          <section aria-labelledby="summary-06"><h3 id="summary-06">純文字摘要</h3><p>自迴歸續寫依既有脈絡預測下一 Token；MLM 的典型做法是用左右脈絡補回遮罩；Seq2Seq 常把來源序列轉成翻譯或摘要；分類輸出固定標籤。任務與底層機制可以交疊，判斷仍要看學習目標與輸出。</p></section>
+          <aside><h3>案例補充</h3><p>把會議標成「決策／待辦／風險」是固定標籤分類；把整段會議濃縮成重點是摘要。兩者都處理文字，也可能共用 Transformer，但任務不同。</p></aside>
+          <div class="card-links"><a href="day-4.html#s2">回原課：四種文字任務</a><a href="assets/cards/day-4/06-text-tasks.png" download>下載原圖</a></div>
+        </div>
+      </article>
+
+      <article class="day4-card" id="card-07" data-card-id="07" data-image-state="checking">
+        <div class="card-media">
+          <button class="card-image-button" type="button" data-card-open="assets/cards/day-4/07-gan.png" data-card-title="GAN 對抗訓練與模式崩潰" aria-label="放大查看：GAN 對抗訓練與模式崩潰">
+            <img src="assets/cards/day-4/07-gan.png" alt="GAN 對抗訓練與模式崩潰知識圖卡" loading="lazy">
+            <span class="pending-asset" data-pending-asset>圖片待加入，請先閱讀下方文字摘要。</span>
+          </button>
+        </div>
+        <div class="card-copy">
+          <div class="card-heading"><span class="card-number">07</span><div><p class="card-kicker">對抗訓練與多樣性</p><h2>GAN：生成器與鑑別器對抗訓練</h2></div></div>
+          <section aria-labelledby="summary-07"><h3 id="summary-07">純文字摘要</h3><p>GAN 讓生成器產生樣本、鑑別器分辨真偽，兩者透過對抗訓練一起改進。模式崩潰是生成器只產生少數相似樣式、缺乏多樣性。畫面逼真不等於對下游任務有用，仍需依實際目的評估。</p></section>
+          <aside><h3>案例補充</h3><p>人像看起來逼真，但若幾乎都是同一姿勢，就是多樣性不足；即使通過「像不像真的」檢查，也未必能補足訓練資料需要的族群與情境。</p></aside>
+          <div class="card-links"><a href="day-4.html#s3">回原課：GAN、VAE 與擴散模型</a><a href="assets/cards/day-4/07-gan.png" download>下載原圖</a></div>
+        </div>
+      </article>
+    </div>
+
+    <section class="next-scope" aria-labelledby="next-scope-title">
+      <div class="eyebrow">本組未涵蓋的原課內容</div>
+      <h2 id="next-scope-title">接著可讀什麼？</h2>
+      <ul><li>VAE：潛在分布、編碼與解碼。</li><li>擴散模型：加噪與逐步去噪。</li><li>基準評測：不同基準測什麼，以及分數的使用邊界。</li></ul>
+      <p>以上內容可在原課全文查閱。圖卡是複習工具，閱讀完成不等於已掌握；本頁不記錄個人學習狀態。</p>
+      <div class="actions"><a class="btn" href="day-4.html">返回 Day 4 原課</a><a class="btn secondary" href="index.html">回七天衝刺首頁</a></div>
+    </section>
+  </main>
+
+  <footer class="footer"><div class="wrap">Day 4 已討論概念複習歸檔｜圖卡用於複習，不代表涵蓋全部考點或已完成理解。<br><a href="day-4.html">Day 4 原課</a> · <a href="sources.html">官方來源與版本</a></div></footer>
+
+  <dialog class="day4-card-dialog" id="day4-card-dialog" aria-labelledby="dialog-title">
+    <div class="dialog-bar"><h2 id="dialog-title">圖卡放大檢視</h2><button type="button" data-dialog-close aria-label="關閉放大圖卡">×</button></div>
+    <div class="dialog-image-wrap"><img alt="放大的知識圖卡"></div>
+    <div class="dialog-actions"><a href="#" data-dialog-download>下載原圖</a><span>按 Esc 關閉</span></div>
+  </dialog>
+  <script src="day4-cards.js?v=20261031"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{
+  "version": 1,
+  "day": 4,
+  "scope": "已討論概念的複習圖卡，不代表第四天全部範圍已完成",
+  "assetsBase": "assets/cards/day-4/",
+  "cards": [
+    {
+      "id": "01",
+      "file": "01-token-generation.png",
+      "title": "Token、向量與自迴歸生成",
+      "lessonHref": "day-4.html#s1",
+      "assetState": "ready"
+    },
+    {
+      "id": "02",
+      "file": "02-position-attention.png",
+      "title": "位置順序與注意力參照",
+      "lessonHref": "day-4.html#s1",
+      "assetState": "ready"
+    },
+    {
+      "id": "03",
+      "file": "03-temperature-context.png",
+      "title": "溫度、長上下文與正確性",
+      "lessonHref": "day-4.html#s4",
+      "assetState": "ready"
+    },
+    {
+      "id": "04",
+      "file": "04-prompt-examples.png",
+      "title": "Zero-shot、Few-shot 與逐步分析",
+      "lessonHref": "day-4.html#s4",
+      "assetState": "ready"
+    },
+    {
+      "id": "05",
+      "file": "05-ape-evaluation.png",
+      "title": "APE 的候選、評估與獨立驗收",
+      "lessonHref": "day-4.html#s4",
+      "assetState": "ready"
+    },
+    {
+      "id": "06",
+      "file": "06-text-tasks.png",
+      "title": "四種文字任務與機制",
+      "lessonHref": "day-4.html#s2",
+      "assetState": "ready"
+    },
+    {
+      "id": "07",
+      "file": "07-gan.png",
+      "title": "GAN 對抗訓練與模式崩潰",
+      "lessonHref": "day-4.html#s3",
+      "assetState": "ready"
+    }
+  ]
+}
