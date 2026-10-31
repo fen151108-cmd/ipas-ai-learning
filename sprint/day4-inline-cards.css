@@ -1,0 +1,11 @@
+/* Scoped to Day 4's in-lesson illustrated review. No progress or quiz changes. */
+.day4-inline-set{display:grid;gap:24px;margin:28px 0 8px;min-width:0}
+.day4-inline-card{max-width:620px;width:100%;margin:0 auto;min-width:0;overflow:hidden;border:1px solid #d5dfdf;border-radius:18px;background:#f8fbfc;scroll-margin-top:18px}
+.day4-inline-card>a{display:block;background:#fff;cursor:zoom-in}
+.day4-inline-card img{display:block;width:100%;height:auto;max-width:100%;object-fit:contain}
+.day4-inline-card figcaption{padding:16px 18px;color:#31454c;font-size:.94rem;line-height:1.7}
+.day4-inline-card figcaption strong{display:block;margin-bottom:5px;font-size:1.05rem;color:#173344}
+.day4-inline-card figcaption p{margin:5px 0 10px}
+.day4-inline-card figcaption a{display:inline-flex;align-items:center;min-height:44px;margin-right:14px;font-weight:700}
+.day4-inline-card>a:focus-visible{outline:4px solid #1b7992;outline-offset:-4px}
+@media(max-width:620px){.day4-inline-set{gap:20px;margin-top:22px}.day4-inline-card{border-radius:12px}.day4-inline-card figcaption{padding:13px 14px;font-size:.9rem}}
