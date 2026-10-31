@@ -57,7 +57,9 @@
     5: [
       ['ipas-day5-rag-structured-output-finetuning-cases.png','RAG、結構化輸出與微調','從最新知識、固定格式與長期行為，選對最適合的做法。','s1','quick'],
       ['ipas-day5-api-planner-cases.png','API 與 Planner','Planner 先拆解和排序，API 再依規格執行動作。','s2','quick'],
-      ['ipas-day5-mcp-a2a-cases.png','MCP 與 A2A','MCP 讓代理接工具，A2A 讓代理和代理協作。','s2','quick']
+      ['ipas-day5-mcp-a2a-cases.png','MCP 與 A2A','MCP 讓代理接工具，A2A 讓代理和代理協作。','s2','quick'],
+      ['ipas-day5-voice-workflow-cases.png','語音工作流四件事','ASR 聽內容、辨識看誰、切分看題、TTS 說出去。','s4','quick'],
+      ['ipas-day5-batch-realtime-throughput-latency-cases.png','批次、即時、吞吐量與延遲','大量可等待用批次；單筆要快速回應用即時。','s5','quick']
     ],
     6: [
       ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
