@@ -79,9 +79,25 @@
   const article = document.querySelector('article.content');
   if (!article) return;
 
-  if (day === 4) document.querySelector('#knowledge-cards')?.remove();
+  // A lesson may already embed its final cards. Keep those teaching locations
+  // and only mount missing assets; ignore query/hash cache variants when matching.
+  const assetKey = value => {
+    const url = new URL(value, document.baseURI);
+    return url.origin + url.pathname;
+  };
+  const existingAssets = new Set(
+    [...article.querySelectorAll('img[src]')].map(image => assetKey(image.getAttribute('src')))
+  );
+  const missingCards = catalog[day].filter(([file]) => {
+    const key = assetKey(`assets/cards/day-${day}/${file}`);
+    if (existingAssets.has(key)) return false;
+    existingAssets.add(key);
+    return true;
+  });
+  if (!missingCards.length) return;
+
   const groups = new Map();
-  catalog[day].forEach(item => {
+  missingCards.forEach(item => {
     const anchor = item[3];
     if (!groups.has(anchor)) groups.set(anchor, []);
     groups.get(anchor).push(item);
