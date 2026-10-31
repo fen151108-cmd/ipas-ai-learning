@@ -40,6 +40,11 @@
       ['ipas-rnn-lstm-gru-resnet-memory-card.png','序列記憶與深層捷徑','RNN、LSTM、GRU、ResNet 選讀。','s7','elective'],
       ['ipas-vanishing-exploding-gradient-card.png','梯度消失 vs 梯度爆炸','深度模型訓練問題選讀。','s7','elective']
     ],
+    5: [
+      ['ipas-day5-rag-structured-output-finetuning-cases.png','RAG、結構化輸出與微調','從最新知識、固定格式與長期行為，選對最適合的做法。','s1','quick'],
+      ['ipas-day5-api-planner-cases.png','API 與 Planner','Planner 先拆解和排序，API 再依規格執行動作。','s2','quick'],
+      ['ipas-day5-mcp-a2a-cases.png','MCP 與 A2A','MCP 讓代理接工具，A2A 讓代理和代理協作。','s2','quick']
+    ],
     6: [
       ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
       ['security-card-02-access-control.png','RBAC、MFA 與最小權限','以角色、第二道驗證與必要權限形成三道存取防線。','s2','quick'],

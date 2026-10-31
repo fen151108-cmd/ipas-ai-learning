@@ -14,6 +14,7 @@
 .knowledge-card[hidden]{display:none}
 .knowledge-card button{display:block;padding:0;border:0;background:#eee7dc;cursor:zoom-in}
 .knowledge-card img{display:block;width:100%;aspect-ratio:941/1672;object-fit:cover;object-position:top}
+body[data-day="5"] .knowledge-card img{aspect-ratio:1/1}
 .knowledge-card-body{display:flex;flex:1;flex-direction:column;padding:14px}
 .knowledge-card-body h3{margin:0;font-size:1rem;line-height:1.45}
 .knowledge-card-body p{margin:7px 0 12px;font-size:.87rem;color:#665e55}
@@ -26,4 +27,4 @@
 .card-dialog button{position:absolute;top:10px;right:10px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.92);font-size:1.4rem;cursor:pointer}
 @media (max-width:900px){.knowledge-card-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:620px){.review-modes,.knowledge-card-grid{grid-template-columns:1fr}.review-switcher{padding:17px;border-radius:18px}.knowledge-card{display:grid;grid-template-columns:112px 1fr}.knowledge-card button{height:100%}.knowledge-card img{height:100%;aspect-ratio:auto}.knowledge-card-body{padding:12px}.knowledge-card-body p{font-size:.82rem}}
-
+@media (max-width:620px){body[data-day="5"] .knowledge-card{display:flex}body[data-day="5"] .knowledge-card button{height:auto}body[data-day="5"] .knowledge-card img{height:auto;aspect-ratio:1/1;object-fit:contain}}
