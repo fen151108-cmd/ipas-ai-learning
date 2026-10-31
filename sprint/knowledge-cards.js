@@ -18,6 +18,8 @@
     3: [
       ['ipas-day3-four-roles-equipment-case-card.png','機器學習四個角色','特徵、標籤、參數、超參數放進同一設備案例。','s0','quick'],
       ['ipas-training-validation-test-overfit-card.png','訓練、驗證、測試與過擬合','訓練拿來學，驗證拿來選，測試最後驗收。','s0','quick'],
+      ['ipas-day3-data-leakage-cases.png','資料洩漏案例歸檔','用時間與流程兩條判斷軸，分清未來資訊、測試集參與學習與正常處理。','s0','quick'],
+      ['ipas-day3-overfit-underfit-generalization-cases.png','過度擬合、欠擬合與泛化良好','從訓練與測試的高低及落差，判斷模型學習狀態。','s0','quick'],
       ['ipas-day3-preprocessing-four-methods-cases-card.png','四種前處理案例','One-hot、標準化、特徵選擇與 PCA 一次分清。','s1','quick'],
       ['ipas-day3-parameters-vs-hyperparameters-card.png','參數 vs 超參數','模型自己學，或由人先設定。','s0','core'],
       ['ipas-day3-preprocessing-four-methods-card.png','四種前處理速記','先看改的是類別、尺度、欄位還是座標。','s1','core'],
