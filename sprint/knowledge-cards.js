@@ -34,6 +34,9 @@
       ['ipas-model-cases-expanded-3.png','模型案例：KNN','用最近、相似、鄰居辨認。','cases','core'],
       ['ipas-model-cases-expanded-4.png','模型案例：SVM','用最佳邊界與最大間隔辨認。','cases','core'],
       ['ipas-random-forest-clear-example.png','隨機森林清楚案例','多棵樹看不同線索，再一起投票。','s3','core'],
+      ['ipas-day3-autoencoder-cases.png','自編碼器與異常偵測','先壓縮再還原，以重建誤差輔助判斷正常與異常。','s4','elective'],
+      ['ipas-day3-q-learning-cases.png','Q-learning 學習循環','從狀態、動作、獎勵到 Q 值，分清探索與利用。','s4','elective'],
+      ['ipas-day3-q-learning-vs-dqn-cases.png','Q-learning vs DQN','狀態少用 Q 表；狀態多又複雜時用神經網路估計 Q 值。','s4','elective'],
       ['ipas-rnn-lstm-gru-resnet-memory-card.png','序列記憶與深層捷徑','RNN、LSTM、GRU、ResNet 選讀。','s7','elective'],
       ['ipas-vanishing-exploding-gradient-card.png','梯度消失 vs 梯度爆炸','深度模型訓練問題選讀。','s7','elective']
     ],
