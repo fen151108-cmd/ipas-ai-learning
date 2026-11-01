@@ -60,6 +60,11 @@
       ['04-prompt-examples.png','Zero-shot、Few-shot 與逐步分析','有沒有示例，和要不要列步驟，是兩條不同判斷軸。','s4','quick'],
       ['05-ape-evaluation.png','APE 候選與評估','同一資料、同一指標比較提示，定案後再獨立驗收。','s4','core']
       ,['ipas-day4-generation-prompt-evaluation.png','文字生成、取樣、提示與評測','把自迴歸生成、Temperature、Top-k／Top-p、Few-shot、APE、基準與記憶範圍串成客服案例。','s4','quick']
+      ,['ipas-day4-card-08-text-tasks-version-history.png','四種文字任務與版本史判讀','用接龍、填空、轉換、分抽屜判斷任務；舊資料只能證明舊狀態。','s2','quick']
+      ,['ipas-day4-card-09-clip-dino-training-feedback.png','CLIP、DINO 與三種訓練回饋','先分清圖文配對、無標籤視覺表示、標準示範、人類偏好與可驗證結果。','s7','elective']
+      ,['ipas-day4-card-10-model-compression.png','PEFT、LoRA 與模型壓縮','少量參數學習、專長外掛、大教小、降低精度與移除連結，五種方法一次分清。','s7','elective']
+      ,['ipas-day4-card-11-flash-attention.png','注意力平方成本與 FlashAttention','長度兩倍、比較量約四倍；FlashAttention 以分塊與少搬資料改善效率。','s7','elective']
+      ,['ipas-day4-card-12-titans-autoskill.png','Titans 與 AutoSkill','Titans 是模型記憶架構；AutoSkill 是 Agent 將互動經驗整理成可重用技能。','s7','elective']
     ],
     5: [
       ['ipas-day5-rag-structured-output-finetuning-cases.png','RAG、結構化輸出與微調','從最新知識、固定格式與長期行為，選對最適合的做法。','s1','quick'],
