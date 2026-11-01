@@ -7,10 +7,15 @@
       ['ipas-day1-ai-ml-dl-card.png','AI、機器學習、深度學習','先辨認上下位關係，再談模型。','s0','quick'],
       ['ipas-day1-discriminative-vs-generative.png','鑑別式 AI vs 生成式 AI','看輸出是既有標籤／數值，還是產生全新內容。','s1','quick'],
       ['ipas-four-learning-types-card.png','四種學習方式','看訓練答案來自標籤、未標記資料或環境獎勵。','s2','quick'],
-      ['ipas-day1-four-ai-tasks-card.png','四種常見 AI 任務','用輸出型態判斷分類、迴歸、分群與生成。','s3','quick'],
+      ['ipas-day1-four-ai-tasks-card.png','分類、迴歸、分群與生成','這張舊卡補充生成任務；異常偵測另以案例卡依資料條件判斷。','s3','quick'],
+      ['day1-card-11-anomaly-paths.png','異常偵測不只一條路','異常是任務；監督或非監督是方法。','s3','quick'],
       ['ipas-ml-three-learning-types-memory-card.png','三種學習方式速記','較短的考前回想版本。','s2','core'],
+      ['day1-card-08-self-vs-semi-supervised.png','自監督式 vs 半監督式','自己出題是自監督；少量標籤帶大量未標記是半監督。','s2','core'],
       ['ipas-ml-task-identification-memory-card.png','任務辨認速記','用題幹關鍵字快速辨認任務。','s3','core'],
-      ['ipas-day1-train-inference-analysis-card.png','訓練、推論與分析','分清模型正在學、正在用，或人正在解讀。','s6','core']
+      ['ipas-day1-train-inference-analysis-card.png','訓練、推論與分析','分清模型正在學、正在用，或人正在解讀。','s6','core'],
+      ['day1-card-09-ai-modalities.png','NLP、ASR、OCR 與電腦視覺','先看輸入，再看要輸出什麼。','s7','elective'],
+      ['day1-card-10-vision-tasks.png','分類、偵測、分割怎麼分','整張貼標籤、物件畫框、像素逐一上色。','s7','elective'],
+      ['day1-card-12-specialized-transfer-agi.png','專用 AI、通用 AI 與遷移學習','單項很強，不等於什麼都會。','s7','elective']
     ],
     2: [
       ['ipas-day2-etl-elt-card.png','ETL vs ELT','差別在轉換發生於載入之前或之後。','s1','quick'],
@@ -19,6 +24,13 @@
       ['ipas-day2-mean-median-charts-card.png','平均數、中位數與圖表','偏態與離群值會改變代表性。','s4','core']
       ,['ipas-day2-random-vs-time-split.png','隨機切分 vs 時間切分','預測未來時要保留時間順序，避免偷看到未來。','s5','quick']
       ,['ipas-day2-chart-selection.png','問題決定圖表','比較、趨勢、分布與關係，各有適合的圖表。','s6','quick']
+      ,['day2-card-07-data-types.png','三種資料型態','固定表格、標記層次與自由內容要分清。','s7','elective']
+      ,['day2-card-08-big-data-granularity.png','大數據 3V 與資料粒度','3V 描述規模；粒度決定看得多細。','s7','elective']
+      ,['day2-card-09-sampling-variation-bias.png','抽樣變異 vs 抽樣偏誤','換一批會變是變異；總漏一群是偏誤。','s5','core']
+      ,['day2-card-10-data-quality-actions.png','缺失、重複、離群怎麼處理','先查原因，再決定修正、填補、標記或刪除。','s2','core']
+      ,['day2-card-11-type-errors-pvalue.png','第一類、第二類錯誤與 p 值','第一類是誤報；第二類是漏報；p 值不是假設為真的機率。','s7','elective']
+      ,['day2-card-12-eda-correlation-causation.png','EDA、相關與因果','探索找到線索，不等於證明原因。','s3','core']
+      ,['day2-card-13-time-series-leakage.png','時間序列與未來資訊洩漏','時序資料有方向；未來不能偷渡回過去。','s5','core']
     ],
     3: [
       ['ipas-day3-four-roles-equipment-case-card.png','機器學習四個角色','特徵、標籤、參數、超參數放進同一設備案例。','s0','quick'],
