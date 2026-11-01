@@ -66,7 +66,12 @@
       ['ipas-day5-api-planner-cases.png','API 與 Planner','Planner 先拆解和排序，API 再依規格執行動作。','s2','quick'],
       ['ipas-day5-mcp-a2a-cases.png','MCP 與 A2A','MCP 讓代理接工具，A2A 讓代理和代理協作。','s2','quick'],
       ['ipas-day5-voice-workflow-cases.png','語音工作流四件事','ASR 聽內容、辨識看誰、切分看題、TTS 說出去。','s4','quick'],
-      ['ipas-day5-batch-realtime-throughput-latency-cases.png','批次、即時、吞吐量與延遲','大量可等待用批次；單筆要快速回應用即時。','s5','quick']
+      ['ipas-day5-batch-realtime-throughput-latency-cases.png','批次、即時、吞吐量與延遲','大量可等待用批次；單筆要快速回應用即時。','s5','quick'],
+      ['day5-card-01-performance.png','AI 系統效能完整流程','分清吞吐量、延遲、TTFT、生成速度，以及批次與即時處理的取捨。','s5','quick'],
+      ['day5-card-02-peak-cache.png','尖峰佇列、快取與依賴關係','從並行請求、佇列與逾時，延伸到快取、TTL、平行與循序處理。','s5','quick'],
+      ['day5-card-03-operations.png','模型路由、備援與可觀測性','用模型路由控制成本，以安全降級處理故障，並用 Metrics、Logs、Traces 找瓶頸。','s5','quick'],
+      ['day5-card-04-integration.png','AI 系統五層判斷地圖','先判斷缺的是知識、行為、工具、流程或效能，再選 RAG、微調、工具、Planner 或效能優化。','s0','quick'],
+      ['day5-card-05-security.png','工具權限、提示注入與安全治理','工具接得越多，越要落實身分、授權、政策、資料保護、核准與稽核。','s2','quick']
     ],
     6: [
       ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
