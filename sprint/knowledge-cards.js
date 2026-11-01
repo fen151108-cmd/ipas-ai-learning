@@ -84,6 +84,12 @@
       ['security-card-03-compliance-defense.png','合規與持續防護','用法規、監控、稽核與異常偵測建立持續治理。','s6','core']
       ,['ipas-day6-governance-lifecycle.png','治理嵌入生命週期','資料、開發、部署與營運，每一關都要有控制點。','s0','quick']
       ,['ipas-day6-fairness-explainability.png','公平性與可解釋性','公平看群體差異；解釋看單次判斷依據。','s4','quick']
+      ,['day6-card-06-privacy-principles.png','隱私不是刪掉姓名就結束','從目的限制、資料最小化、保存期限，到加密、假名化、匿名化與再識別風險。','s1','quick']
+      ,['day6-card-08-ai-attacks.png','AI 攻擊發生在哪一段','用訓練、推論、查詢輸出與工具四個位置，分清資料中毒、對抗樣本、模型竊取、成員推論與提示注入。','s2','quick']
+      ,['day6-card-09-private-defense.png','私有部署不等於零外洩','內網仍有越權、金鑰、日誌、備份、供應鏈與模型記憶風險；安全要靠六層縱深防禦。','s3','quick']
+      ,['day6-card-10-shap-lime.png','SHAP 拆帳；LIME 畫附近地圖','用同一筆貸款案例，分清特徵貢獻拆解與局部近似；解釋不等於因果、公平或正確。','s5','quick']
+      ,['day6-card-07-human-oversight.png','高風險決策，人要真的能踩煞車','比較 Human-in／on／out-of-the-loop，並檢查人是否看得懂、能推翻、有權限、可申訴與回滾。','s6','quick']
+      ,['day6-card-11-privacy-tech.png','K 匿名、差分隱私與聯邦學習','K 匿名在資料表藏身分；差分隱私在輸出降洩漏；聯邦學習讓原始資料留在本地。','s7','elective']
     ],
     7: [
       ['ipas-day7-poc-mvp-pilot-deployment.png','POC、MVP、試點與部署','從證明可行、驗證價值，到真實場域與穩定營運。','s1','quick'],
