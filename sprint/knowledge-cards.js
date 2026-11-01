@@ -48,6 +48,7 @@
     4: [
       ['01-token-generation.png','Token、向量與自迴歸生成','Token 是處理單位；模型依脈絡逐步預測下一個 Token。','s1','quick'],
       ['02-position-attention.png','位置順序與注意力參照','位置資訊保留順序，注意力依情境分配參照權重。','s1','quick'],
+      ['ipas-day4-transformer-self-attention-complete.png','Transformer 與 Self-Attention 完整流程','從 Token、位置編碼、Q／K／V、多頭注意力到因果遮罩，走完一個完整句子案例。','s1','quick'],
       ['06-text-tasks.png','四種文字任務','續寫、MLM、Seq2Seq 與分類要看輸出目標。','s2','quick'],
       ['07-gan.png','GAN 對抗訓練','生成器與鑑別器互相對抗，也要防模式崩潰。','s3','quick'],
       ['ipas-day4-generative-models-gan-vae-diffusion.png','GAN、VAE 與擴散模型','先看對抗、潛在分布與逐步去噪，分清三條生成路徑。','s3','quick'],
@@ -58,6 +59,7 @@
       ['03-temperature-context.png','溫度、上下文與正確性','低溫較穩定、長上下文放得多，都不等於答案正確。','s4','quick'],
       ['04-prompt-examples.png','Zero-shot、Few-shot 與逐步分析','有沒有示例，和要不要列步驟，是兩條不同判斷軸。','s4','quick'],
       ['05-ape-evaluation.png','APE 候選與評估','同一資料、同一指標比較提示，定案後再獨立驗收。','s4','core']
+      ,['ipas-day4-generation-prompt-evaluation.png','文字生成、取樣、提示與評測','把自迴歸生成、Temperature、Top-k／Top-p、Few-shot、APE、基準與記憶範圍串成客服案例。','s4','quick']
     ],
     5: [
       ['ipas-day5-rag-structured-output-finetuning-cases.png','RAG、結構化輸出與微調','從最新知識、固定格式與長期行為，選對最適合的做法。','s1','quick'],
