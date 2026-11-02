@@ -92,7 +92,7 @@
     ],
     6: [
       ['security-card-01-zero-trust.png','零信任 ZTA','每次存取都重新驗證；零信任是整體安全架構。','s2','quick'],
-      ['security-card-02-access-control.png','RBAC、MFA 與最小權限','以角色、第二道驗證與必要權限形成三道存取防線。','s2','quick'],
+      ['security-card-02-access-control-en.png','RBAC、MFA 與最小權限','RBAC = Role-Based Access Control（角色型存取控制）；MFA = Multi-Factor Authentication（多因素驗證）；最小權限原則 = Principle of Least Privilege。依角色授權，以不同類型因素驗證身分，且只給任務必要權限。','s2','quick'],
       ['security-card-03-compliance-defense.png','合規與持續防護','用法規、監控、稽核與異常偵測建立持續治理。','s6','core']
       ,['ipas-day6-governance-lifecycle.png','治理嵌入生命週期','資料、開發、部署與營運，每一關都要有控制點。','s0','quick']
       ,['ipas-day6-fairness-explainability.png','公平性與可解釋性','公平看群體差異；解釋看單次判斷依據。','s4','quick']
