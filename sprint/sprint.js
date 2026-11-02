@@ -36,6 +36,7 @@ document.addEventListener('DOMContentLoaded',()=>{
  if(document.body.dataset.day&&!document.documentElement.dataset.knowledgeCardsMounted){if(!document.querySelector('link[href*="knowledge-cards.css"]')){const l=document.createElement('link');l.rel='stylesheet';l.href='knowledge-cards.css?v=20261031-inline';document.head.append(l)}const s=document.createElement('script');s.src='knowledge-cards.js?v=20261031-dedupe1';document.body.append(s)}
  stats();renderWeak();mocks();
  const day=Number(document.body.dataset.day),lesson=DATA.find(d=>d.day===day),form=$('#lesson-form');if(form&&lesson)form.addEventListener('submit',e=>{e.preventDefault();grade(form,lesson.questions,day)});
+ if(day===7&&!document.querySelector('script[src*="knowledge-cards.js"]')){const cards=document.createElement('script');cards.src='knowledge-cards.js?v=20261102-day7';document.body.append(cards)}
  $('[data-complete]')?.addEventListener('click',()=>{const s=state();s.done=s.done.includes(day)?s.done.filter(n=>n!==day):[...s.done,day];save(s);stats();inform('閱讀標記已更新。閱讀完成與答題掌握分開記錄。')});
  const note=$('#reflection');if(note){note.value=state().notes[day]?.text||'';$('[data-save-note]')?.addEventListener('click',()=>{const s=state();s.notes[day]={text:note.value,at:new Date().toISOString()};save(s);inform('筆記已保存在此瀏覽器。')})}
  $('[data-export]')?.addEventListener('click',()=>download('ipas-sprint-progress.json',JSON.stringify(state(),null,2)));

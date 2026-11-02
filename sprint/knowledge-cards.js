@@ -104,10 +104,14 @@
       ,['day6-card-11-privacy-tech.png','K 匿名、差分隱私與聯邦學習','K 匿名在資料表藏身分；差分隱私在輸出降洩漏；聯邦學習讓原始資料留在本地。','s7','elective']
     ],
     7: [
-      ['ipas-day7-poc-mvp-pilot-deployment.png','POC、MVP、試點與部署','從證明可行、驗證價值，到真實場域與穩定營運。','s1','quick'],
-      ['ipas-day7-drift-monitoring.png','資料漂移、概念漂移與系統效能','輸入變、關係變或系統變慢，要分層判斷。','s3','quick'],
-      ['ipas-day7-incident-response.png','AI 事件處置','先止血，再查因、修復與復盤；責任仍由組織承擔。','s4','quick'],
-      ['ipas-day7-roi-tco-feasibility.png','ROI、TCO 與可行性','值得做、做得到與全生命週期成本要一起評估。','s7','quick']
+      ['day7-card-01-poc-mvp-pilot-production.png','POC、MVP、Pilot 與 Production','從技術可行、最小可用、真實試點到長期營運，四關不能跳級。','s1','quick'],
+      ['day7-card-02-testing-layers.png','Unit、Integration 與 E2E','從一個零件、介接點到完整旅程，逐層測試才能又快又準地抓錯。','s2','quick'],
+      ['day7-card-03-batch-throughput-latency.png','Batch、Throughput 與 Latency','處理得多不代表單筆回得快；總完成量與等待時間要分開看。','s3','quick'],
+      ['day7-card-04-drift-monitoring.png','Data、Concept、Schema Drift','先判斷改變發生在輸入分布、答案關係或欄位結構，再決定處置。','s3','quick'],
+      ['day7-card-05-incident-response.png','AI 事件應變順序','先止血、保留證據、找根因，再修正測試與受控恢復。','s4','quick'],
+      ['day7-card-06-tco-roi-feasibility.png','TCO、ROI 與導入可行性','不能只看模型費用；要把生命週期成本、效益與風險放在一起算。','s7','quick'],
+      ['day7-card-07-tools-governance.png','開發工具與組織風險','No Code、Low Code、AutoML、Vibe Coding 能加速開發，但不能取代治理。','s7','quick'],
+      ['day7-card-08-scenario-expansion.png','跨場景擴散與重新驗證','成功經驗可以複製，但新場景的資料、權限、錯誤代價與人工介入必須重驗。','s5','quick']
     ]
   };
 
