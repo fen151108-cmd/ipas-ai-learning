@@ -87,6 +87,7 @@
       ['day5-card-01-performance.png','AI 系統效能完整流程','分清吞吐量、延遲、TTFT、生成速度，以及批次與即時處理的取捨。','s5','quick'],
       ['day5-card-02-peak-cache.png','尖峰佇列、快取與依賴關係','從並行請求、佇列與逾時，延伸到快取、TTL、平行與循序處理。','s5','quick'],
       ['day5-card-03-operations.png','模型路由、備援與可觀測性','用模型路由控制成本，以安全降級處理故障，並用 Metrics、Logs、Traces 找瓶頸。','s5','quick'],
+      ['day5-card-06-sli-slo-sla.png','SLI、SLO 與 SLA','Service Level Indicator 看實際，Service Level Objective 定目標，Service Level Agreement 對外承諾。','s5','quick'],
       ['day5-card-04-integration.png','AI 系統五層判斷地圖','先判斷缺的是知識、行為、工具、流程或效能，再選 RAG、微調、工具、Planner 或效能優化。','s0','quick'],
       ['day5-card-05-security.png','工具權限、提示注入與安全治理','工具接得越多，越要落實身分、授權、政策、資料保護、核准與稽核。','s2','quick']
     ],

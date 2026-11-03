@@ -180,9 +180,13 @@
               互動式服務通常重視首字時間、尾端延遲與尖峰穩定；離線摘要或大量嵌入可偏重吞吐。優化順序應是先用代表性資料確認
               ASR、檢索、生成與動作品質，再量測瓶頸，最後依場景調整批次、快取、平行化與模型大小。
             </p>
+            <p>
+              服務水準常用三個縮寫：SLI（Service Level Indicator，服務水準指標）是實際量到的表現；SLO（Service Level Objective，服務水準目標）是團隊希望在指定期間內達成的標準；SLA（Service Level Agreement，服務水準協議）則是對客戶的正式約定，通常還會寫明未達標的處理方式。記憶順序是：先用 SLI 量，拿 SLO 比，再看 SLA 是否違約。
+            </p>
             <ul>
               <li>批次通常利於吞吐，不是單請求延遲的萬用解。</li>
               <li>效能指標必須配場景：即時互動與離線處理的優先級不同。</li>
+              <li>SLI 看實際，SLO 定目標，SLA 對外承諾。</li>
             </ul>
           </section>
           <section class="paper" id="s6">
@@ -660,6 +664,6 @@
     </dialog>
     <script src="data.js?v=20261023"></script>
     <script src="sprint.js?v=20261023"></script>
-    <script src="knowledge-cards.js?v=20261101-day5-complete-cards"></script>
+    <script src="knowledge-cards.js?v=20261103-day5-sli-slo-sla"></script>
   </body>
 </html>
