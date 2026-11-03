@@ -655,7 +655,7 @@
   }
 
   function exportSummary() {
-    download(`day-${DAY}-diagnostic-summary-${data.version}.txt`, learningSummary(), 'text/plain;charset=utf-8');
+    download(`day-${DAY}-diagnostic-summary-${data.version}.txt`, `\uFEFF${learningSummary()}`, 'text/plain;charset=utf-8');
     announce('已匯出純文字學習摘要。');
   }
 
