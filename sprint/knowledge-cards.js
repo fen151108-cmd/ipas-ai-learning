@@ -40,7 +40,7 @@
       ['ipas-day3-preprocessing-four-methods-cases-card.png','四種前處理案例','One-hot、標準化、特徵選擇與 PCA 一次分清。','s1','quick'],
       ['ipas-day3-parameters-vs-hyperparameters-card.png','參數 vs 超參數','模型自己學，或由人先設定。','s0','core'],
       ['ipas-day3-preprocessing-four-methods-card.png','四種前處理速記','先看改的是類別、尺度、欄位還是座標。','s1','core'],
-      ['ipas-day3-loss-vs-regularization-card-v2.png','損失函數管錯誤，正則化管複雜度','L1 Regularization 與 L2 Regularization 已補上英文；MSE、MAE、交叉熵衡量模型錯多少，L1、L2 限制模型不要變得太複雜。','s2','core'],
+      ['ipas-day3-loss-vs-regularization-card-v3.png','損失函數管錯誤，正則化管複雜度','L1 是 LASSO：係數絕對值加總；L2 是 Ridge：係數平方加總。MSE、MAE、交叉熵則衡量模型錯多少。','s2','core'],
       ['ipas-day3-loss-regularization-cases-card.png','損失函數與正則化案例','用房價預測與設備故障，走完整選擇流程。','s2','core'],
       ['ipas-day3-precision-recall-f1-card-v2.png','Precision、Recall 與 F1','從 True／False、Positive／Negative 推回 TP、FP、FN、TN，再依錯誤代價選指標。','s5','quick'],
       ['ipas-dataset-keywords-wrong-questions-card.png','資料切分錯題關鍵字','用題幹辨認訓練、驗證、測試與過擬合。','traps','core'],
