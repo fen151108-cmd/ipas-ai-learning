@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="sprint.css?v=20261023" />
     <link rel="icon" href="../assets/favicon.svg" />
     <link rel="stylesheet" href="knowledge-cards.css?v=20261027" />
+    <style>
+      #model-full-names { scroll-margin-top: 24px; }
+      #model-full-names .knowledge-card-grid { grid-template-columns: minmax(0, 1fr); max-width: 720px; margin-inline: auto; }
+      #model-full-names dd { margin: 6px 0 16px; }
+      #model-full-names dt { overflow-wrap: anywhere; }
+    </style>
   </head>
   <body data-day="3">
     <header class="top">
@@ -47,6 +53,7 @@
         <div class="actions">
           <a class="btn" href="day-3-diagnostic.html">50題課後理解診斷</a
           ><a class="btn secondary" href="diagnostics.html">各課50題</a
+          ><a class="btn secondary" href="#model-full-names">模型英文全名圖卡</a
           ><a class="btn secondary" href="#quiz">直接練習</a
           ><a class="btn secondary" href="framework.html">回到大框架</a>
         </div>
@@ -234,6 +241,31 @@
               Normalization 作用在網路內部表示，並不等於原始欄位的 Z-score
               前處理；Dropout 是訓練時隨機停用部分單元的正則化方法。
             </p>
+            <div id="model-full-names">
+              <h3>RNN、LSTM、GRU、ResNet：英文全名對照</h3>
+              <p>先看縮寫對應的英文，再連回中文與用途；這張是原有「序列記憶與深層捷徑」圖卡的補充。</p>
+              <dl>
+                <dt><b>RNN — Recurrent Neural Network｜循環神經網路</b></dt>
+                <dd>依序處理資料，以狀態承接前文；基本 RNN 較難學到長距離依賴。</dd>
+                <dt><b>LSTM — Long Short-Term Memory｜長短期記憶網路</b></dt>
+                <dd>常見 RNN 變體，以記憶單元與閘門控制資訊保留、遺忘及輸出。</dd>
+                <dt><b>GRU — Gated Recurrent Unit｜閘控循環單元</b></dt>
+                <dd>常見 RNN 變體，以更新閘與重置閘控制序列資訊，結構通常比 LSTM 精簡。</dd>
+                <dt><b>ResNet — Residual Network｜殘差網路</b></dt>
+                <dd>以殘差連接讓輸入與轉換結果相加，幫助深層網路訓練；不是 RNN 變體，也不是序列記憶單元。</dd>
+              </dl>
+              <div class="inline-card-library">
+                <div class="knowledge-card-grid">
+                  <article class="knowledge-card" data-tier="elective">
+                    <button type="button" aria-label="放大查看：深度模型英文全名對照" data-card-open="assets/cards/day-3/ipas-day3-model-english-full-names.png"><img src="assets/cards/day-3/ipas-day3-model-english-full-names.png" alt="RNN：Recurrent Neural Network，循環神經網路；LSTM：Long Short-Term Memory，長短期記憶網路；GRU：Gated Recurrent Unit，閘控循環單元；ResNet：Residual Network，殘差網路。LSTM 與 GRU 是常見 RNN 變體，ResNet 不是。" width="1024" height="1536" loading="lazy"></button>
+                    <div class="knowledge-card-body">
+                      <div><span class="card-badge">選讀補強</span><h3>深度模型｜英文全名對照</h3><p>將縮寫、英文全名、中文與核心用途放在一起比較；序列記憶與深層殘差連接不是同一件事。</p></div>
+                      <div class="knowledge-card-links"><a href="assets/cards/day-3/ipas-day3-model-english-full-names.png" download>下載完整圖卡</a><a href="#s8">回到選讀補強</a></div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </div>
             <p>
               <b>先理解梯度：</b
               >模型預測錯了，誤差會從輸出端一層一層往回傳，告訴每層參數「要往哪個方向、調整多少」。這個調整訊號就是梯度。可以把深層網路想成十個人排隊傳話：最後一個人發現答案錯了，要把修正訊息一路傳回第一個人。
@@ -687,6 +719,6 @@
     </dialog>
     <script src="data.js?v=20261023"></script>
     <script src="sprint.js?v=20261023"></script>
-    <script src="knowledge-cards.js?v=20261030-bilingual-f1"></script>
+    <script src="knowledge-cards.js?v=20261104-model-english"></script>
   </body>
 </html>
