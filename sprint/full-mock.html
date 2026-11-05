@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="iPAS AI 應用規劃師初級兩科獨立計時全真模擬：每科 50 題、75 分鐘，本機保存並支援手動備份。">
+  <title>兩科全真模擬｜iPAS 七天衝刺</title>
+  <link rel="stylesheet" href="full-mock.css?v=20261105-v1">
+  <link rel="icon" href="../assets/favicon.svg">
+  <script src="full-mock.js?v=20261105-v1" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+  <header class="site-header">
+    <div class="shell header-inner">
+      <a class="brand" href="index.html">iPAS · 七天重建框架</a>
+      <nav class="header-nav" aria-label="主要導覽">
+        <a href="framework.html">大框架</a>
+        <a href="review.html">弱點複習</a>
+        <a href="sources.html">官方資料</a>
+        <a href="index.html">七天總覽</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="shell" tabindex="-1">
+    <section class="hero" aria-labelledby="page-title">
+      <p class="eyebrow">STRICT MOCK · 兩科獨立計時</p>
+      <h1 id="page-title">一次只做一科，<br>把 75 分鐘留給真實決策。</h1>
+      <p class="lede">每科 50 題、每題 2 分。開始後倒數不暫停，離開頁面的時間也會計入；兩科可分開開始、分開交卷與繼續作答。</p>
+      <div class="flow" aria-label="建議學習順序"><b>1 模擬考</b><span aria-hidden="true">→</span><b>2 檢討</b><span aria-hidden="true">→</span><b>3 官方考古題</b></div>
+    </section>
+
+    <noscript><section class="notice danger"><strong>需要啟用 JavaScript</strong><p>本頁需要 JavaScript 才能載入題庫、計時與保存紀錄。</p></section></noscript>
+    <section id="app-error" class="notice danger" role="alert" hidden></section>
+    <section id="storage-warning" class="notice warning" role="status" hidden>
+      <strong>瀏覽器目前無法使用本機儲存。</strong>
+      <p>目前分頁仍可作答與匯出；關閉後可能遺失。請立即下載 JSON 備份。</p>
+    </section>
+    <p id="live-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+
+    <section id="loading-panel" class="paper loading-panel" aria-live="polite">
+      <span class="spinner" aria-hidden="true"></span><p>正在載入並驗證兩科題庫…</p>
+    </section>
+
+    <section id="home-panel" hidden>
+      <div class="home-grid">
+        <article class="paper briefing" aria-labelledby="brief-title">
+          <p class="section-kicker">開始前</p>
+          <h2 id="brief-title">嚴格計時，解析只在交卷後出現</h2>
+          <ul>
+            <li>作答中不顯示答案提示、主題、來源或解析；選項順序依題庫原樣保留。</li>
+            <li>信心可選「確定／不確定／猜測」，也可不標；缺少信心不會阻止交卷，更不會被系統推測。</li>
+            <li>可提前交卷；若有空白題，頁面會先列出數量再請你確認。時間到會自動交卷，包含空白題。</li>
+            <li>重新作答會新增「熟悉題重做」紀錄，不覆蓋首次結果，也不等同通過預測。</li>
+          </ul>
+        </article>
+        <aside class="paper privacy-card" aria-labelledby="privacy-title">
+          <p class="section-kicker">本機紀錄</p>
+          <h2 id="privacy-title">不會自動跨裝置同步</h2>
+          <p>答案與歷史只存在目前瀏覽器，不會上傳。換裝置請手動匯出、匯入 JSON；公開網址只同步頁面，不同步進度。</p>
+          <div class="stack-actions">
+            <button class="button secondary" type="button" data-export>下載 JSON 備份</button>
+            <label class="button secondary file-button">匯入 JSON 備份<input type="file" data-import accept="application/json,.json"></label>
+          </div>
+          <p id="bank-version" class="microcopy"></p>
+        </aside>
+      </div>
+
+      <section aria-labelledby="papers-title">
+        <div class="section-heading"><div><p class="section-kicker">兩份試卷</p><h2 id="papers-title">各自開始、各自倒數</h2></div></div>
+        <div id="subject-cards" class="subject-grid"></div>
+      </section>
+
+      <section id="combined-panel" class="paper benchmark" aria-labelledby="combined-title" hidden>
+        <p class="section-kicker">兩科最新完成紀錄</p>
+        <h2 id="combined-title">只做門檻對照，不做就緒預測</h2>
+        <div id="combined-scores" class="combined-scores"></div>
+        <div class="benchmark-grid">
+          <div><strong>個別科目基準</strong><p>兩科分別對照 70 分；這和「平均 70」不是同一條件。</p><b id="individual-benchmark"></b></div>
+          <div><strong>同次測驗基準</strong><p>兩科平均至少 70 分，且任一科不得低於 60 分。</p><b id="sitting-benchmark"></b></div>
+        </div>
+        <p class="microcopy">本頁允許兩科分開作答，因此兩筆最新紀錄未必來自同次測驗。以上只是門檻對照，不保證正式測驗結果或準備完成。</p>
+      </section>
+    </section>
+
+    <section id="exam-panel" hidden aria-labelledby="exam-title">
+      <div class="exam-toolbar paper">
+        <div><p class="section-kicker">嚴格模擬 · 不可暫停</p><h2 id="exam-title"></h2><p id="exam-progress" class="microcopy"></p></div>
+        <div class="timer-wrap"><span>剩餘時間</span><b id="timer" role="timer">75:00</b></div>
+      </div>
+
+      <div class="exam-layout">
+        <aside class="paper navigator" aria-labelledby="nav-title">
+          <div class="nav-heading"><h2 id="nav-title">題號</h2><button id="toggle-grid" class="text-button" type="button" aria-expanded="true">收合題號</button></div>
+          <div class="legend"><span><i class="answered"></i>已答</span><span><i class="flagged"></i>待回看</span></div>
+          <nav id="question-grid" class="question-grid" aria-label="50 題題號導覽"></nav>
+          <div class="stack-actions compact">
+            <button id="exam-home" class="button quiet" type="button">回兩科總覽（倒數繼續）</button>
+            <button class="button quiet" type="button" data-export>備份目前進度</button>
+            <label class="button quiet file-button">匯入備份<input type="file" data-import accept="application/json,.json"></label>
+          </div>
+        </aside>
+
+        <div class="exam-main">
+          <article id="question-card" class="paper question-card" aria-labelledby="question-heading"></article>
+          <div class="exam-actions paper">
+            <button id="previous-question" class="button secondary" type="button">上一題</button>
+            <button id="flag-question" class="button flag-button" type="button" aria-pressed="false">☆ 標記待回看</button>
+            <button id="next-question" class="button primary" type="button">下一題</button>
+            <button id="submit-exam" class="button danger-button" type="button">提前交卷</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="result-panel" hidden aria-labelledby="result-title">
+      <div id="score-banner" class="score-banner" tabindex="-1">
+        <div><span id="attempt-label" class="badge"></span><h2 id="result-title">本次試卷已鎖定</h2><p id="result-meta"></p></div>
+        <div class="score"><strong id="score-points"></strong><span id="score-count"></span></div>
+      </div>
+
+      <div class="result-toolbar paper">
+        <div><label for="attempt-select">查看歷史紀錄</label><select id="attempt-select"></select></div>
+        <div class="toolbar-actions"><button class="button secondary" type="button" data-export>下載 JSON 備份</button><button id="return-home" class="button secondary" type="button">回兩科總覽</button><button id="repeat-subject" class="button primary" type="button">保留歷史，再做一次</button></div>
+      </div>
+
+      <section class="evidence-grid" aria-label="本次作答摘要">
+        <article><strong id="wrong-count">0</strong><span>答錯／空白</span></article>
+        <article><strong id="doubtful-count">0</strong><span>答對但不確定／猜測</span></article>
+        <article><strong id="unknown-count">0</strong><span>未標信心</span></article>
+        <article><strong id="flagged-count">0</strong><span>交卷時仍標記</span></article>
+      </section>
+
+      <section class="paper weak-panel" aria-labelledby="weak-title">
+        <div class="section-heading"><div><p class="section-kicker">檢討入口</p><h2 id="weak-title">錯題與答對但猶豫的題目</h2></div></div>
+        <div id="weak-list" class="weak-list"></div>
+        <p class="microcopy">未標信心不會被推測成「不確定」；若答對且未標信心，只計入未標信心，不自動列為猶豫題。</p>
+      </section>
+
+      <section class="review-section" aria-labelledby="review-title">
+        <div class="section-heading"><div><p class="section-kicker">一次檢討一題</p><h2 id="review-title">逐題答案、解析與來源</h2></div><label class="review-filter"><input id="weak-only" type="checkbox">只在弱點題中切換</label></div>
+        <nav id="review-grid" class="question-grid review-grid" aria-label="逐題解析導覽"></nav>
+        <article id="review-card" class="paper review-card"></article>
+        <div class="review-actions"><button id="previous-review" class="button secondary" type="button">上一題解析</button><button id="next-review" class="button primary" type="button">下一題解析</button></div>
+      </section>
+    </section>
+
+    <section class="source-footer" aria-labelledby="source-title">
+      <h2 id="source-title">題庫與官方資料說明</h2>
+      <p>本站模擬題為原創題，不複製官方試題原文。題型設計參考官方學習資源索引所列的 114 年第四次與 115 年第一至第三次資料；逐題參考線索只在交卷後顯示。請再用<a href="https://www.ipas.org.tw/certification/AIAP/learning-resources" target="_blank" rel="noopener noreferrer">官方學習資源索引</a>核對最新範圍與公告。</p>
+      <p>建議順序：先在這裡做模擬考，依弱點回到課程檢討，最後以官方考古題熟悉正式問法。本站未受官方背書，也不承諾通過或預測考題。</p>
+    </section>
+  </main>
+
+  <section id="confirm-sheet" class="confirm-sheet" hidden aria-labelledby="confirm-title" aria-describedby="confirm-message">
+    <div class="confirm-backdrop" data-cancel-confirm></div>
+    <div class="confirm-card" role="dialog" aria-modal="true">
+      <p class="section-kicker">請再次確認</p><h2 id="confirm-title">確認動作</h2><p id="confirm-message"></p>
+      <div class="confirm-actions"><button id="cancel-confirm" class="button secondary" type="button">取消</button><button id="accept-confirm" class="button danger-button" type="button">確認</button></div>
+    </div>
+  </section>
+
+  <footer class="site-footer"><div class="shell">本頁不會上傳答案。計時與紀錄以目前裝置的瀏覽器時間、本機儲存為準；跨裝置請手動備份。</div></footer>
+</body>
+</html>
